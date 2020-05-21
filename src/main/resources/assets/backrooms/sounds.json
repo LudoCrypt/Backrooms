@@ -1,0 +1,134 @@
+{
+  "level.0.music": {
+   "category": "music",
+    "sounds": [
+	{
+        "name": "backrooms:level/generic/music/episodic_lullaby",
+        "stream": true
+	},
+	{
+        "name": "backrooms:level/0/music/lining_the_walls",
+        "volume": 0.8,
+        "stream": true
+	},
+	{
+        "name": "backrooms:level/generic/music/parallax",
+        "stream": true
+	},
+	{
+        "name": "backrooms:level/generic/music/nerve_receptors",
+        "stream": true
+	},
+	{
+        "name": "backrooms:level/0/music/backrooms",
+        "stream": true,
+        "volume": 0.35
+	}
+    ]
+  },
+  "music.general": {
+   "category": "music",
+    "sounds": [
+	{
+        "name": "backrooms:level/0/music/backrooms",
+        "volume": 0.35,
+        "stream": true
+	}
+    ],
+  "subtitle": "music.general.menu"
+  },
+  "music_disc.its_been_so_long": {
+    "sounds": [
+      {
+        "name": "backrooms:records/its_been_so_long",
+        "stream": true
+      }
+    ]
+  },
+  "music_disc.omae_wa_mou": {
+    "sounds": [
+      {
+        "name": "backrooms:records/omae_wa_mou",
+        "stream": true
+      }
+    ]
+  },
+  "music_disc.glacial_cavern": {
+    "sounds": [
+      {
+        "name": "backrooms:records/glacial_cavern",
+        "stream": true
+      }
+    ]
+  },
+  "music_disc.012": {
+    "sounds": [
+      {
+        "name": "backrooms:records/012",
+        "stream": true
+      }
+    ]
+  },
+  "gulp": {
+    "sounds": [
+      {
+        "name": "backrooms:gulp/gulp1"
+      },
+      {
+        "name": "backrooms:gulp/gulp2"
+      },
+      {
+        "name": "backrooms:gulp/gulp3"
+      }
+    ]
+  },
+  "ambient": {
+    "sounds": [
+      {
+        "name": "backrooms:level/generic/ambient/cough1",
+		"volume": 0.2
+      },
+      {
+        "name": "backrooms:level/generic/ambient/cough2",
+		"volume": 0.2
+      },
+      {
+        "name": "backrooms:level/generic/ambient/cough3",
+		"volume": 0.2
+      },
+      {
+        "name": "backrooms:level/generic/ambient/cough4",
+		"volume": 0.2
+      },
+      {
+        "name": "backrooms:level/generic/ambient/cough5",
+		"volume": 0.2
+      },
+      {
+        "name": "backrooms:level/generic/ambient/cough6",
+		"volume": 0.2
+      },
+	  {
+        "name": "backrooms:level/generic/ambient/knock1"
+      },
+	  {
+        "name": "backrooms:level/generic/ambient/knock2"
+      },
+	  {
+        "name": "backrooms:level/generic/ambient/knock3"
+      },
+	  {
+        "name": "backrooms:level/generic/ambient/knock4"
+      },
+	  {
+        "name": "backrooms:level/generic/ambient/knock5"
+      },
+	  {
+        "name": "backrooms:level/generic/ambient/knock6"
+      },
+	  {
+        "name": "backrooms:level/generic/ambient/knock7"
+      }
+    ]
+  }
+}

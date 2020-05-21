@@ -1,0 +1,5 @@
+{	
+	"variants": {
+		"": [{ "model": "backrooms:block/tile/tile1"},{ "model": "backrooms:block/tile/tile2"},{"model": "backrooms:block/tile/tile3"},{ "model": "backrooms:block/tile/tile4"}]
+	}
+}

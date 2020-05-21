@@ -1,0 +1,38 @@
+{
+  "schemaVersion": 1,
+  "id": "backrooms",
+  "version": "0.1.3",
+
+  "name": "The Backrooms",
+  "description": "The Backrooms, where it's nothing but the stink of old moist carpet, the madness of mono-yellow, the endless background noise of fluorescent lights at maximum hum-buzz, and approximately six hundred million square miles of randomly segmented empty rooms to be trapped in.",
+  "authors": [
+    "LudoCrypt",
+    "Angel Craig"
+  ],
+  "contact": {
+    "homepage": "https://www.curseforge.com/minecraft/mc-mods/the-backrooms",
+    "sources": "https://github.com/LudoCrypt/Backrooms",
+    "issues": "https://github.com/LudoCrypt/Backrooms/issues"
+  },
+
+  "license": "CC0-1.0",
+  "icon": "assets/backrooms/icon.png",
+
+  "environment": "*",
+  "entrypoints": {
+   "main": ["net.ludocrypt.backrooms.Backrooms"],
+   "modmenu": ["net.ludocrypt.backrooms.config.ModMenuBackroomsConfig"],
+   "mm:early_risers": ["net.ludocrypt.backrooms.misc.PreInitialize::initialize"]
+  },
+  "mixins": [
+    "backrooms.mixins.json"
+  ],
+  "depends": {
+    "fabricloader": ">=0.7.4",
+    "fabric": "*",
+    "minecraft": "1.15.x"
+  },
+  "suggests": {
+    "flamingo": "*"
+  }
+}

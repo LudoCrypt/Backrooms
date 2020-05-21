@@ -1,0 +1,16 @@
+{
+  "required": true,
+  "package": "net.ludocrypt.backrooms.mixin",
+  "compatibilityLevel": "JAVA_8",
+  "mixins": [
+	"TitleScreenMixin",
+	"GoToBackroomsMixin",
+	"PlayerTickMixin",
+	"MusicMixin"
+  ],
+  "client": [
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}
