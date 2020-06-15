@@ -1,5 +1,6 @@
 {	
 	"variants": {
-		"": { "model": "backrooms:block/wallpaper"}
+		"red=false": { "model": "backrooms:block/wallpaper"},
+		"red=true": { "model": "backrooms:block/red_wallpaper"}
 	}
 }

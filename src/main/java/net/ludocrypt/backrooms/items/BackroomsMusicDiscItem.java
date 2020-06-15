@@ -5,7 +5,6 @@ import java.util.Map;
 
 import com.google.common.collect.Maps;
 
-import blue.endless.jankson.annotation.Nullable;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
 import net.minecraft.block.BlockState;
@@ -25,6 +24,7 @@ import net.minecraft.util.ActionResult;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import me.sargunvohra.mcmods.autoconfig1u.shadowed.blue.endless.jankson.annotation.Nullable;
 
 public class BackroomsMusicDiscItem extends MusicDiscItem {
 	   private static final Map<SoundEvent, BackroomsMusicDiscItem> BACKROOMS_MUSIC_DISCS = Maps.newHashMap();

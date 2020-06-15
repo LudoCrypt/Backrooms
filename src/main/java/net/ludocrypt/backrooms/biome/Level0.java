@@ -21,7 +21,7 @@ public class Level0 extends Biome {
 	public Level0() {
 
 		super(new Biome.Settings().configureSurfaceBuilder(SurfaceBuilder.NOPE, SurfaceBuilder.AIR_CONFIG)
-				.precipitation(Biome.Precipitation.NONE).category(Biome.Category.NONE).depth(255F).scale(0F)
+				.precipitation(Biome.Precipitation.NONE).category(Biome.Category.NONE).depth(0F).scale(0F)
 				.temperature(1.0F).downfall(0F).waterColor(69).waterFogColor(69).parent((String) null));
 
 		this.addFeature(GenerationStep.Feature.LOCAL_MODIFICATIONS,

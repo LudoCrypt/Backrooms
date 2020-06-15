@@ -6,7 +6,8 @@
 	"TitleScreenMixin",
 	"GoToBackroomsMixin",
 	"PlayerTickMixin",
-	"MusicMixin"
+	"MusicMixin",
+	"LivingEntityMixin"
   ],
   "client": [
   ],

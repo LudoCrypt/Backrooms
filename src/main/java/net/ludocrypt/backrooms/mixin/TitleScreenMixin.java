@@ -39,11 +39,9 @@ public abstract class TitleScreenMixin extends Screen {
 					// change if on or off
 					if (BackroomsConfig.getInstance().ForceBackrooms == true) {
 						Backrooms.Display = true;
-						this.backgroundRenderer = new RotatingCubeMapRenderer(BACKROOMS_CUBE_MAP);
 					}
 					if (BackroomsConfig.getInstance().ForceNormal == true) {
 						Backrooms.Display = false;
-						this.backgroundRenderer = new RotatingCubeMapRenderer(NORMAL_CUBE_MAP);
 					}
 					if (BackroomsConfig.getInstance().ForceBackrooms == false && BackroomsConfig.getInstance().ForceNormal == false) {
 						Backrooms.Display = !Backrooms.Display;

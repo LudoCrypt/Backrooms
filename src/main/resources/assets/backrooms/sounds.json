@@ -3,26 +3,28 @@
    "category": "music",
     "sounds": [
 	{
-        "name": "backrooms:level/generic/music/episodic_lullaby",
+        "name": "backrooms:music/ambient/episodic_lullaby",
         "stream": true
 	},
 	{
-        "name": "backrooms:level/0/music/lining_the_walls",
+        "name": "backrooms:music/ambient/lining_the_walls",
         "volume": 0.8,
-        "stream": true
-	},
-	{
-        "name": "backrooms:level/generic/music/parallax",
-        "stream": true
-	},
-	{
-        "name": "backrooms:level/generic/music/nerve_receptors",
-        "stream": true
-	},
-	{
-        "name": "backrooms:level/0/music/backrooms",
         "stream": true,
-        "volume": 0.35
+        "weight": 3
+	},
+	{
+        "name": "backrooms:music/ambient/parallax",
+        "stream": true
+	},
+	{
+        "name": "backrooms:music/ambient/nerve_receptors",
+        "stream": true
+	},
+	{
+        "name": "backrooms:music/ambient/backrooms",
+        "stream": true,
+        "volume": 0.35,
+        "weight": 3
 	}
     ]
   },
@@ -30,7 +32,7 @@
    "category": "music",
     "sounds": [
 	{
-        "name": "backrooms:level/0/music/backrooms",
+        "name": "backrooms:music/ambient/backrooms",
         "volume": 0.35,
         "stream": true
 	}
@@ -40,7 +42,7 @@
   "music_disc.its_been_so_long": {
     "sounds": [
       {
-        "name": "backrooms:records/its_been_so_long",
+        "name": "backrooms:music/records/its_been_so_long",
         "stream": true
       }
     ]
@@ -48,7 +50,7 @@
   "music_disc.omae_wa_mou": {
     "sounds": [
       {
-        "name": "backrooms:records/omae_wa_mou",
+        "name": "backrooms:music/records/omae_wa_mou",
         "stream": true
       }
     ]
@@ -56,7 +58,7 @@
   "music_disc.glacial_cavern": {
     "sounds": [
       {
-        "name": "backrooms:records/glacial_cavern",
+        "name": "backrooms:music/records/glacial_cavern",
         "stream": true
       }
     ]
@@ -64,7 +66,23 @@
   "music_disc.012": {
     "sounds": [
       {
-        "name": "backrooms:records/012",
+        "name": "backrooms:music/records/012",
+        "stream": true
+      }
+    ]
+  },
+  "music_disc.those_torn_walls": {
+    "sounds": [
+      {
+        "name": "backrooms:music/records/those_torn_walls",
+        "stream": true
+      }
+    ]
+  },
+  "tone": {
+    "sounds": [
+      {
+        "name": "backrooms:tone",
         "stream": true
       }
     ]
@@ -79,55 +97,6 @@
       },
       {
         "name": "backrooms:gulp/gulp3"
-      }
-    ]
-  },
-  "ambient": {
-    "sounds": [
-      {
-        "name": "backrooms:level/generic/ambient/cough1",
-		"volume": 0.2
-      },
-      {
-        "name": "backrooms:level/generic/ambient/cough2",
-		"volume": 0.2
-      },
-      {
-        "name": "backrooms:level/generic/ambient/cough3",
-		"volume": 0.2
-      },
-      {
-        "name": "backrooms:level/generic/ambient/cough4",
-		"volume": 0.2
-      },
-      {
-        "name": "backrooms:level/generic/ambient/cough5",
-		"volume": 0.2
-      },
-      {
-        "name": "backrooms:level/generic/ambient/cough6",
-		"volume": 0.2
-      },
-	  {
-        "name": "backrooms:level/generic/ambient/knock1"
-      },
-	  {
-        "name": "backrooms:level/generic/ambient/knock2"
-      },
-	  {
-        "name": "backrooms:level/generic/ambient/knock3"
-      },
-	  {
-        "name": "backrooms:level/generic/ambient/knock4"
-      },
-	  {
-        "name": "backrooms:level/generic/ambient/knock5"
-      },
-	  {
-        "name": "backrooms:level/generic/ambient/knock6"
-      },
-	  {
-        "name": "backrooms:level/generic/ambient/knock7"
       }
     ]
   }

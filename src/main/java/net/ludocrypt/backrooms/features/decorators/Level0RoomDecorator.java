@@ -25,7 +25,7 @@ public class Level0RoomDecorator extends Decorator<NopeDecoratorConfig> {
 	public Stream<BlockPos> getPositions(IWorld world, ChunkGenerator<? extends ChunkGeneratorConfig> chunkGenerator,
 			Random rand, NopeDecoratorConfig placementConfig, BlockPos pos) {
 
-		BlockPos.Mutable mutableBlockPos = new BlockPos.Mutable(pos.getX() - 12, 0, pos.getZ() + 8);
+		BlockPos.Mutable mutableBlockPos = new BlockPos.Mutable(pos.getX() - 12, -2, pos.getZ() + 8);
 		List<BlockPos> blockPosList = new ArrayList<BlockPos>();
 
 		for (int repeat = 0; repeat < BackroomsConfig.getInstance().Level0LayerCount; repeat++) {

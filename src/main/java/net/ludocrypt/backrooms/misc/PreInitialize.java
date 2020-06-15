@@ -24,6 +24,7 @@ public interface PreInitialize {
 		ClassTinkerers.enumBuilder(musicType, 'L' + soundEvent + ';', "I", "I")
 				.addEnum("LEVEL0MUSIC", () -> new Object[] { BackroomsSoundEvents.LEVEL0MUSIC, 0, 0 })
 				.addEnum("BACKROOMSMENU", () -> new Object[] { BackroomsSoundEvents.BACKROOMSMENU, 0, 0 })
+				.addEnum("TONE", () -> new Object[] { BackroomsSoundEvents.TONE, 0, 0 })
 				.build();
 	}
 }
