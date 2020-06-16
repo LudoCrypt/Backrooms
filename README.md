@@ -1,4 +1,4 @@
-# Fabric Example Mod
+# The Backrooms Mod
 
 ## Setup
 
