@@ -107,12 +107,12 @@ public class Level0RedRoom extends Feature<DefaultFeatureConfig> {
 			BlockPos position, DefaultFeatureConfig config) {
 
 		Random generator = new Random(world.getSeed());
-	    long seed = world.getSeed();
-	    long l = generator.nextLong();
-	    long m = generator.nextLong();
-	    long n = generator.nextLong();
-	    long o = position.getX() * l ^ position.getY() * m ^ position.getZ() * n ^ seed;
-	    generator = new Random(o);
+		long seed = world.getSeed();
+		long l = generator.nextLong();
+		long m = generator.nextLong();
+		long n = generator.nextLong();
+		long o = position.getX() * l ^ position.getY() * m ^ position.getZ() * n ^ seed;
+		generator = new Random(o);
 
 		BlockPos.Mutable mutableBlockPos = new BlockPos.Mutable(position);
 
@@ -216,12 +216,12 @@ public class Level0RedRoom extends Feature<DefaultFeatureConfig> {
 				currentPositionOffsetted.getY(), currentPositionOffsetted.getZ());
 
 		Random generator = new Random(world.getSeed());
-	    long seed = world.getSeed();
-	    long l = generator.nextLong();
-	    long m = generator.nextLong();
-	    long n = generator.nextLong();
-	    long o = currentPosition.getX() * l ^ currentPosition.getY() * m ^ currentPosition.getZ() * n ^ seed;
-	    generator = new Random(o);
+		long seed = world.getSeed();
+		long l = generator.nextLong();
+		long m = generator.nextLong();
+		long n = generator.nextLong();
+		long o = currentPosition.getX() * l ^ currentPosition.getY() * m ^ currentPosition.getZ() * n ^ seed;
+		generator = new Random(o);
 
 		for (int y = 0; y < slice.length; y++) {
 			for (int z = 0; z < slice[0].length; z++) {
@@ -285,6 +285,12 @@ public class Level0RedRoom extends Feature<DefaultFeatureConfig> {
 							world.setBlockState(currentPosition.add(-1, 0, -1), AIR, 2);
 							world.setBlockState(currentPosition.add(-1, 1, -1), AIR, 2);
 							world.setBlockState(currentPosition.add(-1, 2, -1), AIR, 2);
+							if (BackroomsConfig.getInstance().TallDoors) {
+								world.setBlockState(currentPosition.add(0, 3, 0), AIR, 2);
+								world.setBlockState(currentPosition.add(0, 3, -1), AIR, 2);
+								world.setBlockState(currentPosition.add(-1, 3, 0), AIR, 2);
+								world.setBlockState(currentPosition.add(-1, 3, -1), AIR, 2);
+							}
 						} else {
 							world.setBlockState(currentPosition, WALLPAPER, 2);
 						}
@@ -302,10 +308,16 @@ public class Level0RedRoom extends Feature<DefaultFeatureConfig> {
 							world.setBlockState(currentPosition.add(-1, 0, -1), AIR, 2);
 							world.setBlockState(currentPosition.add(-1, 1, -1), AIR, 2);
 							world.setBlockState(currentPosition.add(-1, 2, -1), AIR, 2);
+							if (BackroomsConfig.getInstance().TallDoors) {
+								world.setBlockState(currentPosition.add(0, 3, 0), AIR, 2);
+								world.setBlockState(currentPosition.add(-1, 3, 0), AIR, 2);
+								world.setBlockState(currentPosition.add(0, 3, -1), AIR, 2);
+								world.setBlockState(currentPosition.add(-1, 3, -1), AIR, 2);
+							}
 							if (generator.nextDouble() < BackroomsConfig.getInstance().PortalChance) {
 								world.setBlockState(currentPosition.add(-1, 0, 0), PORTALDEBUG, 3);
 								world.getBlockTickScheduler().schedule(currentPosition.add(-1, 0, 0),
-										PORTALDEBUG.getBlock(), 1, TickPriority.HIGH);
+										PORTALDEBUG.getBlock(), 0, TickPriority.HIGH);
 							} else {
 								world.setBlockState(currentPosition.add(-1, 0, 0), AIR, 3);
 							}
@@ -327,6 +339,12 @@ public class Level0RedRoom extends Feature<DefaultFeatureConfig> {
 							world.setBlockState(currentPosition.add(-1, 0, 1), AIR, 2);
 							world.setBlockState(currentPosition.add(-1, 1, 1), AIR, 2);
 							world.setBlockState(currentPosition.add(-1, 2, 1), AIR, 2);
+							if (BackroomsConfig.getInstance().TallDoors) {
+								world.setBlockState(currentPosition.add(0, 3, 0), AIR, 2);
+								world.setBlockState(currentPosition.add(-1, 3, 0), AIR, 2);
+								world.setBlockState(currentPosition.add(0, 3, 1), AIR, 2);
+								world.setBlockState(currentPosition.add(-1, 3, 1), AIR, 2);
+							}
 						} else {
 							world.setBlockState(currentPosition, WALLPAPER, 2);
 						}
@@ -345,6 +363,12 @@ public class Level0RedRoom extends Feature<DefaultFeatureConfig> {
 							world.setBlockState(currentPosition.add(1, 0, -1), AIR, 2);
 							world.setBlockState(currentPosition.add(1, 1, -1), AIR, 2);
 							world.setBlockState(currentPosition.add(1, 2, -1), AIR, 2);
+							if (BackroomsConfig.getInstance().TallDoors) {
+								world.setBlockState(currentPosition.add(0, 3, 0), AIR, 2);
+								world.setBlockState(currentPosition.add(0, 3, -1), AIR, 2);
+								world.setBlockState(currentPosition.add(1, 3, 0), AIR, 2);
+								world.setBlockState(currentPosition.add(1, 3, -1), AIR, 2);
+							}
 						} else {
 							world.setBlockState(currentPosition, WALLPAPER, 2);
 						}

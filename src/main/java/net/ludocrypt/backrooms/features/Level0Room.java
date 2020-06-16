@@ -313,6 +313,12 @@ public class Level0Room extends Feature<DefaultFeatureConfig> {
 							world.setBlockState(currentPosition.add(-1, 0, -1), AIR, 2);
 							world.setBlockState(currentPosition.add(-1, 1, -1), AIR, 2);
 							world.setBlockState(currentPosition.add(-1, 2, -1), AIR, 2);
+							if (BackroomsConfig.getInstance().TallDoors) {
+								world.setBlockState(currentPosition.add(0, 3, 0), AIR, 2);
+								world.setBlockState(currentPosition.add(0, 3, -1), AIR, 2);
+								world.setBlockState(currentPosition.add(-1, 3, 0), AIR, 2);
+								world.setBlockState(currentPosition.add(-1, 3, -1), AIR, 2);
+							}
 						} else {
 							world.setBlockState(currentPosition, WALLPAPER, 2);
 						}
@@ -330,10 +336,16 @@ public class Level0Room extends Feature<DefaultFeatureConfig> {
 							world.setBlockState(currentPosition.add(-1, 0, -1), AIR, 3);
 							world.setBlockState(currentPosition.add(-1, 1, -1), AIR, 3);
 							world.setBlockState(currentPosition.add(-1, 2, -1), AIR, 3);
+							if (BackroomsConfig.getInstance().TallDoors) {
+								world.setBlockState(currentPosition.add(0, 3, 0), AIR, 2);
+								world.setBlockState(currentPosition.add(-1, 3, 0), AIR, 2);
+								world.setBlockState(currentPosition.add(0, 3, -1), AIR, 2);
+								world.setBlockState(currentPosition.add(-1, 3, -1), AIR, 2);
+							}
 							if (generator.nextDouble() < BackroomsConfig.getInstance().PortalChance) {
 								world.setBlockState(currentPosition.add(-1, 0, 0), PORTALDEBUG, 3);
 								world.getBlockTickScheduler().schedule(currentPosition.add(-1, 0, 0),
-										PORTALDEBUG.getBlock(), 1, TickPriority.HIGH);
+										PORTALDEBUG.getBlock(), 0, TickPriority.HIGH);
 							} else {
 								world.setBlockState(currentPosition.add(-1, 0, 0), AIR, 3);
 							}
@@ -356,6 +368,12 @@ public class Level0Room extends Feature<DefaultFeatureConfig> {
 							world.setBlockState(currentPosition.add(-1, 0, 1), AIR, 2);
 							world.setBlockState(currentPosition.add(-1, 1, 1), AIR, 2);
 							world.setBlockState(currentPosition.add(-1, 2, 1), AIR, 2);
+							if (BackroomsConfig.getInstance().TallDoors) {
+								world.setBlockState(currentPosition.add(0, 3, 0), AIR, 2);
+								world.setBlockState(currentPosition.add(-1, 3, 0), AIR, 2);
+								world.setBlockState(currentPosition.add(0, 3, 1), AIR, 2);
+								world.setBlockState(currentPosition.add(-1, 3, 1), AIR, 2);
+							}
 						} else {
 							world.setBlockState(currentPosition, WALLPAPER, 2);
 						}
@@ -374,6 +392,12 @@ public class Level0Room extends Feature<DefaultFeatureConfig> {
 							world.setBlockState(currentPosition.add(1, 0, -1), AIR, 2);
 							world.setBlockState(currentPosition.add(1, 1, -1), AIR, 2);
 							world.setBlockState(currentPosition.add(1, 2, -1), AIR, 2);
+							if (BackroomsConfig.getInstance().TallDoors) {
+								world.setBlockState(currentPosition.add(0, 3, 0), AIR, 2);
+								world.setBlockState(currentPosition.add(0, 3, -1), AIR, 2);
+								world.setBlockState(currentPosition.add(1, 3, 0), AIR, 2);
+								world.setBlockState(currentPosition.add(1, 3, -1), AIR, 2);
+							}
 						} else {
 							world.setBlockState(currentPosition, WALLPAPER, 2);
 						}
@@ -385,7 +409,7 @@ public class Level0Room extends Feature<DefaultFeatureConfig> {
 						if ((generator.nextDouble()) < ((BackroomsConfig.getInstance().MoldyCarpetChance))) {
 							world.setBlockState(currentPosition, MOLDY_CARPET, 2);
 						} else {
-							if (generator.nextDouble() < 0.0005) {
+							if (generator.nextDouble() < 0.00005) {
 								world.setBlockState(currentPosition.add(0, 1, 0), CHEST, 2);
 								LootableContainerBlockEntity.setLootTable(world, rand, currentPosition.add(0, 1, 0),
 										Backrooms.LEVEL0CHEST);

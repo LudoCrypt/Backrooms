@@ -21,9 +21,7 @@ repositories {
 	maven {
 		url = "https://jitpack.io"
 	}
-	   flatDir {
-       dirs 'satin'
-   }
+	
 	    jcenter()
 }
 
@@ -37,10 +35,10 @@ dependencies {
 	modApi "me.sargunvohra.mcmods:autoconfig1u:2.1.0"
 	include(modImplementation('com.github.Chocohead:Fabric-ASM:v2.0.1'))
 	include "me.sargunvohra.mcmods:autoconfig1u:2.1.0"
-	
-    modImplementation "io.github.ladysnake:Satin:${satin_version}"
-    include "io.github.ladysnake:Satin:${satin_version}"
 
+    modImplementation "io.github.ladysnake:Satin:cc2a2af0a3"
+    // Include Satin as a Jar-in-Jar dependency (optional)
+    include "io.github.ladysnake:Satin:cc2a2af0a3"
 
 }
 

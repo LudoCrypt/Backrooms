@@ -31,8 +31,6 @@ import net.ludocrypt.backrooms.items.BackroomsMusicDiscItem;
 import net.ludocrypt.backrooms.items.RawAlmondWaterItem;
 import net.ludocrypt.backrooms.sound.BackroomsSoundEvents;
 import net.minecraft.block.Block;
-import net.minecraft.entity.effect.StatusEffectInstance;
-import net.minecraft.entity.effect.StatusEffects;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.FoodComponent;
 import net.minecraft.item.Item;
@@ -59,14 +57,9 @@ public class Backrooms implements ModInitializer {
 
 	// items
 	public static final Item RAW_ALMOND_WATER = new RawAlmondWaterItem(new Item.Settings().group(ItemGroup.FOOD)
-			.food(new FoodComponent.Builder().hunger(3)
-					.statusEffect(new StatusEffectInstance(StatusEffects.POISON, 20 * 60 * 2), 1f).snack()
-					.alwaysEdible().saturationModifier(1).build()));
+			.food(new FoodComponent.Builder().hunger(3).snack().alwaysEdible().saturationModifier(1).build()));
 	public static final Item ALMOND_WATER = new AlmondWaterItem(new Item.Settings().group(ItemGroup.FOOD)
-			.food(new FoodComponent.Builder().alwaysEdible().snack().saturationModifier(17).hunger(9)
-					.statusEffect(new StatusEffectInstance(StatusEffects.ABSORPTION, 20 * 60 * 2, 5), 1f)
-					.statusEffect(new StatusEffectInstance(StatusEffects.REGENERATION, 20 * 60 * 2, 3), 1f)
-					.statusEffect(new StatusEffectInstance(StatusEffects.RESISTANCE, 20 * 60 * 2, 5), 1f).build()));
+			.food(new FoodComponent.Builder().alwaysEdible().snack().saturationModifier(17).hunger(9).build()));
 	// blocks
 	public static final Block WALLPAPER = new Wallpaper();
 	public static final Block LIGHT = new Light();
@@ -136,6 +129,11 @@ public class Backrooms implements ModInitializer {
 							64 // Max y level
 					))));
 		}
+	}
+
+	// identifier
+	public static Identifier id(String path) {
+		return new Identifier("backrooms", path);
 	}
 
 	@Override

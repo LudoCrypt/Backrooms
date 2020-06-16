@@ -14,10 +14,12 @@ public class BackroomsConfig implements ConfigData
     public double MoldyCarpetChance = 0.01;
     public double PickStairChance = 0.5;
     public double EnderPearlChance = 0.01;
+    public double SuffocationChance = 0.01;
     public int Level0LayerCount = 3;
-    public double PortalChance = 0.3;
-    public double RedRoomChance = 0.9;
+    public double PortalChance = 0.05;
+    public double RedRoomChance = 0.85;
     public double SameDimensionChance = 0.7;
+    public boolean TallDoors = false;
     public boolean ForceBackrooms = false;
     public boolean ForceNormal = false;
     public boolean SanityEffects = true;

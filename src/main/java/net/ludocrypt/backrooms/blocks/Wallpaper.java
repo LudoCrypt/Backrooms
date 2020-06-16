@@ -24,13 +24,16 @@ public class Wallpaper extends Block {
 				.hardness(3).resistance(3));
 		setDefaultState(getStateManager().getDefaultState().with(RED, false));
 	}
+
 	@Override
 	protected void appendProperties(StateManager.Builder<Block, BlockState> stateManager) {
 		stateManager.add(RED);
 	}
+
 	@Override
 	public void onPlaced(World world, BlockPos pos, BlockState state, LivingEntity placer, ItemStack itemStack) {
 		if (world.dimension instanceof Level0RedDimension)
-		world.setBlockState(pos, Backrooms.WALLPAPER.getDefaultState().with(RED, true));
+			world.setBlockState(pos, Backrooms.WALLPAPER.getDefaultState().with(RED, true));
 	}
+
 }
