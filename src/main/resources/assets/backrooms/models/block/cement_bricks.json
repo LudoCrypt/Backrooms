@@ -1,6 +1,6 @@
 {
 	"parent": "block/cube_all",
 	"textures": {
-		"all": "backrooms:block/light"
+		"all": "backrooms:block/cement_bricks"
 	}
 }

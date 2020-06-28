@@ -9,6 +9,8 @@ import net.ludocrypt.backrooms.dimension.Level0Dimension;
 import net.ludocrypt.backrooms.dimension.Level0DimensionType;
 import net.ludocrypt.backrooms.dimension.Level0RedDimension;
 import net.ludocrypt.backrooms.dimension.Level0RedDimensionType;
+import net.ludocrypt.backrooms.dimension.Level1Dimension;
+import net.ludocrypt.backrooms.dimension.Level1DimensionType;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.pattern.BlockPattern;
 import net.minecraft.entity.EntityType;
@@ -31,6 +33,7 @@ public class OverworldPortalEntity extends Portal {
 		ServerWorld Overworld = world.getServer().getWorld(DimensionType.OVERWORLD);
 		ServerWorld Level0 = world.getServer().getWorld(Level0DimensionType.LEVEL0);
 		ServerWorld Level0Red = world.getServer().getWorld(Level0RedDimensionType.LEVEL0RED);
+		ServerWorld Level1 = world.getServer().getWorld(Level1DimensionType.LEVEL1);
 
 		Random generator = new Random(world.getSeed());
 		long seed = world.getSeed();
@@ -90,11 +93,39 @@ public class OverworldPortalEntity extends Portal {
 					Level0Red.setBlockState(new BlockPos(x1, 2, chunkz).add(-1, 2, -1), Blocks.AIR.getDefaultState(),
 							2);
 				} else {
-					portal.destination = new Vec3d(x1, y1 + 0.5, z1);
-					portal.dimensionTo = DimensionType.OVERWORLD;
-					Overworld.createExplosion(null, x1, y1, z1, 4, false, DestructionType.DESTROY);
+					if (generator.nextDouble() < BackroomsConfig.getInstance().Level1Chance) {
+						portal.destination = new Vec3d(x1, 3.5, chunkz);
+						portal.dimensionTo = Level1DimensionType.LEVEL1;
+						Level1.setBlockState(new BlockPos(x1, 2, chunkz), Blocks.AIR.getDefaultState(), 2);
+						Level1.setBlockState(new BlockPos(x1, 2, chunkz).add(0, 1, 0), Blocks.AIR.getDefaultState(), 2);
+						Level1.setBlockState(new BlockPos(x1, 2, chunkz).add(0, 2, 0), Blocks.AIR.getDefaultState(), 2);
+						Level1.setBlockState(new BlockPos(x1, 2, chunkz).add(-1, 0, 0), Blocks.AIR.getDefaultState(),
+								2);
+						Level1.setBlockState(new BlockPos(x1, 2, chunkz).add(-1, 1, 0), Blocks.AIR.getDefaultState(),
+								2);
+						Level1.setBlockState(new BlockPos(x1, 2, chunkz).add(-1, 2, 0), Blocks.AIR.getDefaultState(),
+								2);
+						Level1.setBlockState(new BlockPos(x1, 2, chunkz).add(0, 0, -1), Blocks.AIR.getDefaultState(),
+								2);
+						Level1.setBlockState(new BlockPos(x1, 2, chunkz).add(0, 1, -1), Blocks.AIR.getDefaultState(),
+								2);
+						Level1.setBlockState(new BlockPos(x1, 2, chunkz).add(0, 2, -1), Blocks.AIR.getDefaultState(),
+								2);
+						Level1.setBlockState(new BlockPos(x1, 2, chunkz).add(-1, 0, -1), Blocks.AIR.getDefaultState(),
+								2);
+						Level1.setBlockState(new BlockPos(x1, 2, chunkz).add(-1, 1, -1), Blocks.AIR.getDefaultState(),
+								2);
+						Level1.setBlockState(new BlockPos(x1, 2, chunkz).add(-1, 2, -1), Blocks.AIR.getDefaultState(),
+								2);
+					} else {
+						portal.destination = new Vec3d(x1, y1 + 0.5, z1);
+						portal.dimensionTo = DimensionType.OVERWORLD;
+						Overworld.createExplosion(null, x1, y1, z1, 4, false, DestructionType.DESTROY);
+					}
 				}
+
 			}
+
 		} else if (world.dimension instanceof Level0RedDimension) {
 			if (generator.nextDouble() < BackroomsConfig.getInstance().SameDimensionChance) {
 				portal.destination = new Vec3d(x1, 3.5, chunkz);
@@ -111,6 +142,21 @@ public class OverworldPortalEntity extends Portal {
 				Level0Red.setBlockState(new BlockPos(x1, 2, chunkz).add(-1, 0, -1), Blocks.AIR.getDefaultState(), 2);
 				Level0Red.setBlockState(new BlockPos(x1, 2, chunkz).add(-1, 1, -1), Blocks.AIR.getDefaultState(), 2);
 				Level0Red.setBlockState(new BlockPos(x1, 2, chunkz).add(-1, 2, -1), Blocks.AIR.getDefaultState(), 2);
+			} else if (generator.nextDouble() < BackroomsConfig.getInstance().Level1Chance) {
+				portal.destination = new Vec3d(x1, 3.5, chunkz);
+				portal.dimensionTo = Level1DimensionType.LEVEL1;
+				Level1.setBlockState(new BlockPos(x1, 2, chunkz), Blocks.AIR.getDefaultState(), 2);
+				Level1.setBlockState(new BlockPos(x1, 2, chunkz).add(0, 1, 0), Blocks.AIR.getDefaultState(), 2);
+				Level1.setBlockState(new BlockPos(x1, 2, chunkz).add(0, 2, 0), Blocks.AIR.getDefaultState(), 2);
+				Level1.setBlockState(new BlockPos(x1, 2, chunkz).add(-1, 0, 0), Blocks.AIR.getDefaultState(), 2);
+				Level1.setBlockState(new BlockPos(x1, 2, chunkz).add(-1, 1, 0), Blocks.AIR.getDefaultState(), 2);
+				Level1.setBlockState(new BlockPos(x1, 2, chunkz).add(-1, 2, 0), Blocks.AIR.getDefaultState(), 2);
+				Level1.setBlockState(new BlockPos(x1, 2, chunkz).add(0, 0, -1), Blocks.AIR.getDefaultState(), 2);
+				Level1.setBlockState(new BlockPos(x1, 2, chunkz).add(0, 1, -1), Blocks.AIR.getDefaultState(), 2);
+				Level1.setBlockState(new BlockPos(x1, 2, chunkz).add(0, 2, -1), Blocks.AIR.getDefaultState(), 2);
+				Level1.setBlockState(new BlockPos(x1, 2, chunkz).add(-1, 0, -1), Blocks.AIR.getDefaultState(), 2);
+				Level1.setBlockState(new BlockPos(x1, 2, chunkz).add(-1, 1, -1), Blocks.AIR.getDefaultState(), 2);
+				Level1.setBlockState(new BlockPos(x1, 2, chunkz).add(-1, 2, -1), Blocks.AIR.getDefaultState(), 2);
 			} else {
 				portal.destination = new Vec3d(x1, 3.5, chunkz);
 				portal.dimensionTo = Level0DimensionType.LEVEL0;
@@ -126,6 +172,42 @@ public class OverworldPortalEntity extends Portal {
 				Level0.setBlockState(new BlockPos(x1, 2, chunkz).add(-1, 0, -1), Blocks.AIR.getDefaultState(), 2);
 				Level0.setBlockState(new BlockPos(x1, 2, chunkz).add(-1, 1, -1), Blocks.AIR.getDefaultState(), 2);
 				Level0.setBlockState(new BlockPos(x1, 2, chunkz).add(-1, 2, -1), Blocks.AIR.getDefaultState(), 2);
+			}
+		} else if (world.dimension instanceof Level1Dimension) {
+			if (generator.nextDouble() < BackroomsConfig.getInstance().SameDimensionChance) {
+				portal.destination = new Vec3d(x1, 3.5, chunkz);
+				portal.dimensionTo = Level1DimensionType.LEVEL1;
+				Level1.setBlockState(new BlockPos(x1, 2, chunkz), Blocks.AIR.getDefaultState(), 2);
+				Level1.setBlockState(new BlockPos(x1, 2, chunkz).add(0, 1, 0), Blocks.AIR.getDefaultState(), 2);
+				Level1.setBlockState(new BlockPos(x1, 2, chunkz).add(0, 2, 0), Blocks.AIR.getDefaultState(), 2);
+				Level1.setBlockState(new BlockPos(x1, 2, chunkz).add(-1, 0, 0), Blocks.AIR.getDefaultState(), 2);
+				Level1.setBlockState(new BlockPos(x1, 2, chunkz).add(-1, 1, 0), Blocks.AIR.getDefaultState(), 2);
+				Level1.setBlockState(new BlockPos(x1, 2, chunkz).add(-1, 2, 0), Blocks.AIR.getDefaultState(), 2);
+				Level1.setBlockState(new BlockPos(x1, 2, chunkz).add(0, 0, -1), Blocks.AIR.getDefaultState(), 2);
+				Level1.setBlockState(new BlockPos(x1, 2, chunkz).add(0, 1, -1), Blocks.AIR.getDefaultState(), 2);
+				Level1.setBlockState(new BlockPos(x1, 2, chunkz).add(0, 2, -1), Blocks.AIR.getDefaultState(), 2);
+				Level1.setBlockState(new BlockPos(x1, 2, chunkz).add(-1, 0, -1), Blocks.AIR.getDefaultState(), 2);
+				Level1.setBlockState(new BlockPos(x1, 2, chunkz).add(-1, 1, -1), Blocks.AIR.getDefaultState(), 2);
+				Level1.setBlockState(new BlockPos(x1, 2, chunkz).add(-1, 2, -1), Blocks.AIR.getDefaultState(), 2);
+			} else if (generator.nextDouble() < BackroomsConfig.getInstance().Level0Chance) {
+				portal.destination = new Vec3d(x1, 3.5, chunkz);
+				portal.dimensionTo = Level0DimensionType.LEVEL0;
+				Level0.setBlockState(new BlockPos(x1, 2, chunkz), Blocks.AIR.getDefaultState(), 2);
+				Level0.setBlockState(new BlockPos(x1, 2, chunkz).add(0, 1, 0), Blocks.AIR.getDefaultState(), 2);
+				Level0.setBlockState(new BlockPos(x1, 2, chunkz).add(0, 2, 0), Blocks.AIR.getDefaultState(), 2);
+				Level0.setBlockState(new BlockPos(x1, 2, chunkz).add(-1, 0, 0), Blocks.AIR.getDefaultState(), 2);
+				Level0.setBlockState(new BlockPos(x1, 2, chunkz).add(-1, 1, 0), Blocks.AIR.getDefaultState(), 2);
+				Level0.setBlockState(new BlockPos(x1, 2, chunkz).add(-1, 2, 0), Blocks.AIR.getDefaultState(), 2);
+				Level0.setBlockState(new BlockPos(x1, 2, chunkz).add(0, 0, -1), Blocks.AIR.getDefaultState(), 2);
+				Level0.setBlockState(new BlockPos(x1, 2, chunkz).add(0, 1, -1), Blocks.AIR.getDefaultState(), 2);
+				Level0.setBlockState(new BlockPos(x1, 2, chunkz).add(0, 2, -1), Blocks.AIR.getDefaultState(), 2);
+				Level0.setBlockState(new BlockPos(x1, 2, chunkz).add(-1, 0, -1), Blocks.AIR.getDefaultState(), 2);
+				Level0.setBlockState(new BlockPos(x1, 2, chunkz).add(-1, 1, -1), Blocks.AIR.getDefaultState(), 2);
+				Level0.setBlockState(new BlockPos(x1, 2, chunkz).add(-1, 2, -1), Blocks.AIR.getDefaultState(), 2);
+			} else {
+				portal.destination = new Vec3d(x1, y1 + 1, z1);
+				portal.dimensionTo = DimensionType.OVERWORLD;
+				Overworld.createExplosion(null, x1, y1, z1, 4, false, DestructionType.DESTROY);
 			}
 		}
 
@@ -151,6 +233,7 @@ public class OverworldPortalEntity extends Portal {
 		ServerWorld Overworld = world.getServer().getWorld(DimensionType.OVERWORLD);
 		ServerWorld Level0 = world.getServer().getWorld(Level0DimensionType.LEVEL0);
 		ServerWorld Level0Red = world.getServer().getWorld(Level0RedDimensionType.LEVEL0RED);
+		ServerWorld Level1 = world.getServer().getWorld(Level1DimensionType.LEVEL1);
 
 		Random generator = new Random(world.getSeed());
 		long seed = world.getSeed();
@@ -213,16 +296,51 @@ public class OverworldPortalEntity extends Portal {
 							2);
 					Level0Red.setBlockState(new BlockPos(x1, 2, chunkz).add(-1, 2, -1), Blocks.AIR.getDefaultState(),
 							2);
-					Level0.setBlockState(new BlockPos(x1, 2, chunkz).add(0, 3, 0), Blocks.AIR.getDefaultState(), 2);
-					Level0.setBlockState(new BlockPos(x1, 2, chunkz).add(-1, 3, 0), Blocks.AIR.getDefaultState(), 2);
-					Level0.setBlockState(new BlockPos(x1, 2, chunkz).add(0, 3, -1), Blocks.AIR.getDefaultState(), 2);
-					Level0.setBlockState(new BlockPos(x1, 2, chunkz).add(-1, 3, -1), Blocks.AIR.getDefaultState(), 2);
+					Level0Red.setBlockState(new BlockPos(x1, 2, chunkz).add(0, 3, 0), Blocks.AIR.getDefaultState(), 2);
+					Level0Red.setBlockState(new BlockPos(x1, 2, chunkz).add(-1, 3, 0), Blocks.AIR.getDefaultState(), 2);
+					Level0Red.setBlockState(new BlockPos(x1, 2, chunkz).add(0, 3, -1), Blocks.AIR.getDefaultState(), 2);
+					Level0Red.setBlockState(new BlockPos(x1, 2, chunkz).add(-1, 3, -1), Blocks.AIR.getDefaultState(),
+							2);
 				} else {
-					portal.destination = new Vec3d(x1, y1 + 1, z1);
-					portal.dimensionTo = DimensionType.OVERWORLD;
-					Overworld.createExplosion(null, x1, y1, z1, 4, false, DestructionType.DESTROY);
+					if (generator.nextDouble() < BackroomsConfig.getInstance().Level1Chance) {
+						portal.destination = new Vec3d(x1, 4, chunkz);
+						portal.dimensionTo = Level1DimensionType.LEVEL1;
+						Level1.setBlockState(new BlockPos(x1, 2, chunkz), Blocks.AIR.getDefaultState(), 2);
+						Level1.setBlockState(new BlockPos(x1, 2, chunkz).add(0, 1, 0), Blocks.AIR.getDefaultState(), 2);
+						Level1.setBlockState(new BlockPos(x1, 2, chunkz).add(0, 2, 0), Blocks.AIR.getDefaultState(), 2);
+						Level1.setBlockState(new BlockPos(x1, 2, chunkz).add(-1, 0, 0), Blocks.AIR.getDefaultState(),
+								2);
+						Level1.setBlockState(new BlockPos(x1, 2, chunkz).add(-1, 1, 0), Blocks.AIR.getDefaultState(),
+								2);
+						Level1.setBlockState(new BlockPos(x1, 2, chunkz).add(-1, 2, 0), Blocks.AIR.getDefaultState(),
+								2);
+						Level1.setBlockState(new BlockPos(x1, 2, chunkz).add(0, 0, -1), Blocks.AIR.getDefaultState(),
+								2);
+						Level1.setBlockState(new BlockPos(x1, 2, chunkz).add(0, 1, -1), Blocks.AIR.getDefaultState(),
+								2);
+						Level1.setBlockState(new BlockPos(x1, 2, chunkz).add(0, 2, -1), Blocks.AIR.getDefaultState(),
+								2);
+						Level1.setBlockState(new BlockPos(x1, 2, chunkz).add(-1, 0, -1), Blocks.AIR.getDefaultState(),
+								2);
+						Level1.setBlockState(new BlockPos(x1, 2, chunkz).add(-1, 1, -1), Blocks.AIR.getDefaultState(),
+								2);
+						Level1.setBlockState(new BlockPos(x1, 2, chunkz).add(-1, 2, -1), Blocks.AIR.getDefaultState(),
+								2);
+						Level1.setBlockState(new BlockPos(x1, 2, chunkz).add(0, 3, 0), Blocks.AIR.getDefaultState(), 2);
+						Level1.setBlockState(new BlockPos(x1, 2, chunkz).add(-1, 3, 0), Blocks.AIR.getDefaultState(),
+								2);
+						Level1.setBlockState(new BlockPos(x1, 2, chunkz).add(0, 3, -1), Blocks.AIR.getDefaultState(),
+								2);
+						Level1.setBlockState(new BlockPos(x1, 2, chunkz).add(-1, 3, -1), Blocks.AIR.getDefaultState(),
+								2);
+					} else {
+						portal.destination = new Vec3d(x1, y1 + 1, z1);
+						portal.dimensionTo = DimensionType.OVERWORLD;
+						Overworld.createExplosion(null, x1, y1, z1, 4, false, DestructionType.DESTROY);
+					}
 				}
 			}
+
 		} else if (world.dimension instanceof Level0RedDimension) {
 			if (generator.nextDouble() < BackroomsConfig.getInstance().SameDimensionChance) {
 				portal.destination = new Vec3d(x1, 4, chunkz);
@@ -239,10 +357,29 @@ public class OverworldPortalEntity extends Portal {
 				Level0Red.setBlockState(new BlockPos(x1, 2, chunkz).add(-1, 0, -1), Blocks.AIR.getDefaultState(), 2);
 				Level0Red.setBlockState(new BlockPos(x1, 2, chunkz).add(-1, 1, -1), Blocks.AIR.getDefaultState(), 2);
 				Level0Red.setBlockState(new BlockPos(x1, 2, chunkz).add(-1, 2, -1), Blocks.AIR.getDefaultState(), 2);
-				Level0.setBlockState(new BlockPos(x1, 2, chunkz).add(0, 3, 0), Blocks.AIR.getDefaultState(), 2);
-				Level0.setBlockState(new BlockPos(x1, 2, chunkz).add(-1, 3, 0), Blocks.AIR.getDefaultState(), 2);
-				Level0.setBlockState(new BlockPos(x1, 2, chunkz).add(0, 3, -1), Blocks.AIR.getDefaultState(), 2);
-				Level0.setBlockState(new BlockPos(x1, 2, chunkz).add(-1, 3, -1), Blocks.AIR.getDefaultState(), 2);
+				Level0Red.setBlockState(new BlockPos(x1, 2, chunkz).add(0, 3, 0), Blocks.AIR.getDefaultState(), 2);
+				Level0Red.setBlockState(new BlockPos(x1, 2, chunkz).add(-1, 3, 0), Blocks.AIR.getDefaultState(), 2);
+				Level0Red.setBlockState(new BlockPos(x1, 2, chunkz).add(0, 3, -1), Blocks.AIR.getDefaultState(), 2);
+				Level0Red.setBlockState(new BlockPos(x1, 2, chunkz).add(-1, 3, -1), Blocks.AIR.getDefaultState(), 2);
+			} else if (generator.nextDouble() < BackroomsConfig.getInstance().Level1Chance) {
+				portal.destination = new Vec3d(x1, 4, chunkz);
+				portal.dimensionTo = Level1DimensionType.LEVEL1;
+				Level1.setBlockState(new BlockPos(x1, 2, chunkz), Blocks.AIR.getDefaultState(), 2);
+				Level1.setBlockState(new BlockPos(x1, 2, chunkz).add(0, 1, 0), Blocks.AIR.getDefaultState(), 2);
+				Level1.setBlockState(new BlockPos(x1, 2, chunkz).add(0, 2, 0), Blocks.AIR.getDefaultState(), 2);
+				Level1.setBlockState(new BlockPos(x1, 2, chunkz).add(-1, 0, 0), Blocks.AIR.getDefaultState(), 2);
+				Level1.setBlockState(new BlockPos(x1, 2, chunkz).add(-1, 1, 0), Blocks.AIR.getDefaultState(), 2);
+				Level1.setBlockState(new BlockPos(x1, 2, chunkz).add(-1, 2, 0), Blocks.AIR.getDefaultState(), 2);
+				Level1.setBlockState(new BlockPos(x1, 2, chunkz).add(0, 0, -1), Blocks.AIR.getDefaultState(), 2);
+				Level1.setBlockState(new BlockPos(x1, 2, chunkz).add(0, 1, -1), Blocks.AIR.getDefaultState(), 2);
+				Level1.setBlockState(new BlockPos(x1, 2, chunkz).add(0, 2, -1), Blocks.AIR.getDefaultState(), 2);
+				Level1.setBlockState(new BlockPos(x1, 2, chunkz).add(-1, 0, -1), Blocks.AIR.getDefaultState(), 2);
+				Level1.setBlockState(new BlockPos(x1, 2, chunkz).add(-1, 1, -1), Blocks.AIR.getDefaultState(), 2);
+				Level1.setBlockState(new BlockPos(x1, 2, chunkz).add(-1, 2, -1), Blocks.AIR.getDefaultState(), 2);
+				Level1.setBlockState(new BlockPos(x1, 2, chunkz).add(0, 3, 0), Blocks.AIR.getDefaultState(), 2);
+				Level1.setBlockState(new BlockPos(x1, 2, chunkz).add(-1, 3, 0), Blocks.AIR.getDefaultState(), 2);
+				Level1.setBlockState(new BlockPos(x1, 2, chunkz).add(0, 3, -1), Blocks.AIR.getDefaultState(), 2);
+				Level1.setBlockState(new BlockPos(x1, 2, chunkz).add(-1, 3, -1), Blocks.AIR.getDefaultState(), 2);
 			} else {
 				portal.destination = new Vec3d(x1, 4, chunkz);
 				portal.dimensionTo = Level0DimensionType.LEVEL0;
@@ -262,6 +399,50 @@ public class OverworldPortalEntity extends Portal {
 				Level0.setBlockState(new BlockPos(x1, 2, chunkz).add(-1, 3, 0), Blocks.AIR.getDefaultState(), 2);
 				Level0.setBlockState(new BlockPos(x1, 2, chunkz).add(0, 3, -1), Blocks.AIR.getDefaultState(), 2);
 				Level0.setBlockState(new BlockPos(x1, 2, chunkz).add(-1, 3, -1), Blocks.AIR.getDefaultState(), 2);
+			}
+		} else if (world.dimension instanceof Level1Dimension) {
+			if (generator.nextDouble() < BackroomsConfig.getInstance().SameDimensionChance) {
+				portal.destination = new Vec3d(x1, 4, chunkz);
+				portal.dimensionTo = Level1DimensionType.LEVEL1;
+				Level1.setBlockState(new BlockPos(x1, 2, chunkz), Blocks.AIR.getDefaultState(), 2);
+				Level1.setBlockState(new BlockPos(x1, 2, chunkz).add(0, 1, 0), Blocks.AIR.getDefaultState(), 2);
+				Level1.setBlockState(new BlockPos(x1, 2, chunkz).add(0, 2, 0), Blocks.AIR.getDefaultState(), 2);
+				Level1.setBlockState(new BlockPos(x1, 2, chunkz).add(-1, 0, 0), Blocks.AIR.getDefaultState(), 2);
+				Level1.setBlockState(new BlockPos(x1, 2, chunkz).add(-1, 1, 0), Blocks.AIR.getDefaultState(), 2);
+				Level1.setBlockState(new BlockPos(x1, 2, chunkz).add(-1, 2, 0), Blocks.AIR.getDefaultState(), 2);
+				Level1.setBlockState(new BlockPos(x1, 2, chunkz).add(0, 0, -1), Blocks.AIR.getDefaultState(), 2);
+				Level1.setBlockState(new BlockPos(x1, 2, chunkz).add(0, 1, -1), Blocks.AIR.getDefaultState(), 2);
+				Level1.setBlockState(new BlockPos(x1, 2, chunkz).add(0, 2, -1), Blocks.AIR.getDefaultState(), 2);
+				Level1.setBlockState(new BlockPos(x1, 2, chunkz).add(-1, 0, -1), Blocks.AIR.getDefaultState(), 2);
+				Level1.setBlockState(new BlockPos(x1, 2, chunkz).add(-1, 1, -1), Blocks.AIR.getDefaultState(), 2);
+				Level1.setBlockState(new BlockPos(x1, 2, chunkz).add(-1, 2, -1), Blocks.AIR.getDefaultState(), 2);
+				Level1.setBlockState(new BlockPos(x1, 2, chunkz).add(0, 3, 0), Blocks.AIR.getDefaultState(), 2);
+				Level1.setBlockState(new BlockPos(x1, 2, chunkz).add(-1, 3, 0), Blocks.AIR.getDefaultState(), 2);
+				Level1.setBlockState(new BlockPos(x1, 2, chunkz).add(0, 3, -1), Blocks.AIR.getDefaultState(), 2);
+				Level1.setBlockState(new BlockPos(x1, 2, chunkz).add(-1, 3, -1), Blocks.AIR.getDefaultState(), 2);
+			} else if (generator.nextDouble() < BackroomsConfig.getInstance().Level0Chance) {
+				portal.destination = new Vec3d(x1, 4, chunkz);
+				portal.dimensionTo = Level0DimensionType.LEVEL0;
+				Level0.setBlockState(new BlockPos(x1, 2, chunkz), Blocks.AIR.getDefaultState(), 2);
+				Level0.setBlockState(new BlockPos(x1, 2, chunkz).add(0, 1, 0), Blocks.AIR.getDefaultState(), 2);
+				Level0.setBlockState(new BlockPos(x1, 2, chunkz).add(0, 2, 0), Blocks.AIR.getDefaultState(), 2);
+				Level0.setBlockState(new BlockPos(x1, 2, chunkz).add(-1, 0, 0), Blocks.AIR.getDefaultState(), 2);
+				Level0.setBlockState(new BlockPos(x1, 2, chunkz).add(-1, 1, 0), Blocks.AIR.getDefaultState(), 2);
+				Level0.setBlockState(new BlockPos(x1, 2, chunkz).add(-1, 2, 0), Blocks.AIR.getDefaultState(), 2);
+				Level0.setBlockState(new BlockPos(x1, 2, chunkz).add(0, 0, -1), Blocks.AIR.getDefaultState(), 2);
+				Level0.setBlockState(new BlockPos(x1, 2, chunkz).add(0, 1, -1), Blocks.AIR.getDefaultState(), 2);
+				Level0.setBlockState(new BlockPos(x1, 2, chunkz).add(0, 2, -1), Blocks.AIR.getDefaultState(), 2);
+				Level0.setBlockState(new BlockPos(x1, 2, chunkz).add(-1, 0, -1), Blocks.AIR.getDefaultState(), 2);
+				Level0.setBlockState(new BlockPos(x1, 2, chunkz).add(-1, 1, -1), Blocks.AIR.getDefaultState(), 2);
+				Level0.setBlockState(new BlockPos(x1, 2, chunkz).add(-1, 2, -1), Blocks.AIR.getDefaultState(), 2);
+				Level0.setBlockState(new BlockPos(x1, 2, chunkz).add(0, 3, 0), Blocks.AIR.getDefaultState(), 2);
+				Level0.setBlockState(new BlockPos(x1, 2, chunkz).add(-1, 3, 0), Blocks.AIR.getDefaultState(), 2);
+				Level0.setBlockState(new BlockPos(x1, 2, chunkz).add(0, 3, -1), Blocks.AIR.getDefaultState(), 2);
+				Level0.setBlockState(new BlockPos(x1, 2, chunkz).add(-1, 3, -1), Blocks.AIR.getDefaultState(), 2);
+			} else {
+				portal.destination = new Vec3d(x1, y1 + 1, z1);
+				portal.dimensionTo = DimensionType.OVERWORLD;
+				Overworld.createExplosion(null, x1, y1, z1, 4, false, DestructionType.DESTROY);
 			}
 		}
 

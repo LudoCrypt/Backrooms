@@ -28,6 +28,32 @@
 	}
     ]
   },
+  "level.1.music": {
+   "category": "music",
+    "sounds": [
+	{
+        "name": "backrooms:music/ambient/episodic_lullaby",
+        "stream": true
+	},
+	{
+        "name": "backrooms:music/ambient/it_darkens",
+        "stream": true
+	},
+	{
+        "name": "backrooms:music/ambient/parallax",
+        "stream": true
+	},
+	{
+        "name": "backrooms:music/ambient/nerve_receptors",
+        "stream": true
+	},
+	{
+        "name": "backrooms:music/ambient/cracked_tiles",
+        "stream": true,
+        "weight": 3
+	}
+    ]
+  },
   "music.general": {
    "category": "music",
     "sounds": [
@@ -75,6 +101,14 @@
     "sounds": [
       {
         "name": "backrooms:music/records/those_torn_walls",
+        "stream": true
+      }
+    ]
+  },
+  "music_disc.burgers_and_fries": {
+    "sounds": [
+      {
+        "name": "backrooms:music/records/burgers_and_fries",
         "stream": true
       }
     ]

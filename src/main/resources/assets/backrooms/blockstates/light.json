@@ -1,5 +1,10 @@
 {	
 	"variants": {
-		"": { "model": "backrooms:block/light"}
+		"on=true": [
+		{ "model": "backrooms:block/light_on"}
+		],
+		"on=false": [
+		{ "model": "backrooms:block/light_off"}
+		]
 	}
 }

@@ -9,6 +9,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 import net.ludocrypt.backrooms.Backrooms;
 import net.ludocrypt.backrooms.dimension.Level0Dimension;
 import net.ludocrypt.backrooms.dimension.Level0RedDimension;
+import net.ludocrypt.backrooms.dimension.Level1Dimension;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.client.sound.MusicTracker;
@@ -35,6 +36,8 @@ public class MusicMixin {
 
 		} else if (world != null && this.world.dimension instanceof Level0Dimension || this.world.dimension instanceof Level0RedDimension) {
 			callbackInfoReturnable.setReturnValue(MusicType.valueOf("LEVEL0MUSIC"));
+		} else if (world != null && this.world.dimension instanceof Level1Dimension) {
+			callbackInfoReturnable.setReturnValue(MusicType.valueOf("LEVEL1MUSIC"));
 		}
 	}
 }

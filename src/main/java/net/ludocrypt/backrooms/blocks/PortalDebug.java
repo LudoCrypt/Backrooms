@@ -35,7 +35,9 @@ public class PortalDebug extends Block {
 		if (DOOR == null) {
 			DOOR = BlockPatternBuilder.start().aisle("waaw", "waaw", "waaw", "wwww")
 					.where('w',
-							CachedBlockPosition.matchesBlockState(BlockStatePredicate.forBlock(Backrooms.WALLPAPER)))
+							CachedBlockPosition.matchesBlockState(BlockStatePredicate.forBlock(Backrooms.WALLPAPER))
+									.or(CachedBlockPosition
+											.matchesBlockState(BlockStatePredicate.forBlock(Backrooms.CEMENT_BRICKS))))
 					.where('a', CachedBlockPosition.matchesBlockState(BlockStatePredicate.forBlock(Blocks.AIR)))
 					.build();
 		}
@@ -47,7 +49,9 @@ public class PortalDebug extends Block {
 		if (DOOR2 == null) {
 			DOOR2 = BlockPatternBuilder.start().aisle("waaw", "waaw", "waaw", "waaw")
 					.where('w',
-							CachedBlockPosition.matchesBlockState(BlockStatePredicate.forBlock(Backrooms.WALLPAPER)))
+							CachedBlockPosition.matchesBlockState(BlockStatePredicate.forBlock(Backrooms.WALLPAPER))
+									.or(CachedBlockPosition
+											.matchesBlockState(BlockStatePredicate.forBlock(Backrooms.CEMENT_BRICKS))))
 					.where('a', CachedBlockPosition.matchesBlockState(BlockStatePredicate.forBlock(Blocks.AIR)))
 					.build();
 		}
@@ -55,28 +59,15 @@ public class PortalDebug extends Block {
 		return DOOR2;
 	}
 
-	@Override
-	public void onBlockRemoved(BlockState state, World world, BlockPos pos, BlockState newState, boolean moved) {
-		if (BackroomsConfig.getInstance().TallDoors) {
-			BlockPattern.Result pattern = PortalDebug.tallDoor().searchAround(world, pos);
-			BlockPattern.Result pattern2 = PortalDebug.tallDoor().searchAround(world, pos.add(0, 0, -1));
-			if (pattern != null && pattern2 != null) {
-				OverworldPortalEntity.tallDoor(((ServerWorld) world), pos, pattern);
-			}
-		}
-		else {
-			BlockPattern.Result pattern3 = PortalDebug.shortDoor().searchAround(world, pos);
-			BlockPattern.Result pattern4 = PortalDebug.shortDoor().searchAround(world, pos.add(0, 0, -1));
-			if (pattern3 != null && pattern4 != null) {
-				OverworldPortalEntity.shortDoor(((ServerWorld) world), pos, pattern3);
-			}
-		}
-
-	}
+//	@Override
+//	public void onBlockRemoved(BlockState state, World world, BlockPos pos, BlockState newState, boolean moved) {
+//		Backrooms.makePortalFromBlock(world.getServer().getWorld(world.dimension.getType()), pos);
+//
+//	}
 
 	@Override
 	public void scheduledTick(BlockState state, ServerWorld world, BlockPos pos, Random random) {
-		world.getWorld().setBlockState(pos, Blocks.AIR.getDefaultState(), 3);
+		Backrooms.makePortalFromBlock(world, pos);
 	}
 
 	@Override

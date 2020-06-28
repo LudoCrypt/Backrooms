@@ -21,7 +21,7 @@ public class PlayerMixin {
 		World world = ((PlayerEntity) (Object) this).world;
 		PlayerEntity playerEntity = ((PlayerEntity) (Object) this);
 		if (!world.isClient) {
-			if (playerEntity.isInsideWall()) {
+			if (playerEntity.isInsideWall() && playerEntity.dimension == DimensionType.OVERWORLD && !playerEntity.isCreative()) {
 				if (Math.random() < 0.75) {
 					if (Math.random() < BackroomsConfig.getInstance().SuffocationChance) {
 						Backrooms.teleported = true;

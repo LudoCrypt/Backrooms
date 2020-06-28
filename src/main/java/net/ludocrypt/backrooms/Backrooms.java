@@ -10,33 +10,28 @@ import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.event.registry.RegistryEntryAddedCallback;
 import net.ludocrypt.backrooms.biome.Level0;
 import net.ludocrypt.backrooms.biome.Level0Red;
-import net.ludocrypt.backrooms.blocks.BackroomsSlab;
-import net.ludocrypt.backrooms.blocks.BackroomsStairs;
-import net.ludocrypt.backrooms.blocks.Carpet;
-import net.ludocrypt.backrooms.blocks.Light;
-import net.ludocrypt.backrooms.blocks.Poolstone;
-import net.ludocrypt.backrooms.blocks.Poolstone_Bricks;
-import net.ludocrypt.backrooms.blocks.Poolstone_Path;
-import net.ludocrypt.backrooms.blocks.Poolstone_Tile;
-import net.ludocrypt.backrooms.blocks.PortalDebug;
-import net.ludocrypt.backrooms.blocks.Smooth_Poolstone;
-import net.ludocrypt.backrooms.blocks.Tile;
-import net.ludocrypt.backrooms.blocks.Wall;
-import net.ludocrypt.backrooms.blocks.Wallpaper;
+import net.ludocrypt.backrooms.biome.Level1;
+import net.ludocrypt.backrooms.blocks.*;
 import net.ludocrypt.backrooms.config.BackroomsConfig;
 import net.ludocrypt.backrooms.dimension.Level0DimensionType;
 import net.ludocrypt.backrooms.dimension.Level0RedDimensionType;
+import net.ludocrypt.backrooms.dimension.Level1DimensionType;
 import net.ludocrypt.backrooms.items.AlmondWaterItem;
 import net.ludocrypt.backrooms.items.BackroomsMusicDiscItem;
 import net.ludocrypt.backrooms.items.RawAlmondWaterItem;
+import net.ludocrypt.backrooms.misc.OverworldPortalEntity;
 import net.ludocrypt.backrooms.sound.BackroomsSoundEvents;
 import net.minecraft.block.Block;
+import net.minecraft.block.Blocks;
+import net.minecraft.block.pattern.BlockPattern;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.FoodComponent;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Rarity;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.gen.GenerationStep;
@@ -46,9 +41,10 @@ import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.OreFeatureConfig;
 
 public class Backrooms implements ModInitializer {
-
+	// loot tables
 	private static final Set<Identifier> LOOT_TABLES = Sets.newHashSet();
 	public static final Identifier LEVEL0CHEST = register("backrooms:chests/level0");
+	public static final Identifier LEVEL1CHEST = register("backrooms:chests/level1");
 	// variables
 	public static boolean Display = false;
 	public static boolean teleported = false;
@@ -69,6 +65,13 @@ public class Backrooms implements ModInitializer {
 			Block.Settings.copy(CARPET));
 	public static final Block TILE = new Tile();
 	public static final Block PORTALDEBUG = new PortalDebug();
+	public static final Block CEMENT = new Cement();
+	public static final Block CEMENT_STAIRS = new BackroomsStairs(CEMENT.getDefaultState(),
+			Block.Settings.copy(CEMENT));
+	public static final Block CEMENT_BRICKS = new Cement_Bricks();
+	public static final Block CEMENT_BRICK_STAIRS = new BackroomsStairs(CEMENT_BRICKS.getDefaultState(),
+			Block.Settings.copy(CEMENT_BRICKS));
+	public static final Block CEMENT_BRICK_SLAB = new BackroomsSlab(Block.Settings.copy(CEMENT_BRICKS));
 	// Poolstone
 	public static final Block POOLSTONE = new Poolstone();
 	public static final Block SMOOTH_POOLSTONE = new Smooth_Poolstone();
@@ -99,19 +102,24 @@ public class Backrooms implements ModInitializer {
 			new Level0());
 	public static final Biome LEVEL0RED = Registry.register(Registry.BIOME, new Identifier("backrooms", "level0red"),
 			new Level0Red());
+	public static final Biome LEVEL1 = Registry.register(Registry.BIOME, new Identifier("backrooms", "level1"),
+			new Level1());
 	// record discs
 	public static final Item MUSIC_DISC_GLACIAL_CAVERN = new BackroomsMusicDiscItem(1,
 			BackroomsSoundEvents.MUSIC_DISC_GLACIAL_CAVERN,
-			(new Item.Settings()).maxCount(1).group(ItemGroup.MISC).rarity(Rarity.COMMON));
+			(new Item.Settings()).maxCount(1).group(ItemGroup.MISC).rarity(Rarity.RARE));
 	public static final Item MUSIC_DISC_THOSE_TORN_WALLS = new BackroomsMusicDiscItem(1,
 			BackroomsSoundEvents.MUSIC_DISC_THOSE_TORN_WALLS,
-			(new Item.Settings()).maxCount(1).group(ItemGroup.MISC).rarity(Rarity.COMMON));
+			(new Item.Settings()).maxCount(1).group(ItemGroup.MISC).rarity(Rarity.RARE));
 	public static final Item MUSIC_DISC_ITS_BEEN_SO_LONG = new BackroomsMusicDiscItem(1,
 			BackroomsSoundEvents.MUSIC_DISC_ITS_BEEN_SO_LONG,
-			(new Item.Settings()).maxCount(1).group(ItemGroup.MISC).rarity(Rarity.COMMON));
+			(new Item.Settings()).maxCount(1).group(ItemGroup.MISC).rarity(Rarity.RARE));
 	public static final Item MUSIC_DISC_OMAE_WA_MOU = new BackroomsMusicDiscItem(1,
 			BackroomsSoundEvents.MUSIC_DISC_OMAE_WA_MOU,
-			(new Item.Settings()).maxCount(1).group(ItemGroup.MISC).rarity(Rarity.COMMON));
+			(new Item.Settings()).maxCount(1).group(ItemGroup.MISC).rarity(Rarity.RARE));
+	public static final Item MUSIC_DISC_BURGERS_AND_FRIES = new BackroomsMusicDiscItem(1,
+			BackroomsSoundEvents.MUSIC_DISC_BURGERS_AND_FRIES,
+			(new Item.Settings()).maxCount(1).group(ItemGroup.MISC).rarity(Rarity.RARE));
 	public static final Item MUSIC_DISC_012 = new BackroomsMusicDiscItem(1, BackroomsSoundEvents.MUSIC_DISC_012,
 			(new Item.Settings()).maxCount(1).group(ItemGroup.MISC).rarity(Rarity.RARE));
 
@@ -135,12 +143,30 @@ public class Backrooms implements ModInitializer {
 	public static Identifier id(String path) {
 		return new Identifier("backrooms", path);
 	}
+	
+	public static void makePortalFromBlock(ServerWorld world, BlockPos pos) {
+		world.setBlockState(pos, Blocks.AIR.getDefaultState(), 2);
+		if (BackroomsConfig.getInstance().TallDoors) {
+			BlockPattern.Result pattern = PortalDebug.tallDoor().searchAround(world, pos);
+			BlockPattern.Result pattern2 = PortalDebug.tallDoor().searchAround(world, pos.add(0, 0, -1));
+			if (pattern != null && pattern2 != null) {
+				OverworldPortalEntity.tallDoor(world, pos, pattern);
+			}
+		} else {
+			BlockPattern.Result pattern3 = PortalDebug.shortDoor().searchAround(world, pos);
+			BlockPattern.Result pattern4 = PortalDebug.shortDoor().searchAround(world, pos.add(0, 0, -1));
+			if (pattern3 != null && pattern4 != null) {
+				OverworldPortalEntity.shortDoor(world, pos, pattern3);
+			}
+		}
+	}
 
 	@Override
 	public void onInitialize() {
 		// dimensions
 		Level0DimensionType.register();
 		Level0RedDimensionType.register();
+		Level1DimensionType.register();
 		// items
 		Registry.register(Registry.ITEM, new Identifier("backrooms", "almond_water"), ALMOND_WATER);
 		Registry.register(Registry.ITEM, new Identifier("backrooms", "raw_almond_water"), RAW_ALMOND_WATER);
@@ -152,6 +178,11 @@ public class Backrooms implements ModInitializer {
 		Registry.register(Registry.BLOCK, new Identifier("backrooms", "light"), LIGHT);
 		Registry.register(Registry.BLOCK, new Identifier("backrooms", "tile"), TILE);
 		Registry.register(Registry.BLOCK, new Identifier("backrooms", "portaldebug"), PORTALDEBUG);
+		Registry.register(Registry.BLOCK, new Identifier("backrooms", "cement"), CEMENT);
+		Registry.register(Registry.BLOCK, new Identifier("backrooms", "cement_stairs"), CEMENT_STAIRS);
+		Registry.register(Registry.BLOCK, new Identifier("backrooms", "cement_bricks"), CEMENT_BRICKS);
+		Registry.register(Registry.BLOCK, new Identifier("backrooms", "cement_brick_stairs"), CEMENT_BRICK_STAIRS);
+		Registry.register(Registry.BLOCK, new Identifier("backrooms", "cement_brick_slab"), CEMENT_BRICK_SLAB);
 		// poolstone
 		Registry.register(Registry.BLOCK, new Identifier("backrooms", "poolstone"), POOLSTONE);
 		Registry.register(Registry.BLOCK, new Identifier("backrooms", "smooth_poolstone"), SMOOTH_POOLSTONE);
@@ -187,6 +218,16 @@ public class Backrooms implements ModInitializer {
 				new BlockItem(LIGHT, new Item.Settings().group(ItemGroup.BUILDING_BLOCKS)));
 		Registry.register(Registry.ITEM, new Identifier("backrooms", "tile"),
 				new BlockItem(TILE, new Item.Settings().group(ItemGroup.BUILDING_BLOCKS)));
+		Registry.register(Registry.ITEM, new Identifier("backrooms", "cement"),
+				new BlockItem(CEMENT, new Item.Settings().group(ItemGroup.BUILDING_BLOCKS)));
+		Registry.register(Registry.ITEM, new Identifier("backrooms", "cement_stairs"),
+				new BlockItem(CEMENT_STAIRS, new Item.Settings().group(ItemGroup.BUILDING_BLOCKS)));
+		Registry.register(Registry.ITEM, new Identifier("backrooms", "cement_bricks"),
+				new BlockItem(CEMENT_BRICKS, new Item.Settings().group(ItemGroup.BUILDING_BLOCKS)));
+		Registry.register(Registry.ITEM, new Identifier("backrooms", "cement_brick_stairs"),
+				new BlockItem(CEMENT_BRICK_STAIRS, new Item.Settings().group(ItemGroup.BUILDING_BLOCKS)));
+		Registry.register(Registry.ITEM, new Identifier("backrooms", "cement_brick_slab"),
+				new BlockItem(CEMENT_BRICK_SLAB, new Item.Settings().group(ItemGroup.BUILDING_BLOCKS)));
 		// poolstone
 		Registry.register(Registry.ITEM, new Identifier("backrooms", "poolstone"),
 				new BlockItem(POOLSTONE, new Item.Settings().group(ItemGroup.BUILDING_BLOCKS)));
@@ -230,6 +271,8 @@ public class Backrooms implements ModInitializer {
 		Registry.register(Registry.ITEM, new Identifier("backrooms", "music_disc_its_been_so_long"),
 				MUSIC_DISC_ITS_BEEN_SO_LONG);
 		Registry.register(Registry.ITEM, new Identifier("backrooms", "music_disc_omae_wa_mou"), MUSIC_DISC_OMAE_WA_MOU);
+		Registry.register(Registry.ITEM, new Identifier("backrooms", "music_disc_burgers_and_fries"),
+				MUSIC_DISC_BURGERS_AND_FRIES);
 		Registry.register(Registry.ITEM, new Identifier("backrooms", "music_disc_012"), MUSIC_DISC_012);
 		// Config
 		AutoConfig.register(BackroomsConfig.class, JanksonConfigSerializer::new);
