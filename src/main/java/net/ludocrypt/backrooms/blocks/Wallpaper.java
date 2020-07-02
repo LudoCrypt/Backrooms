@@ -9,10 +9,14 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Material;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.BooleanProperty;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.Hand;
+import net.minecraft.util.hit.BlockHitResult;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
@@ -39,6 +43,17 @@ public class Wallpaper extends Block {
 			world.setBlockState(pos, Backrooms.WALLPAPER.getDefaultState().with(RED, true));
 		if (world.dimension instanceof Level0DottedDimension)
 			world.setBlockState(pos, Backrooms.WALLPAPER.getDefaultState().with(DOTTED, true));
+	}
+
+	@Override
+	public ActionResult onUse(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand,
+			BlockHitResult hit) {
+		if (player.isInSneakingPose()) {
+			world.setBlockState(pos, Backrooms.WALLPAPER.getDefaultState().cycle(DOTTED));
+			return ActionResult.SUCCESS;
+		} else {
+			return ActionResult.PASS;
+		}
 	}
 
 }
