@@ -1,0 +1,29 @@
+{
+  "display": {
+    "icon": {
+      "item": "minecraft:red_dye"
+    },
+    "title": {
+      "translate": "advancements.level0red.title"
+    },
+    "description": {
+      "translate": "advancements.level0red.descr"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": true
+  },
+  "criteria": {
+    "level_1": {
+      "trigger": "minecraft:changed_dimension",
+      "conditions": {
+        "to": "backrooms:level0red"
+      }
+    }
+  },
+  "rewards": {
+    "experience": 10
+  },
+  "parent": "backrooms:level_0"
+}

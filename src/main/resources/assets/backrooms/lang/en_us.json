@@ -28,6 +28,7 @@
   "block.backrooms.cement_bricks": "Cement Bricks",
   "block.backrooms.cement_brick_stairs": "Cement Brick Stairs",
   "block.backrooms.cement_brick_slab": "Cement Brick Slab",
+  "block.backrooms.void_block": "Void Block",
   "biome.backrooms.level0": "Level 0",
   "block.buzz": "Buzz",
   "music.general.menu": "Backrooms Menu",
@@ -68,5 +69,15 @@
   "text.autoconfig.backrooms.option.TallDoors": "Have Taller Doors",
   "text.autoconfig.backrooms.option.ForceBackrooms": "Force background to be backrooms",
   "text.autoconfig.backrooms.option.ForceNormal": "Force background to be Minecraft",
-  "text.autoconfig.backrooms.option.SanityEffects": "Sanity Effects"
+  "text.autoconfig.backrooms.option.SanityEffects": "Sanity Effects",
+  "advancements.backrooms.title": "The Backrooms",
+  "advancements.level0.title": "The Lobby",
+  "advancements.level0red.title": "Smells like blood...",
+  "advancements.level0dotted.title": "That's Different...",
+  "advancements.level1.title": "Lurking Danger",
+  "advancements.backrooms.descr": "The Whole of the backrooms",
+  "advancements.level0.descr": "Enter Level 0",
+  "advancements.level0red.descr": "Enter The Redrooms",
+  "advancements.level0dotted.descr": "Enter The Dotted Level 0",
+  "advancements.level1.descr": "Enter Level 1"
 }

@@ -1,6 +1,6 @@
 package net.ludocrypt.backrooms.items;
 
-import net.ludocrypt.backrooms.sound.BackroomsSoundEvents;
+import net.ludocrypt.backrooms.misc.BackroomsSoundEvents;
 import net.minecraft.advancement.criterion.Criterions;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.effect.StatusEffectInstance;

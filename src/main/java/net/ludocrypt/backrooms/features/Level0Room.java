@@ -243,12 +243,14 @@ public class Level0Room extends Feature<DefaultFeatureConfig> {
 				currentPositionOffsetted.getY(), currentPositionOffsetted.getZ());
 
 		Random generator = new Random(world.getSeed());
+		Random generator2 = new Random(world.getSeed());
 		long seed = world.getSeed();
 		long l = generator.nextLong();
 		long m = generator.nextLong();
 		long n = generator.nextLong();
 		long o = currentPosition.getX() * l ^ currentPosition.getY() * m ^ currentPosition.getZ() * n ^ seed;
 		generator = new Random(o);
+		generator2 = new Random(o + 2);
 
 		for (int y = 0; y < slice.length; y++) {
 			for (int z = 0; z < slice[0].length; z++) {
@@ -342,10 +344,12 @@ public class Level0Room extends Feature<DefaultFeatureConfig> {
 								world.setBlockState(currentPosition.add(0, 3, -1), AIR, 2);
 								world.setBlockState(currentPosition.add(-1, 3, -1), AIR, 2);
 							}
-							if (generator.nextDouble() < BackroomsConfig.getInstance().PortalChance) {
+							if (generator2.nextDouble() < BackroomsConfig.getInstance().PortalChance) {
+
 								world.setBlockState(currentPosition.add(-1, 0, 0), PORTALDEBUG, 3);
 								world.getBlockTickScheduler().schedule(currentPosition.add(-1, 0, 0),
 										PORTALDEBUG.getBlock(), 0, TickPriority.HIGH);
+
 							} else {
 								world.setBlockState(currentPosition.add(-1, 0, 0), AIR, 3);
 							}

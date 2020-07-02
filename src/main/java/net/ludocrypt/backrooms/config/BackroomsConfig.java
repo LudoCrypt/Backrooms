@@ -23,7 +23,8 @@ public class BackroomsConfig implements ConfigData
     public double Level1PickStairChance = 0.3;
     public int Level1LayerCount = 3;
     //Portal Chances
-    public double PortalChance = 0.1;
+    public double PortalChance = 0.25;
+    public double DottedRoomChance = 0.85;
     public double RedRoomChance = 0.7;
     public double Level0Chance = 0.85;
     public double Level1Chance = 0.85;

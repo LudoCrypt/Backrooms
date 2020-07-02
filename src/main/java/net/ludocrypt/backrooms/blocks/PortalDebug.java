@@ -4,8 +4,6 @@ import java.util.Random;
 
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.ludocrypt.backrooms.Backrooms;
-import net.ludocrypt.backrooms.config.BackroomsConfig;
-import net.ludocrypt.backrooms.misc.OverworldPortalEntity;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockRenderType;
 import net.minecraft.block.BlockState;
@@ -21,7 +19,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.util.shape.VoxelShapes;
 import net.minecraft.world.BlockView;
-import net.minecraft.world.World;
 
 public class PortalDebug extends Block {
 	private static BlockPattern DOOR;

@@ -1,4 +1,4 @@
-package net.ludocrypt.backrooms.sound;
+package net.ludocrypt.backrooms.misc;
 
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.Identifier;
@@ -17,6 +17,7 @@ public class BackroomsSoundEvents {
 	public static final SoundEvent MUSIC_DISC_BURGERS_AND_FRIES = register("backrooms:music_disc.burgers_and_fries");
 	public static final SoundEvent GULP = register("backrooms:gulp");
 	public static final SoundEvent TONE = register("backrooms:tone");
+	public static final SoundEvent LEVEL0AMBIENCE = register("backrooms:level0ambience");
 
 	private static SoundEvent register(String id) {
 		return (SoundEvent) Registry.register(Registry.SOUND_EVENT, (String) id, new SoundEvent(new Identifier(id)));

@@ -22,7 +22,7 @@ public class GoToBackroomsMixin {
 	private void onPearlHit(HitResult hitResult, CallbackInfo ci) {
 		ThrownEnderpearlEntity pearlEntity = ((ThrownEnderpearlEntity) (Object) this);
 		World world = pearlEntity.world;
-		if ((!world.isClient && pearlEntity.getOwner() instanceof ServerPlayerEntity) && (!Backrooms.teleported)) {
+		if ((!world.isClient && pearlEntity.getOwner() instanceof ServerPlayerEntity)) {
 			ServerPlayerEntity playerEntity = (ServerPlayerEntity) pearlEntity.getOwner();
 			Vec3d hitBlockPos = hitResult.getPos();
 			if (world.getBlockState(new BlockPos(hitBlockPos.add(0.1D, 0, 0))).getBlock() != Blocks.AIR
@@ -35,8 +35,7 @@ public class GoToBackroomsMixin {
 					if ((playerEntity.dimension != Level0DimensionType.LEVEL0)) {
 						ci.cancel();
 						pearlEntity.kill();
-						Backrooms.teleported = true;
-						Backrooms.teleporteduuid = playerEntity.getUuidAsString();
+						Backrooms.teleportPlayer(playerEntity, Level0DimensionType.LEVEL0);
 					}
 				}
 

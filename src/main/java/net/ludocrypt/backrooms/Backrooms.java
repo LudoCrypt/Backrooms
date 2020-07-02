@@ -1,39 +1,71 @@
 package net.ludocrypt.backrooms;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 import java.util.Set;
+import java.util.function.Consumer;
+import java.util.function.Supplier;
 
 import com.google.common.collect.Sets;
 
 import me.sargunvohra.mcmods.autoconfig1u.AutoConfig;
 import me.sargunvohra.mcmods.autoconfig1u.serializer.JanksonConfigSerializer;
+import me.sargunvohra.mcmods.autoconfig1u.shadowed.blue.endless.jankson.annotation.Nullable;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.event.registry.RegistryEntryAddedCallback;
 import net.ludocrypt.backrooms.biome.Level0;
+import net.ludocrypt.backrooms.biome.Level0Dotted;
 import net.ludocrypt.backrooms.biome.Level0Red;
 import net.ludocrypt.backrooms.biome.Level1;
-import net.ludocrypt.backrooms.blocks.*;
+import net.ludocrypt.backrooms.blocks.BackroomsSlab;
+import net.ludocrypt.backrooms.blocks.BackroomsStairs;
+import net.ludocrypt.backrooms.blocks.Carpet;
+import net.ludocrypt.backrooms.blocks.Cement;
+import net.ludocrypt.backrooms.blocks.Cement_Bricks;
+import net.ludocrypt.backrooms.blocks.Light;
+import net.ludocrypt.backrooms.blocks.Poolstone;
+import net.ludocrypt.backrooms.blocks.Poolstone_Bricks;
+import net.ludocrypt.backrooms.blocks.Poolstone_Path;
+import net.ludocrypt.backrooms.blocks.Poolstone_Tile;
+import net.ludocrypt.backrooms.blocks.PortalDebug;
+import net.ludocrypt.backrooms.blocks.Smooth_Poolstone;
+import net.ludocrypt.backrooms.blocks.Tile;
+import net.ludocrypt.backrooms.blocks.VoidBlock;
+import net.ludocrypt.backrooms.blocks.Wall;
+import net.ludocrypt.backrooms.blocks.Wallpaper;
+import net.ludocrypt.backrooms.blocks.entity.VoidBlockEntity;
 import net.ludocrypt.backrooms.config.BackroomsConfig;
 import net.ludocrypt.backrooms.dimension.Level0DimensionType;
+import net.ludocrypt.backrooms.dimension.Level0DottedDimensionType;
 import net.ludocrypt.backrooms.dimension.Level0RedDimensionType;
 import net.ludocrypt.backrooms.dimension.Level1DimensionType;
 import net.ludocrypt.backrooms.items.AlmondWaterItem;
 import net.ludocrypt.backrooms.items.BackroomsMusicDiscItem;
 import net.ludocrypt.backrooms.items.RawAlmondWaterItem;
+import net.ludocrypt.backrooms.misc.BackroomsSoundEvents;
 import net.ludocrypt.backrooms.misc.OverworldPortalEntity;
-import net.ludocrypt.backrooms.sound.BackroomsSoundEvents;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
+import net.minecraft.block.entity.BlockEntity;
+import net.minecraft.block.entity.BlockEntityType;
 import net.minecraft.block.pattern.BlockPattern;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.FoodComponent;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
+import net.minecraft.item.ItemStack;
 import net.minecraft.server.world.ServerWorld;
+import net.minecraft.sound.SoundCategory;
+import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Rarity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.biome.Biome;
+import net.minecraft.world.dimension.DimensionType;
 import net.minecraft.world.gen.GenerationStep;
 import net.minecraft.world.gen.decorator.Decorator;
 import net.minecraft.world.gen.decorator.RangeDecoratorConfig;
@@ -47,9 +79,10 @@ public class Backrooms implements ModInitializer {
 	public static final Identifier LEVEL1CHEST = register("backrooms:chests/level1");
 	// variables
 	public static boolean Display = false;
-	public static boolean teleported = false;
-	public static boolean teleported_home = false;
-	public static String teleporteduuid = "";
+//	public static boolean teleported = false;
+//	public static boolean teleported_home = false;
+//	public static String teleporteduuid = "";
+	public static final String MOD_ID = "backrooms";
 
 	// items
 	public static final Item RAW_ALMOND_WATER = new RawAlmondWaterItem(new Item.Settings().group(ItemGroup.FOOD)
@@ -95,13 +128,15 @@ public class Backrooms implements ModInitializer {
 	public static final Block POOLSTONE_PATH_SLAB = new BackroomsSlab(Block.Settings.copy(POOLSTONE_PATH));
 	public static final Block POOLSTONE_TILE_SLAB = new BackroomsSlab(Block.Settings.copy(POOLSTONE_TILE));
 	public static final Block POOLSTONE_BRICK_SLAB = new BackroomsSlab(Block.Settings.copy(POOLSTONE_BRICKS));
-	// walls
-
+	// hm
+	public static final Block VOID_BLOCK = new VoidBlock();
 	// biomes
 	public static final Biome LEVEL0 = Registry.register(Registry.BIOME, new Identifier("backrooms", "level0"),
 			new Level0());
 	public static final Biome LEVEL0RED = Registry.register(Registry.BIOME, new Identifier("backrooms", "level0red"),
 			new Level0Red());
+	public static final Biome LEVEL0DOTTED = Registry.register(Registry.BIOME, new Identifier("backrooms", "level0dotted"),
+			new Level0Dotted());
 	public static final Biome LEVEL1 = Registry.register(Registry.BIOME, new Identifier("backrooms", "level1"),
 			new Level1());
 	// record discs
@@ -140,10 +175,11 @@ public class Backrooms implements ModInitializer {
 	}
 
 	// identifier
-	public static Identifier id(String path) {
-		return new Identifier("backrooms", path);
+	public static Identifier getId(String id) {
+		return new Identifier(MOD_ID, id);
 	}
-	
+
+
 	public static void makePortalFromBlock(ServerWorld world, BlockPos pos) {
 		world.setBlockState(pos, Blocks.AIR.getDefaultState(), 2);
 		if (BackroomsConfig.getInstance().TallDoors) {
@@ -166,6 +202,7 @@ public class Backrooms implements ModInitializer {
 		// dimensions
 		Level0DimensionType.register();
 		Level0RedDimensionType.register();
+		Level0DottedDimensionType.register();
 		Level1DimensionType.register();
 		// items
 		Registry.register(Registry.ITEM, new Identifier("backrooms", "almond_water"), ALMOND_WATER);
@@ -203,7 +240,6 @@ public class Backrooms implements ModInitializer {
 		Registry.register(Registry.BLOCK, new Identifier("backrooms", "poolstone_path_slab"), POOLSTONE_PATH_SLAB);
 		Registry.register(Registry.BLOCK, new Identifier("backrooms", "poolstone_tile_slab"), POOLSTONE_TILE_SLAB);
 		Registry.register(Registry.BLOCK, new Identifier("backrooms", "poolstone_brick_slab"), POOLSTONE_BRICK_SLAB);
-		// walls
 
 		// blockitems
 		Registry.register(Registry.ITEM, new Identifier("backrooms", "wallpaper"),
@@ -261,7 +297,6 @@ public class Backrooms implements ModInitializer {
 				new BlockItem(POOLSTONE_TILE_SLAB, new Item.Settings().group(ItemGroup.BUILDING_BLOCKS)));
 		Registry.register(Registry.ITEM, new Identifier("backrooms", "poolstone_brick_slab"),
 				new BlockItem(POOLSTONE_BRICK_SLAB, new Item.Settings().group(ItemGroup.BUILDING_BLOCKS)));
-		// walls
 
 		// music discs
 		Registry.register(Registry.ITEM, new Identifier("backrooms", "music_disc_glacial_cavern"),
@@ -279,6 +314,27 @@ public class Backrooms implements ModInitializer {
 		// Ore Generation
 		Registry.BIOME.forEach(this::handleBiome);
 		RegistryEntryAddedCallback.event(Registry.BIOME).register((i, identifier, biome) -> handleBiome(biome));
+		registerBlockEntities();
+	}
+
+	private List<ItemStack> registerBlockEntities() {
+		List<ItemStack> items = new ArrayList<ItemStack>(1);
+		items.add(registerBlockEntity("void_block", new VoidBlock(), VoidBlockEntity::new,
+				(blockEntityType) -> VoidBlockEntity.blockEntityType = blockEntityType));
+		return items;
+	}
+
+	@SuppressWarnings("rawtypes")
+	private <T extends BlockEntity> ItemStack registerBlockEntity(String identifier, Block block,
+			Supplier<? extends T> blockEntitySupplier, Consumer<BlockEntityType> blockEntityConsumer) {
+		Registry.register(Registry.BLOCK, getId(identifier), block);
+		BlockEntityType blockEntityType = Registry.register(Registry.BLOCK_ENTITY_TYPE, getId(identifier),
+				BlockEntityType.Builder.create(blockEntitySupplier, block).build(null));
+		blockEntityConsumer.accept(blockEntityType);
+		BlockItem blockItem = new BlockItem(block, new Item.Settings().group(ItemGroup.BUILDING_BLOCKS));
+		Registry.register(Registry.ITEM, getId(identifier), blockItem);
+
+		return new ItemStack(blockItem);
 	}
 
 	private static Identifier register(String id) {
@@ -291,5 +347,19 @@ public class Backrooms implements ModInitializer {
 		} else {
 			throw new IllegalArgumentException(id + " is already a registered built-in loot table");
 		}
+	}
+
+	public static void ambientSoundGenerator(PlayerEntity target, SoundEvent sound, @Nullable SoundCategory category,
+			float volume, float pitch, Random random) {
+		float d = volume + random.nextFloat();
+		float e = pitch + random.nextFloat();
+		target.playSound(sound, category, d, e);
+
+	}
+
+	public static void teleportPlayer(Entity entity, DimensionType dimension) {
+		entity.removeAllPassengers();
+		entity.stopRiding();
+		entity.changeDimension(dimension);
 	}
 }

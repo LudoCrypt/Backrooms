@@ -6,7 +6,8 @@
 	"TitleScreenMixin",
 	"GoToBackroomsMixin",
 	"PlayerMixin",
-	"MusicMixin"
+	"MusicMixin",
+	"BuiltinModelItemRendererMixin"
   ],
   "client": [
   ],

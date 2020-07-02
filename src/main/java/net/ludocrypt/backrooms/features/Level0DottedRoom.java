@@ -7,7 +7,9 @@ import com.mojang.datafixers.Dynamic;
 
 import net.ludocrypt.backrooms.Backrooms;
 import net.ludocrypt.backrooms.blocks.BackroomsStairs;
+import net.ludocrypt.backrooms.blocks.Carpet;
 import net.ludocrypt.backrooms.blocks.Tile;
+import net.ludocrypt.backrooms.blocks.Wallpaper;
 import net.ludocrypt.backrooms.config.BackroomsConfig;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -25,8 +27,8 @@ import net.minecraft.world.gen.chunk.ChunkGeneratorConfig;
 import net.minecraft.world.gen.feature.DefaultFeatureConfig;
 import net.minecraft.world.gen.feature.Feature;
 
-public class Level1Room extends Feature<DefaultFeatureConfig> {
-	public Level1Room(Function<Dynamic<?>, ? extends DefaultFeatureConfig> configFactory) {
+public class Level0DottedRoom extends Feature<DefaultFeatureConfig> {
+	public Level0DottedRoom(Function<Dynamic<?>, ? extends DefaultFeatureConfig> configFactory) {
 		super(configFactory);
 	}
 
@@ -111,11 +113,12 @@ public class Level1Room extends Feature<DefaultFeatureConfig> {
 			{ 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5 }, { 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 8, 8, 8, 8, 8, 8 },
 			{ 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 } };
 
-	private static final BlockState CEMENT_BRICKS = Backrooms.CEMENT_BRICKS.getDefaultState();
-	private static final BlockState CEMENT = Backrooms.CEMENT.getDefaultState();
-	private static final BlockState CEMENT_STAIRS = Backrooms.CEMENT_STAIRS.getDefaultState()
+	private static final BlockState WALLPAPER = Backrooms.WALLPAPER.getDefaultState().with(Wallpaper.DOTTED, true).with(Wallpaper.RED, false);
+	private static final BlockState CARPET = Backrooms.CARPET.getDefaultState();
+	private static final BlockState CARPET_STAIRS = Backrooms.CARPET_STAIRS.getDefaultState()
 			.with(BackroomsStairs.FACING, Direction.NORTH).with(BackroomsStairs.HALF, BlockHalf.BOTTOM)
 			.with(BackroomsStairs.SHAPE, StairShape.STRAIGHT);
+	private static final BlockState MOLDY_CARPET = Backrooms.CARPET.getDefaultState().with(Carpet.MOLDY, true);
 	private static final BlockState SOUTH_TILE = Backrooms.TILE.getDefaultState().with(Tile.FACING, Direction.SOUTH)
 			.with(Tile.SINGLE, false);
 	private static final BlockState NORTH_TILE = Backrooms.TILE.getDefaultState().with(Tile.FACING, Direction.NORTH)
@@ -136,12 +139,11 @@ public class Level1Room extends Feature<DefaultFeatureConfig> {
 		long l = generator.nextLong();
 		long m = generator.nextLong();
 		long n = generator.nextLong();
-		long o = position.getX() * l ^ position.getY() * m ^ position.getZ() * n ^ seed * 5;
+		long o = position.getX() * l ^ position.getY() * m ^ position.getZ() * n ^ seed;
 		generator = new Random(o);
-
 		BlockPos.Mutable mutableBlockPos = new BlockPos.Mutable(position);
 
-		if ((generator.nextDouble()) < ((BackroomsConfig.getInstance().Level1NormalRoomChance))) {
+		if ((generator.nextDouble()) < ((BackroomsConfig.getInstance().NormalRoomChance))) {
 			generateSlice(world, mutableBlockPos.setOffset(Direction.EAST), One, rand);
 			generateSlice(world, mutableBlockPos.setOffset(Direction.EAST), Two, rand);
 			generateSlice(world, mutableBlockPos.setOffset(Direction.EAST), Three, rand);
@@ -158,8 +160,8 @@ public class Level1Room extends Feature<DefaultFeatureConfig> {
 			generateSlice(world, mutableBlockPos.setOffset(Direction.EAST), Three, rand);
 			generateSlice(world, mutableBlockPos.setOffset(Direction.EAST), Two, rand);
 			generateSlice(world, mutableBlockPos.setOffset(Direction.EAST), Four, rand);
-		} else if ((generator.nextDouble()) < ((BackroomsConfig.getInstance().Level1PickHallwayChance))) {
-			if ((generator.nextDouble()) < ((BackroomsConfig.getInstance().Level1EastHallwayChance))) {
+		} else if ((generator.nextDouble()) < ((BackroomsConfig.getInstance().PickHallwayChance))) {
+			if ((generator.nextDouble()) < ((BackroomsConfig.getInstance().EastHallwayChance))) {
 				generateSlice(world, mutableBlockPos.setOffset(Direction.EAST), One, rand);
 				generateSlice(world, mutableBlockPos.setOffset(Direction.EAST), Hallway2NoLight, rand);
 				generateSlice(world, mutableBlockPos.setOffset(Direction.EAST), Hallway2Light, rand);
@@ -194,7 +196,7 @@ public class Level1Room extends Feature<DefaultFeatureConfig> {
 				generateSlice(world, mutableBlockPos.setOffset(Direction.EAST), Hallway1NoLight, rand);
 				generateSlice(world, mutableBlockPos.setOffset(Direction.EAST), Four, rand);
 			}
-		} else if (generator.nextDouble() < BackroomsConfig.getInstance().Level1PickStairChance) {
+		} else if (generator.nextDouble() < BackroomsConfig.getInstance().PickStairChance) {
 			generateSlice(world, mutableBlockPos.setOffset(Direction.EAST), One, rand);
 			generateSlice(world, mutableBlockPos.setOffset(Direction.EAST), Two, rand);
 			generateSlice(world, mutableBlockPos.setOffset(Direction.EAST), Three, rand);
@@ -241,12 +243,14 @@ public class Level1Room extends Feature<DefaultFeatureConfig> {
 				currentPositionOffsetted.getY(), currentPositionOffsetted.getZ());
 
 		Random generator = new Random(world.getSeed());
+		Random generator2 = new Random(world.getSeed());
 		long seed = world.getSeed();
 		long l = generator.nextLong();
 		long m = generator.nextLong();
 		long n = generator.nextLong();
-		long o = currentPosition.getX() * l ^ currentPosition.getY() * m ^ currentPosition.getZ() * n ^ seed * 5;
+		long o = currentPosition.getX() * l ^ currentPosition.getY() * m ^ currentPosition.getZ() * n ^ seed;
 		generator = new Random(o);
+		generator2 = new Random(o * 15);
 
 		for (int y = 0; y < slice.length; y++) {
 			for (int z = 0; z < slice[0].length; z++) {
@@ -254,26 +258,26 @@ public class Level1Room extends Feature<DefaultFeatureConfig> {
 
 				if (((world.getBlockState(currentPosition).getBlock() == Backrooms.WALL)
 						|| (world.getBlockState(currentPosition).getBlock() == Blocks.BEDROCK))
-						&& (world.getBlockState(currentPosition).getBlock() != Backrooms.CEMENT_STAIRS)) {
+						&& (world.getBlockState(currentPosition).getBlock() != Backrooms.CARPET_STAIRS)) {
 					if ((generator.nextDouble()) < ((BackroomsConfig.getInstance().DoorChance))) {
-						Level1Room.door1 = true;
+						Level0DottedRoom.door1 = true;
 					} else {
-						Level1Room.door1 = false;
+						Level0DottedRoom.door1 = false;
 					}
 					if ((generator.nextDouble()) < ((BackroomsConfig.getInstance().DoorChance))) {
-						Level1Room.door2 = true;
+						Level0DottedRoom.door2 = true;
 					} else {
-						Level1Room.door2 = false;
+						Level0DottedRoom.door2 = false;
 					}
 					if ((generator.nextDouble()) < ((BackroomsConfig.getInstance().DoorChance))) {
-						Level1Room.door3 = true;
+						Level0DottedRoom.door3 = true;
 					} else {
-						Level1Room.door3 = false;
+						Level0DottedRoom.door3 = false;
 					}
 					if ((generator.nextDouble()) < ((BackroomsConfig.getInstance().DoorChance))) {
-						Level1Room.door4 = true;
+						Level0DottedRoom.door4 = true;
 					} else {
-						Level1Room.door4 = false;
+						Level0DottedRoom.door4 = false;
 					}
 
 					switch (sliceBlock) {
@@ -295,7 +299,7 @@ public class Level1Room extends Feature<DefaultFeatureConfig> {
 						world.setBlockState(currentPosition, AIR, 2);
 						break;
 					case 5:
-						world.setBlockState(currentPosition, CEMENT_BRICKS, 2);
+						world.setBlockState(currentPosition, WALLPAPER, 2);
 						break;
 					case 6:
 						if (door1) {
@@ -318,7 +322,7 @@ public class Level1Room extends Feature<DefaultFeatureConfig> {
 								world.setBlockState(currentPosition.add(-1, 3, -1), AIR, 2);
 							}
 						} else {
-							world.setBlockState(currentPosition, CEMENT_BRICKS, 2);
+							world.setBlockState(currentPosition, WALLPAPER, 2);
 						}
 						break;
 					case 7:
@@ -340,7 +344,8 @@ public class Level1Room extends Feature<DefaultFeatureConfig> {
 								world.setBlockState(currentPosition.add(0, 3, -1), AIR, 2);
 								world.setBlockState(currentPosition.add(-1, 3, -1), AIR, 2);
 							}
-							if (generator.nextDouble() < BackroomsConfig.getInstance().PortalChance) {
+							if (generator2.nextDouble() < BackroomsConfig.getInstance().PortalChance) {
+
 								world.setBlockState(currentPosition.add(-1, 0, 0), PORTALDEBUG, 3);
 								world.getBlockTickScheduler().schedule(currentPosition.add(-1, 0, 0),
 										PORTALDEBUG.getBlock(), 0, TickPriority.HIGH);
@@ -350,7 +355,7 @@ public class Level1Room extends Feature<DefaultFeatureConfig> {
 							}
 
 						} else {
-							world.setBlockState(currentPosition, CEMENT_BRICKS, 2);
+							world.setBlockState(currentPosition, WALLPAPER, 2);
 						}
 						break;
 					case 8:
@@ -374,7 +379,7 @@ public class Level1Room extends Feature<DefaultFeatureConfig> {
 								world.setBlockState(currentPosition.add(-1, 3, 1), AIR, 2);
 							}
 						} else {
-							world.setBlockState(currentPosition, CEMENT_BRICKS, 2);
+							world.setBlockState(currentPosition, WALLPAPER, 2);
 						}
 						break;
 					case 9:
@@ -398,19 +403,23 @@ public class Level1Room extends Feature<DefaultFeatureConfig> {
 								world.setBlockState(currentPosition.add(1, 3, -1), AIR, 2);
 							}
 						} else {
-							world.setBlockState(currentPosition, CEMENT_BRICKS, 2);
+							world.setBlockState(currentPosition, WALLPAPER, 2);
 						}
 						break;
 					case 10:
-						world.setBlockState(currentPosition, CEMENT_STAIRS, 2);
+						world.setBlockState(currentPosition, CARPET_STAIRS, 2);
 						break;
 					case 1:
-						if (generator.nextDouble() < 0.00005) {
-							world.setBlockState(currentPosition.add(0, 1, 0), CHEST, 2);
-							LootableContainerBlockEntity.setLootTable(world, rand, currentPosition.add(0, 1, 0),
-									Backrooms.LEVEL1CHEST);
+						if ((generator.nextDouble()) < ((BackroomsConfig.getInstance().MoldyCarpetChance))) {
+							world.setBlockState(currentPosition, MOLDY_CARPET, 2);
+						} else {
+							if (generator.nextDouble() < 0.00005) {
+								world.setBlockState(currentPosition.add(0, 1, 0), CHEST, 2);
+								LootableContainerBlockEntity.setLootTable(world, rand, currentPosition.add(0, 1, 0),
+										Backrooms.LEVEL0CHEST);
+							}
+							world.setBlockState(currentPosition, CARPET, 2);
 						}
-						world.setBlockState(currentPosition, CEMENT, 2);
 						break;
 					}
 				}
