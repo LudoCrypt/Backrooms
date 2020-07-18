@@ -27,7 +27,7 @@ public class BuiltinModelItemRendererMixin
 	{
 		if(itemStack.getItem() == END_PORTAL_ITEM)
 		{
-			EndPortalRenderer.render(matrix, vertexConsumerProvider, 0);
+			EndPortalRenderer.renderInHand(matrix, vertexConsumerProvider, 0);
 			callbackInfo.cancel();
 		}
 	}

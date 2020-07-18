@@ -10,7 +10,7 @@
         "name": "backrooms:music/ambient/lining_the_walls",
         "volume": 0.8,
         "stream": true,
-        "weight": 3
+        "weight": 2
 	},
 	{
         "name": "backrooms:music/ambient/parallax",
@@ -24,7 +24,11 @@
         "name": "backrooms:music/ambient/backrooms",
         "stream": true,
         "volume": 0.35,
-        "weight": 3
+        "weight": 2
+	},
+	{
+        "name": "backrooms:music/ambient/foggy_hands",
+        "stream": true
 	}
     ]
   },
@@ -50,20 +54,41 @@
 	{
         "name": "backrooms:music/ambient/cracked_tiles",
         "stream": true,
-        "weight": 3
+        "weight": 2
+	},
+	{
+        "name": "backrooms:music/ambient/foggy_hands",
+        "stream": true
 	}
     ]
   },
-  "music.general": {
+    "level.2.music": {
    "category": "music",
     "sounds": [
 	{
-        "name": "backrooms:music/ambient/backrooms",
-        "volume": 0.35,
+        "name": "backrooms:music/ambient/the_halls_lengthen",
+        "stream": true,
+        "volume": 0.5,
+        "weight": 2
+	},
+	{
+        "name": "backrooms:music/ambient/foggy_hands",
+        "stream": true
+	},
+	{
+        "name": "backrooms:music/ambient/parallax",
+        "stream": true
+	},
+	{
+        "name": "backrooms:music/ambient/kirifiki",
+        "stream": true,
+        "weight": 2
+	},
+	{
+        "name": "backrooms:music/ambient/reposition",
         "stream": true
 	}
-    ],
-  "subtitle": "music.general.menu"
+    ]
   },
   "music_disc.its_been_so_long": {
     "sounds": [
@@ -131,6 +156,64 @@
       },
       {
         "name": "backrooms:gulp/gulp3"
+      }
+    ]
+  },
+    "level.0.ambience": {
+    "sounds": [
+	        {
+        "name": "backrooms:ambient/breath1"
+      },
+	  	        {
+        "name": "backrooms:ambient/breath2"
+      },
+	  	        {
+        "name": "backrooms:ambient/breath3"
+      },
+	  	        {
+        "name": "backrooms:ambient/breath4"
+      },
+	  	        {
+        "name": "backrooms:ambient/harp1"
+      },
+	  	        {
+        "name": "backrooms:ambient/harp2"
+      },
+	  	        {
+        "name": "backrooms:ambient/harp3"
+      },
+	  	        {
+        "name": "backrooms:ambient/knock1"
+      },
+	  	        {
+        "name": "backrooms:ambient/knock2"
+      },
+	  	        {
+        "name": "backrooms:ambient/knock3"
+      },
+	  	        {
+        "name": "backrooms:ambient/synth1"
+      },
+	  	        {
+        "name": "backrooms:ambient/synth2"
+      },
+	  	        {
+        "name": "backrooms:ambient/synth3"
+      },
+	  	        {
+        "name": "backrooms:ambient/tone1"
+      },
+	  	        {
+        "name": "backrooms:ambient/tone2"
+      },
+	  	        {
+        "name": "backrooms:ambient/tone3"
+      },
+	  	        {
+        "name": "backrooms:ambient/tone4"
+      },
+	  	        {
+        "name": "backrooms:ambient/whistle1"
       }
     ]
   }

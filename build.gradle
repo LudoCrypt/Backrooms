@@ -30,12 +30,12 @@ dependencies {
 	mappings "net.fabricmc:yarn:${project.yarn_mappings}:v2"
 	modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
 	modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
-	
-	modImplementation 'com.github.qouteall:ImmersivePortalsMod:v0.31-1.15'
-	modApi "me.sargunvohra.mcmods:autoconfig1u:2.1.0"
+	modImplementation "io.github.prospector:modmenu:1.10.2+build.35"
 	include(modImplementation('com.github.Chocohead:Fabric-ASM:v2.0.1'))
-	include "me.sargunvohra.mcmods:autoconfig1u:2.1.0"
-
+	modApi "me.sargunvohra.mcmods:autoconfig1u:2.2.0"
+	include "me.sargunvohra.mcmods:autoconfig1u:2.2.0"
+	modApi "me.shedaniel.cloth:config-2:2.14.2"
+	include "me.shedaniel.cloth:config-2:2.14.2"
 }
 
 processResources {

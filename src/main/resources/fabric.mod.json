@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "id": "backrooms",
-  "version": "0.1.5",
+  "version": "0.1.6",
 
   "name": "The Backrooms",
   "description": "The backrooms, endless mono yellow rooms to traverse.",
@@ -22,7 +22,7 @@
   "entrypoints": {
    "main": ["net.ludocrypt.backrooms.Backrooms"],
    "client": ["net.ludocrypt.backrooms.BackroomsClient"],
-   "modmenu": ["net.ludocrypt.backrooms.config.ModMenuBackroomsConfig"],
+   "modmenu": ["net.ludocrypt.backrooms.config.ModMenuConfig"],
    "mm:early_risers": ["net.ludocrypt.backrooms.misc.PreInitialize::initialize"]
   },
   "mixins": [

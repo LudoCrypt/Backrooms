@@ -1,0 +1,18 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "#L"
+    ],
+    "key": {
+        "#": {
+            "item": "minecraft:white_concrete"
+        },
+        "L": {
+            "item": "minecraft:light_gray_concrete"
+        }
+    },
+    "result": {
+        "item": "backrooms:cement",
+        "count": 2
+    }
+}

@@ -1,7 +1,5 @@
 package net.ludocrypt.backrooms;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 import java.util.Set;
 import java.util.function.Consumer;
@@ -10,46 +8,43 @@ import java.util.function.Supplier;
 import com.google.common.collect.Sets;
 
 import me.sargunvohra.mcmods.autoconfig1u.AutoConfig;
-import me.sargunvohra.mcmods.autoconfig1u.serializer.JanksonConfigSerializer;
-import me.sargunvohra.mcmods.autoconfig1u.shadowed.blue.endless.jankson.annotation.Nullable;
+import me.sargunvohra.mcmods.autoconfig1u.serializer.GsonConfigSerializer;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.event.registry.RegistryEntryAddedCallback;
 import net.ludocrypt.backrooms.biome.Level0;
 import net.ludocrypt.backrooms.biome.Level0Dotted;
 import net.ludocrypt.backrooms.biome.Level0Red;
 import net.ludocrypt.backrooms.biome.Level1;
+import net.ludocrypt.backrooms.biome.Level2;
 import net.ludocrypt.backrooms.blocks.BackroomsSlab;
 import net.ludocrypt.backrooms.blocks.BackroomsStairs;
 import net.ludocrypt.backrooms.blocks.Carpet;
 import net.ludocrypt.backrooms.blocks.Cement;
 import net.ludocrypt.backrooms.blocks.Cement_Bricks;
+import net.ludocrypt.backrooms.blocks.Checkered_Block;
 import net.ludocrypt.backrooms.blocks.Light;
+import net.ludocrypt.backrooms.blocks.Pipe;
 import net.ludocrypt.backrooms.blocks.Poolstone;
 import net.ludocrypt.backrooms.blocks.Poolstone_Bricks;
 import net.ludocrypt.backrooms.blocks.Poolstone_Path;
 import net.ludocrypt.backrooms.blocks.Poolstone_Tile;
-import net.ludocrypt.backrooms.blocks.PortalDebug;
 import net.ludocrypt.backrooms.blocks.Smooth_Poolstone;
 import net.ludocrypt.backrooms.blocks.Tile;
+import net.ludocrypt.backrooms.blocks.TornWallpaper;
 import net.ludocrypt.backrooms.blocks.VoidBlock;
 import net.ludocrypt.backrooms.blocks.Wall;
 import net.ludocrypt.backrooms.blocks.Wallpaper;
 import net.ludocrypt.backrooms.blocks.entity.VoidBlockEntity;
 import net.ludocrypt.backrooms.config.BackroomsConfig;
-import net.ludocrypt.backrooms.dimension.Level0DimensionType;
-import net.ludocrypt.backrooms.dimension.Level0DottedDimensionType;
-import net.ludocrypt.backrooms.dimension.Level0RedDimensionType;
-import net.ludocrypt.backrooms.dimension.Level1DimensionType;
+import net.ludocrypt.backrooms.dimension.BackroomsDimensionTypes;
 import net.ludocrypt.backrooms.items.AlmondWaterItem;
 import net.ludocrypt.backrooms.items.BackroomsMusicDiscItem;
 import net.ludocrypt.backrooms.items.RawAlmondWaterItem;
+import net.ludocrypt.backrooms.items.Wrench;
 import net.ludocrypt.backrooms.misc.BackroomsSoundEvents;
-import net.ludocrypt.backrooms.misc.OverworldPortalEntity;
 import net.minecraft.block.Block;
-import net.minecraft.block.Blocks;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityType;
-import net.minecraft.block.pattern.BlockPattern;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.BlockItem;
@@ -57,12 +52,10 @@ import net.minecraft.item.FoodComponent;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
-import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Rarity;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.dimension.DimensionType;
@@ -79,9 +72,7 @@ public class Backrooms implements ModInitializer {
 	public static final Identifier LEVEL1CHEST = register("backrooms:chests/level1");
 	// variables
 	public static boolean Display = false;
-//	public static boolean teleported = false;
-//	public static boolean teleported_home = false;
-//	public static String teleporteduuid = "";
+	public static int DisplayLevel = 0;
 	public static final String MOD_ID = "backrooms";
 
 	// items
@@ -89,15 +80,19 @@ public class Backrooms implements ModInitializer {
 			.food(new FoodComponent.Builder().hunger(3).snack().alwaysEdible().saturationModifier(1).build()));
 	public static final Item ALMOND_WATER = new AlmondWaterItem(new Item.Settings().group(ItemGroup.FOOD)
 			.food(new FoodComponent.Builder().alwaysEdible().snack().saturationModifier(17).hunger(9).build()));
+	public static final Item WRENCH = new Wrench(new Item.Settings().group(ItemGroup.MISC).maxCount(1));
+
 	// blocks
 	public static final Block WALLPAPER = new Wallpaper();
+	public static final Block DOTTED_WALLPAPER = new Wallpaper();
+	public static final Block RED_WALLPAPER = new Wallpaper();
+	public static final Block TORN_WALLPAPER = new TornWallpaper();
 	public static final Block LIGHT = new Light();
 	public static final Block WALL = new Wall();
 	public static final Block CARPET = new Carpet();
 	public static final Block CARPET_STAIRS = new BackroomsStairs(CARPET.getDefaultState(),
 			Block.Settings.copy(CARPET));
 	public static final Block TILE = new Tile();
-	public static final Block PORTALDEBUG = new PortalDebug();
 	public static final Block CEMENT = new Cement();
 	public static final Block CEMENT_STAIRS = new BackroomsStairs(CEMENT.getDefaultState(),
 			Block.Settings.copy(CEMENT));
@@ -130,15 +125,38 @@ public class Backrooms implements ModInitializer {
 	public static final Block POOLSTONE_BRICK_SLAB = new BackroomsSlab(Block.Settings.copy(POOLSTONE_BRICKS));
 	// hm
 	public static final Block VOID_BLOCK = new VoidBlock();
+	public static BlockEntityType<VoidBlockEntity> VOID_BLOCK_ENTITY;
+	public static final Block PIPE = new Pipe();
+	// checkered
+	public static final Block CHECKERED_BLOCK = new Checkered_Block();
+	// colours
+	public static final Block BLACK_CHECKERED = new Checkered_Block();
+	public static final Block BLUE_CHECKERED = new Checkered_Block();
+	public static final Block BROWN_CHECKERED = new Checkered_Block();
+	public static final Block CYAN_CHECKERED = new Checkered_Block();
+	public static final Block GRAY_CHECKERED = new Checkered_Block();
+	public static final Block GREEN_CHECKERED = new Checkered_Block();
+	public static final Block LIGHT_BLUE_CHECKERED = new Checkered_Block();
+	public static final Block LIGHT_GRAY_CHECKERED = new Checkered_Block();
+	public static final Block LIME_CHECKERED = new Checkered_Block();
+	public static final Block MAGENTA_CHECKERED = new Checkered_Block();
+	public static final Block ORANGE_CHECKERED = new Checkered_Block();
+	public static final Block PINK_CHECKERED = new Checkered_Block();
+	public static final Block PURPLE_CHECKERED = new Checkered_Block();
+	public static final Block RED_CHECKERED = new Checkered_Block();
+	public static final Block WHITE_CHECKERED = new Checkered_Block();
+	public static final Block YELLOW_CHECKERED = new Checkered_Block();
 	// biomes
 	public static final Biome LEVEL0 = Registry.register(Registry.BIOME, new Identifier("backrooms", "level0"),
 			new Level0());
 	public static final Biome LEVEL0RED = Registry.register(Registry.BIOME, new Identifier("backrooms", "level0red"),
 			new Level0Red());
-	public static final Biome LEVEL0DOTTED = Registry.register(Registry.BIOME, new Identifier("backrooms", "level0dotted"),
-			new Level0Dotted());
+	public static final Biome LEVEL0DOTTED = Registry.register(Registry.BIOME,
+			new Identifier("backrooms", "level0dotted"), new Level0Dotted());
 	public static final Biome LEVEL1 = Registry.register(Registry.BIOME, new Identifier("backrooms", "level1"),
 			new Level1());
+	public static final Biome LEVEL2 = Registry.register(Registry.BIOME, new Identifier("backrooms", "level2"),
+			new Level2());
 	// record discs
 	public static final Item MUSIC_DISC_GLACIAL_CAVERN = new BackroomsMusicDiscItem(1,
 			BackroomsSoundEvents.MUSIC_DISC_GLACIAL_CAVERN,
@@ -179,42 +197,25 @@ public class Backrooms implements ModInitializer {
 		return new Identifier(MOD_ID, id);
 	}
 
-
-	public static void makePortalFromBlock(ServerWorld world, BlockPos pos) {
-		world.setBlockState(pos, Blocks.AIR.getDefaultState(), 2);
-		if (BackroomsConfig.getInstance().TallDoors) {
-			BlockPattern.Result pattern = PortalDebug.tallDoor().searchAround(world, pos);
-			BlockPattern.Result pattern2 = PortalDebug.tallDoor().searchAround(world, pos.add(0, 0, -1));
-			if (pattern != null && pattern2 != null) {
-				OverworldPortalEntity.tallDoor(world, pos, pattern);
-			}
-		} else {
-			BlockPattern.Result pattern3 = PortalDebug.shortDoor().searchAround(world, pos);
-			BlockPattern.Result pattern4 = PortalDebug.shortDoor().searchAround(world, pos.add(0, 0, -1));
-			if (pattern3 != null && pattern4 != null) {
-				OverworldPortalEntity.shortDoor(world, pos, pattern3);
-			}
-		}
-	}
-
 	@Override
 	public void onInitialize() {
+
 		// dimensions
-		Level0DimensionType.register();
-		Level0RedDimensionType.register();
-		Level0DottedDimensionType.register();
-		Level1DimensionType.register();
+		BackroomsDimensionTypes.register();
 		// items
 		Registry.register(Registry.ITEM, new Identifier("backrooms", "almond_water"), ALMOND_WATER);
 		Registry.register(Registry.ITEM, new Identifier("backrooms", "raw_almond_water"), RAW_ALMOND_WATER);
+		Registry.register(Registry.ITEM, new Identifier("backrooms", "wrench"), WRENCH);
 		// blocks
 		Registry.register(Registry.BLOCK, new Identifier("backrooms", "wallpaper"), WALLPAPER);
+		Registry.register(Registry.BLOCK, new Identifier("backrooms", "dotted_wallpaper"), DOTTED_WALLPAPER);
+		Registry.register(Registry.BLOCK, new Identifier("backrooms", "red_wallpaper"), RED_WALLPAPER);
+		Registry.register(Registry.BLOCK, new Identifier("backrooms", "torn_wallpaper"), TORN_WALLPAPER);
 		Registry.register(Registry.BLOCK, new Identifier("backrooms", "wall"), WALL);
 		Registry.register(Registry.BLOCK, new Identifier("backrooms", "carpet"), CARPET);
 		Registry.register(Registry.BLOCK, new Identifier("backrooms", "carpet_stairs"), CARPET_STAIRS);
 		Registry.register(Registry.BLOCK, new Identifier("backrooms", "light"), LIGHT);
 		Registry.register(Registry.BLOCK, new Identifier("backrooms", "tile"), TILE);
-		Registry.register(Registry.BLOCK, new Identifier("backrooms", "portaldebug"), PORTALDEBUG);
 		Registry.register(Registry.BLOCK, new Identifier("backrooms", "cement"), CEMENT);
 		Registry.register(Registry.BLOCK, new Identifier("backrooms", "cement_stairs"), CEMENT_STAIRS);
 		Registry.register(Registry.BLOCK, new Identifier("backrooms", "cement_bricks"), CEMENT_BRICKS);
@@ -241,9 +242,35 @@ public class Backrooms implements ModInitializer {
 		Registry.register(Registry.BLOCK, new Identifier("backrooms", "poolstone_tile_slab"), POOLSTONE_TILE_SLAB);
 		Registry.register(Registry.BLOCK, new Identifier("backrooms", "poolstone_brick_slab"), POOLSTONE_BRICK_SLAB);
 
+		Registry.register(Registry.BLOCK, new Identifier("backrooms", "pipe"), PIPE);
+
+		// checkered
+		Registry.register(Registry.BLOCK, new Identifier("backrooms", "black_checkered"), BLACK_CHECKERED);
+		Registry.register(Registry.BLOCK, new Identifier("backrooms", "blue_checkered"), BLUE_CHECKERED);
+		Registry.register(Registry.BLOCK, new Identifier("backrooms", "brown_checkered"), BROWN_CHECKERED);
+		Registry.register(Registry.BLOCK, new Identifier("backrooms", "cyan_checkered"), CYAN_CHECKERED);
+		Registry.register(Registry.BLOCK, new Identifier("backrooms", "gray_checkered"), GRAY_CHECKERED);
+		Registry.register(Registry.BLOCK, new Identifier("backrooms", "green_checkered"), GREEN_CHECKERED);
+		Registry.register(Registry.BLOCK, new Identifier("backrooms", "light_blue_checkered"), LIGHT_BLUE_CHECKERED);
+		Registry.register(Registry.BLOCK, new Identifier("backrooms", "light_gray_checkered"), LIGHT_GRAY_CHECKERED);
+		Registry.register(Registry.BLOCK, new Identifier("backrooms", "lime_checkered"), LIME_CHECKERED);
+		Registry.register(Registry.BLOCK, new Identifier("backrooms", "magenta_checkered"), MAGENTA_CHECKERED);
+		Registry.register(Registry.BLOCK, new Identifier("backrooms", "orange_checkered"), ORANGE_CHECKERED);
+		Registry.register(Registry.BLOCK, new Identifier("backrooms", "pink_checkered"), PINK_CHECKERED);
+		Registry.register(Registry.BLOCK, new Identifier("backrooms", "purple_checkered"), PURPLE_CHECKERED);
+		Registry.register(Registry.BLOCK, new Identifier("backrooms", "red_checkered"), RED_CHECKERED);
+		Registry.register(Registry.BLOCK, new Identifier("backrooms", "white_checkered"), WHITE_CHECKERED);
+		Registry.register(Registry.BLOCK, new Identifier("backrooms", "yellow_checkered"), YELLOW_CHECKERED);
+
 		// blockitems
 		Registry.register(Registry.ITEM, new Identifier("backrooms", "wallpaper"),
 				new BlockItem(WALLPAPER, new Item.Settings().group(ItemGroup.BUILDING_BLOCKS)));
+		Registry.register(Registry.ITEM, new Identifier("backrooms", "dotted_wallpaper"),
+				new BlockItem(DOTTED_WALLPAPER, new Item.Settings().group(ItemGroup.BUILDING_BLOCKS)));
+		Registry.register(Registry.ITEM, new Identifier("backrooms", "red_wallpaper"),
+				new BlockItem(RED_WALLPAPER, new Item.Settings().group(ItemGroup.BUILDING_BLOCKS)));
+		Registry.register(Registry.ITEM, new Identifier("backrooms", "torn_wallpaper"),
+				new BlockItem(TORN_WALLPAPER, new Item.Settings().group(ItemGroup.BUILDING_BLOCKS)));
 		Registry.register(Registry.ITEM, new Identifier("backrooms", "wall"),
 				new BlockItem(WALL, new Item.Settings().group(ItemGroup.BUILDING_BLOCKS)));
 		Registry.register(Registry.ITEM, new Identifier("backrooms", "carpet"),
@@ -298,6 +325,47 @@ public class Backrooms implements ModInitializer {
 		Registry.register(Registry.ITEM, new Identifier("backrooms", "poolstone_brick_slab"),
 				new BlockItem(POOLSTONE_BRICK_SLAB, new Item.Settings().group(ItemGroup.BUILDING_BLOCKS)));
 
+		Registry.register(Registry.ITEM, new Identifier("backrooms", "pipe"),
+				new BlockItem(PIPE, new Item.Settings().group(ItemGroup.BUILDING_BLOCKS)));
+		// checkered
+
+		Registry.register(Registry.ITEM, new Identifier("backrooms", "white_checkered"),
+				new BlockItem(WHITE_CHECKERED, new Item.Settings().group(ItemGroup.BUILDING_BLOCKS)));
+		Registry.register(Registry.ITEM, new Identifier("backrooms", "orange_checkered"),
+				new BlockItem(ORANGE_CHECKERED, new Item.Settings().group(ItemGroup.BUILDING_BLOCKS)));
+		Registry.register(Registry.ITEM, new Identifier("backrooms", "magenta_checkered"),
+				new BlockItem(MAGENTA_CHECKERED, new Item.Settings().group(ItemGroup.BUILDING_BLOCKS)));
+		Registry.register(Registry.ITEM, new Identifier("backrooms", "light_blue_checkered"),
+				new BlockItem(LIGHT_BLUE_CHECKERED, new Item.Settings().group(ItemGroup.BUILDING_BLOCKS)));
+		Registry.register(Registry.ITEM, new Identifier("backrooms", "yellow_checkered"),
+				new BlockItem(YELLOW_CHECKERED, new Item.Settings().group(ItemGroup.BUILDING_BLOCKS)));
+		Registry.register(Registry.ITEM, new Identifier("backrooms", "lime_checkered"),
+				new BlockItem(LIME_CHECKERED, new Item.Settings().group(ItemGroup.BUILDING_BLOCKS)));
+		Registry.register(Registry.ITEM, new Identifier("backrooms", "pink_checkered"),
+				new BlockItem(PINK_CHECKERED, new Item.Settings().group(ItemGroup.BUILDING_BLOCKS)));
+		Registry.register(Registry.ITEM, new Identifier("backrooms", "gray_checkered"),
+				new BlockItem(GRAY_CHECKERED, new Item.Settings().group(ItemGroup.BUILDING_BLOCKS)));
+		Registry.register(Registry.ITEM, new Identifier("backrooms", "light_gray_checkered"),
+				new BlockItem(LIGHT_GRAY_CHECKERED, new Item.Settings().group(ItemGroup.BUILDING_BLOCKS)));
+		Registry.register(Registry.ITEM, new Identifier("backrooms", "cyan_checkered"),
+				new BlockItem(CYAN_CHECKERED, new Item.Settings().group(ItemGroup.BUILDING_BLOCKS)));
+		Registry.register(Registry.ITEM, new Identifier("backrooms", "purple_checkered"),
+				new BlockItem(PURPLE_CHECKERED, new Item.Settings().group(ItemGroup.BUILDING_BLOCKS)));
+		Registry.register(Registry.ITEM, new Identifier("backrooms", "blue_checkered"),
+				new BlockItem(BLUE_CHECKERED, new Item.Settings().group(ItemGroup.BUILDING_BLOCKS)));
+		Registry.register(Registry.ITEM, new Identifier("backrooms", "brown_checkered"),
+				new BlockItem(BROWN_CHECKERED, new Item.Settings().group(ItemGroup.BUILDING_BLOCKS)));
+		Registry.register(Registry.ITEM, new Identifier("backrooms", "green_checkered"),
+				new BlockItem(GREEN_CHECKERED, new Item.Settings().group(ItemGroup.BUILDING_BLOCKS)));
+		Registry.register(Registry.ITEM, new Identifier("backrooms", "red_checkered"),
+				new BlockItem(RED_CHECKERED, new Item.Settings().group(ItemGroup.BUILDING_BLOCKS)));
+		Registry.register(Registry.ITEM, new Identifier("backrooms", "black_checkered"),
+				new BlockItem(BLACK_CHECKERED, new Item.Settings().group(ItemGroup.BUILDING_BLOCKS)));
+
+		// hm
+//		Registry.register(Registry.ITEM, new Identifier("backrooms", "void_block"),
+//				new BlockItem(VOID_BLOCK, new Item.Settings().group(ItemGroup.MISC)));
+
 		// music discs
 		Registry.register(Registry.ITEM, new Identifier("backrooms", "music_disc_glacial_cavern"),
 				MUSIC_DISC_GLACIAL_CAVERN);
@@ -309,29 +377,29 @@ public class Backrooms implements ModInitializer {
 		Registry.register(Registry.ITEM, new Identifier("backrooms", "music_disc_burgers_and_fries"),
 				MUSIC_DISC_BURGERS_AND_FRIES);
 		Registry.register(Registry.ITEM, new Identifier("backrooms", "music_disc_012"), MUSIC_DISC_012);
-		// Config
-		AutoConfig.register(BackroomsConfig.class, JanksonConfigSerializer::new);
+		// config
+		AutoConfig.register(BackroomsConfig.class, GsonConfigSerializer::new);
 		// Ore Generation
 		Registry.BIOME.forEach(this::handleBiome);
 		RegistryEntryAddedCallback.event(Registry.BIOME).register((i, identifier, biome) -> handleBiome(biome));
-		registerBlockEntities();
-	}
+		registerBlockEntity("void_block", VOID_BLOCK, VoidBlockEntity::new,
+				(blockEntityType) -> VoidBlockEntity.blockEntityType = blockEntityType);
 
-	private List<ItemStack> registerBlockEntities() {
-		List<ItemStack> items = new ArrayList<ItemStack>(1);
-		items.add(registerBlockEntity("void_block", new VoidBlock(), VoidBlockEntity::new,
-				(blockEntityType) -> VoidBlockEntity.blockEntityType = blockEntityType));
-		return items;
 	}
 
 	@SuppressWarnings("rawtypes")
 	private <T extends BlockEntity> ItemStack registerBlockEntity(String identifier, Block block,
 			Supplier<? extends T> blockEntitySupplier, Consumer<BlockEntityType> blockEntityConsumer) {
+
 		Registry.register(Registry.BLOCK, getId(identifier), block);
+
 		BlockEntityType blockEntityType = Registry.register(Registry.BLOCK_ENTITY_TYPE, getId(identifier),
 				BlockEntityType.Builder.create(blockEntitySupplier, block).build(null));
+
 		blockEntityConsumer.accept(blockEntityType);
-		BlockItem blockItem = new BlockItem(block, new Item.Settings().group(ItemGroup.BUILDING_BLOCKS));
+
+		BlockItem blockItem = new BlockItem(block, new Item.Settings().group(ItemGroup.MISC));
+
 		Registry.register(Registry.ITEM, getId(identifier), blockItem);
 
 		return new ItemStack(blockItem);
@@ -349,17 +417,15 @@ public class Backrooms implements ModInitializer {
 		}
 	}
 
-	public static void ambientSoundGenerator(PlayerEntity target, SoundEvent sound, @Nullable SoundCategory category,
+	public static void ambientSoundGenerator(PlayerEntity target, SoundEvent sound, SoundCategory category,
 			float volume, float pitch, Random random) {
 		float d = volume + random.nextFloat();
 		float e = pitch + random.nextFloat();
 		target.playSound(sound, category, d, e);
-
 	}
 
-	public static void teleportPlayer(Entity entity, DimensionType dimension) {
-		entity.removeAllPassengers();
-		entity.stopRiding();
-		entity.changeDimension(dimension);
+	public static void teleportPlayer(Entity entity, DimensionType newDimension) {
+		entity.changeDimension(newDimension);
 	}
+
 }

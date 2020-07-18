@@ -1,8 +1,5 @@
 {	
 	"variants": {
-		"red=false,dotted=false": { "model": "backrooms:block/wallpaper"},
-		"red=true,dotted=false": { "model": "backrooms:block/red_wallpaper"},
-		"red=false,dotted=true": { "model": "backrooms:block/dotted_wallpaper"},
-		"red=true,dotted=true": { "model": "backrooms:block/dotted_red_wallpaper"}
+		"": { "model": "backrooms:block/wallpaper"}
 	}
 }

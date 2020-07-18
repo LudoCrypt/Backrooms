@@ -1,0 +1,29 @@
+{
+  "display": {
+    "icon": {
+      "item": "backrooms:pipe"
+    },
+    "title": {
+      "translate": "advancements.level2.title"
+    },
+    "description": {
+      "translate": "advancements.level2.descr"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": true
+  },
+  "criteria": {
+    "level_2": {
+      "trigger": "minecraft:changed_dimension",
+      "conditions": {
+        "to": "backrooms:level2"
+      }
+    }
+  },
+  "rewards": {
+    "experience": 10
+  },
+  "parent": "backrooms:level_1"
+}

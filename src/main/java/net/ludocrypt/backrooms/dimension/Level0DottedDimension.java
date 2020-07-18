@@ -18,7 +18,7 @@ import net.minecraft.world.gen.chunk.ChunkGeneratorType;
 import net.minecraft.world.gen.chunk.OverworldChunkGeneratorConfig;
 
 public class Level0DottedDimension extends Dimension {
-	private static final Vec3d FOG_COLOR = new Vec3d(0.54, 0.44, 0.16);
+	private static final Vec3d FOG_COLOR = new Vec3d(0.9, 0.9, 0.5);
 
 	public Level0DottedDimension(World world, DimensionType type) {
 		super(world, type, 0.1f);
@@ -53,7 +53,7 @@ public class Level0DottedDimension extends Dimension {
 
 	@Override
 	public float getSkyAngle(long worldTime, float tickDelta) {
-		final int dayLength = 120000;
+		final int dayLength = 800;
 		double daysPassed = ((double) worldTime + tickDelta) / dayLength;
 		return (float) MathHelper.fractionalPart(daysPassed - 0.25);
 	}
@@ -71,12 +71,12 @@ public class Level0DottedDimension extends Dimension {
 	@Environment(EnvType.CLIENT)
 	@Override
 	public boolean isFogThick(int x, int z) {
-		return false;
+		return true;
 	}
 
 	@Override
 	public DimensionType getType() {
-		return Level0DottedDimensionType.LEVEL0DOTTED;
+		return BackroomsDimensionTypes.LEVEL0DOTTED;
 	}
 
 	@Environment(EnvType.CLIENT)

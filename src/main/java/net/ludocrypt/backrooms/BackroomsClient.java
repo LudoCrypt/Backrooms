@@ -37,9 +37,7 @@ public class BackroomsClient implements ClientModInitializer {
 	@SuppressWarnings("unchecked")
 	private <E extends BlockEntity> void registerBlockEntityRenderer(String identifier,
 			Function<BlockEntityRenderDispatcher, BlockEntityRenderer<E>> blockEntityRenderer) {
-		BlockEntityRendererRegistry.INSTANCE.register(
-				(BlockEntityType<E>) Registry.BLOCK_ENTITY_TYPE.get(Backrooms.getId(identifier)),
-				blockEntityRenderer);
+		BlockEntityRendererRegistry.INSTANCE.register((BlockEntityType<E>) Registry.BLOCK_ENTITY_TYPE.get(Backrooms.getId(identifier)), blockEntityRenderer);
 	}
 
 }

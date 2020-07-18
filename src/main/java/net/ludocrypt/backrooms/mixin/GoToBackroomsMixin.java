@@ -7,7 +7,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import net.ludocrypt.backrooms.Backrooms;
 import net.ludocrypt.backrooms.config.BackroomsConfig;
-import net.ludocrypt.backrooms.dimension.Level0DimensionType;
+import net.ludocrypt.backrooms.dimension.BackroomsDimensionTypes;
 import net.minecraft.block.Blocks;
 import net.minecraft.entity.thrown.ThrownEnderpearlEntity;
 import net.minecraft.server.network.ServerPlayerEntity;
@@ -32,10 +32,10 @@ public class GoToBackroomsMixin {
 					|| world.getBlockState(new BlockPos(hitBlockPos.add(0, 0.1D, 0))).getBlock() != Blocks.AIR
 					|| world.getBlockState(new BlockPos(hitBlockPos.add(0, -0.1D, 0))).getBlock() != Blocks.AIR) {
 				if (Math.random() < (BackroomsConfig.getInstance().EnderPearlChance)) {
-					if ((playerEntity.dimension != Level0DimensionType.LEVEL0)) {
+					if ((playerEntity.dimension != BackroomsDimensionTypes.LEVEL0)) {
 						ci.cancel();
 						pearlEntity.kill();
-						Backrooms.teleportPlayer(playerEntity, Level0DimensionType.LEVEL0);
+						Backrooms.teleportPlayer(playerEntity, BackroomsDimensionTypes.LEVEL0);
 					}
 				}
 

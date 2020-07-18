@@ -53,7 +53,7 @@ public class Level0RedDimension extends Dimension {
 
 	@Override
 	public float getSkyAngle(long worldTime, float tickDelta) {
-		final int dayLength = 120000;
+		final int dayLength = 400;
 		double daysPassed = ((double) worldTime + tickDelta) / dayLength;
 		return (float) MathHelper.fractionalPart(daysPassed - 0.25);
 	}
@@ -76,7 +76,7 @@ public class Level0RedDimension extends Dimension {
 
 	@Override
 	public DimensionType getType() {
-		return Level0RedDimensionType.LEVEL0RED;
+		return BackroomsDimensionTypes.LEVEL0RED;
 	}
 
 	@Environment(EnvType.CLIENT)

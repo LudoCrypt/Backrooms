@@ -19,7 +19,6 @@ import net.minecraft.block.enums.StairShape;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.IWorld;
-import net.minecraft.world.TickPriority;
 import net.minecraft.world.gen.chunk.ChunkGenerator;
 import net.minecraft.world.gen.chunk.ChunkGeneratorConfig;
 import net.minecraft.world.gen.feature.DefaultFeatureConfig;
@@ -124,9 +123,9 @@ public class Level1Room extends Feature<DefaultFeatureConfig> {
 			.with(Tile.SINGLE, true);
 	private static final BlockState LIGHT = Backrooms.LIGHT.getDefaultState();
 	private static final BlockState AIR = Blocks.AIR.getDefaultState();
-	private static final BlockState PORTALDEBUG = Backrooms.PORTALDEBUG.getDefaultState();
 	private static final BlockState CHEST = Blocks.CHEST.getDefaultState().with(ChestBlock.CHEST_TYPE, ChestType.SINGLE)
 			.with(ChestBlock.FACING, Direction.NORTH).with(ChestBlock.WATERLOGGED, false);
+	private static final BlockState VOID_BLOCK = Backrooms.VOID_BLOCK.getDefaultState();
 
 	public boolean generate(IWorld world, ChunkGenerator<? extends ChunkGeneratorConfig> changedBlock, Random rand,
 			BlockPos position, DefaultFeatureConfig config) {
@@ -141,7 +140,7 @@ public class Level1Room extends Feature<DefaultFeatureConfig> {
 
 		BlockPos.Mutable mutableBlockPos = new BlockPos.Mutable(position);
 
-		if ((generator.nextDouble()) < ((BackroomsConfig.getInstance().Level1NormalRoomChance))) {
+		if (generator.nextDouble() < 0.5) {
 			generateSlice(world, mutableBlockPos.setOffset(Direction.EAST), One, rand);
 			generateSlice(world, mutableBlockPos.setOffset(Direction.EAST), Two, rand);
 			generateSlice(world, mutableBlockPos.setOffset(Direction.EAST), Three, rand);
@@ -158,8 +157,8 @@ public class Level1Room extends Feature<DefaultFeatureConfig> {
 			generateSlice(world, mutableBlockPos.setOffset(Direction.EAST), Three, rand);
 			generateSlice(world, mutableBlockPos.setOffset(Direction.EAST), Two, rand);
 			generateSlice(world, mutableBlockPos.setOffset(Direction.EAST), Four, rand);
-		} else if ((generator.nextDouble()) < ((BackroomsConfig.getInstance().Level1PickHallwayChance))) {
-			if ((generator.nextDouble()) < ((BackroomsConfig.getInstance().Level1EastHallwayChance))) {
+		} else if (generator.nextDouble() < 0.5) {
+			if (generator.nextDouble() < 0.5) {
 				generateSlice(world, mutableBlockPos.setOffset(Direction.EAST), One, rand);
 				generateSlice(world, mutableBlockPos.setOffset(Direction.EAST), Hallway2NoLight, rand);
 				generateSlice(world, mutableBlockPos.setOffset(Direction.EAST), Hallway2Light, rand);
@@ -194,7 +193,7 @@ public class Level1Room extends Feature<DefaultFeatureConfig> {
 				generateSlice(world, mutableBlockPos.setOffset(Direction.EAST), Hallway1NoLight, rand);
 				generateSlice(world, mutableBlockPos.setOffset(Direction.EAST), Four, rand);
 			}
-		} else if (generator.nextDouble() < BackroomsConfig.getInstance().Level1PickStairChance) {
+		} else if (generator.nextDouble() < 0.3) {
 			generateSlice(world, mutableBlockPos.setOffset(Direction.EAST), One, rand);
 			generateSlice(world, mutableBlockPos.setOffset(Direction.EAST), Two, rand);
 			generateSlice(world, mutableBlockPos.setOffset(Direction.EAST), Three, rand);
@@ -236,7 +235,7 @@ public class Level1Room extends Feature<DefaultFeatureConfig> {
 
 	private void generateSlice(IWorld world, BlockPos.Mutable centerPos, int[][] slice, Random rand) {
 
-		BlockPos currentPositionOffsetted = new BlockPos(centerPos.add(-5, slice.length / 2, -slice[0].length / 2));
+		BlockPos currentPositionOffsetted = new BlockPos(centerPos.add(-1, 3, -slice[0].length));
 		BlockPos.Mutable currentPosition = new BlockPos.Mutable(currentPositionOffsetted.getX(),
 				currentPositionOffsetted.getY(), currentPositionOffsetted.getZ());
 
@@ -255,22 +254,22 @@ public class Level1Room extends Feature<DefaultFeatureConfig> {
 				if (((world.getBlockState(currentPosition).getBlock() == Backrooms.WALL)
 						|| (world.getBlockState(currentPosition).getBlock() == Blocks.BEDROCK))
 						&& (world.getBlockState(currentPosition).getBlock() != Backrooms.CEMENT_STAIRS)) {
-					if ((generator.nextDouble()) < ((BackroomsConfig.getInstance().DoorChance))) {
+					if ((generator.nextDouble()) < ((BackroomsConfig.getInstance().Level1DoorChance))) {
 						Level1Room.door1 = true;
 					} else {
 						Level1Room.door1 = false;
 					}
-					if ((generator.nextDouble()) < ((BackroomsConfig.getInstance().DoorChance))) {
+					if ((generator.nextDouble()) < ((BackroomsConfig.getInstance().Level1DoorChance))) {
 						Level1Room.door2 = true;
 					} else {
 						Level1Room.door2 = false;
 					}
-					if ((generator.nextDouble()) < ((BackroomsConfig.getInstance().DoorChance))) {
+					if ((generator.nextDouble()) < ((BackroomsConfig.getInstance().Level1DoorChance))) {
 						Level1Room.door3 = true;
 					} else {
 						Level1Room.door3 = false;
 					}
-					if ((generator.nextDouble()) < ((BackroomsConfig.getInstance().DoorChance))) {
+					if ((generator.nextDouble()) < ((BackroomsConfig.getInstance().Level1DoorChance))) {
 						Level1Room.door4 = true;
 					} else {
 						Level1Room.door4 = false;
@@ -340,11 +339,17 @@ public class Level1Room extends Feature<DefaultFeatureConfig> {
 								world.setBlockState(currentPosition.add(0, 3, -1), AIR, 2);
 								world.setBlockState(currentPosition.add(-1, 3, -1), AIR, 2);
 							}
-							if (generator.nextDouble() < BackroomsConfig.getInstance().PortalChance) {
-								world.setBlockState(currentPosition.add(-1, 0, 0), PORTALDEBUG, 3);
-								world.getBlockTickScheduler().schedule(currentPosition.add(-1, 0, 0),
-										PORTALDEBUG.getBlock(), 0, TickPriority.HIGH);
-
+							if (generator.nextDouble() < BackroomsConfig.getInstance().VBDoor) {
+								world.setBlockState(currentPosition, VOID_BLOCK, 3);
+								world.setBlockState(currentPosition.add(0, 1, 0), VOID_BLOCK, 3);
+								world.setBlockState(currentPosition.add(0, 2, 0), VOID_BLOCK, 3);
+								world.setBlockState(currentPosition.add(-1, 0, 0), VOID_BLOCK, 3);
+								world.setBlockState(currentPosition.add(-1, 1, 0), VOID_BLOCK, 3);
+								world.setBlockState(currentPosition.add(-1, 2, 0), VOID_BLOCK, 3);
+								if (BackroomsConfig.getInstance().TallDoors) {
+									world.setBlockState(currentPosition.add(0, 3, 0), VOID_BLOCK, 2);
+									world.setBlockState(currentPosition.add(-1, 3, 0), VOID_BLOCK, 2);
+								}
 							} else {
 								world.setBlockState(currentPosition.add(-1, 0, 0), AIR, 3);
 							}

@@ -10,11 +10,13 @@ public class LevelsFeatureInit {
 	public static Feature<DefaultFeatureConfig> LEVEL0REDROOM = new Level0RedRoom(DefaultFeatureConfig::deserialize);
 	public static Feature<DefaultFeatureConfig> LEVEL0DOTTEDROOM = new Level0DottedRoom(DefaultFeatureConfig::deserialize);
 	public static Feature<DefaultFeatureConfig> LEVEL1ROOM = new Level1Room(DefaultFeatureConfig::deserialize);
+	public static Feature<DefaultFeatureConfig> LEVEL2ROOM = new Level2Room(DefaultFeatureConfig::deserialize);
 
 	public static void registerFeatures() {
 		Registry.register(Registry.FEATURE, new Identifier("backrooms", "level0room"), LEVEL0ROOM);
 		Registry.register(Registry.FEATURE, new Identifier("backrooms", "level0redroom"), LEVEL0REDROOM);
 		Registry.register(Registry.FEATURE, new Identifier("backrooms", "level0dottedroom"), LEVEL0DOTTEDROOM);
 		Registry.register(Registry.FEATURE, new Identifier("backrooms", "level1room"), LEVEL1ROOM);
+		Registry.register(Registry.FEATURE, new Identifier("backrooms", "level2room"), LEVEL2ROOM);
 	}
 }

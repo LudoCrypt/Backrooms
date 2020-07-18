@@ -23,7 +23,10 @@ public interface PreInitialize {
 		ClassTinkerers.enumBuilder(musicType, 'L' + soundEvent + ';', "I", "I")
 				.addEnum("LEVEL0MUSIC", () -> new Object[] { BackroomsSoundEvents.LEVEL0MUSIC, 12000, 36000 })
 				.addEnum("LEVEL1MUSIC", () -> new Object[] { BackroomsSoundEvents.LEVEL1MUSIC, 12000, 36000 })
-				.addEnum("BACKROOMSMENU", () -> new Object[] { BackroomsSoundEvents.BACKROOMSMENU, 50, 1000 })
+				.addEnum("LEVEL2MUSIC", () -> new Object[] { BackroomsSoundEvents.LEVEL2MUSIC, 12000, 36000 })
+				.addEnum("LEVEL0MENU", () -> new Object[] { BackroomsSoundEvents.LEVEL0MUSIC, 100, 300 })
+				.addEnum("LEVEL1MENU", () -> new Object[] { BackroomsSoundEvents.LEVEL1MUSIC, 100, 300 })
+				.addEnum("LEVEL2MENU", () -> new Object[] { BackroomsSoundEvents.LEVEL2MUSIC, 100, 300 })
 				.build();
 	}
 }

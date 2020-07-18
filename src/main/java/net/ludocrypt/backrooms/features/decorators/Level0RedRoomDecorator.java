@@ -24,7 +24,7 @@ public class Level0RedRoomDecorator extends Decorator<NopeDecoratorConfig> {
 	public Stream<BlockPos> getPositions(IWorld world, ChunkGenerator<? extends ChunkGeneratorConfig> chunkGenerator,
 			Random rand, NopeDecoratorConfig placementConfig, BlockPos pos) {
 
-		BlockPos.Mutable mutableBlockPos = new BlockPos.Mutable(pos.getX() - 12, -2, pos.getZ() + 8);
+		BlockPos.Mutable mutableBlockPos = new BlockPos.Mutable(pos.getX(), 0, pos.getZ());
 		List<BlockPos> blockPosList = new ArrayList<BlockPos>();
 		mutableBlockPos.setOffset(0, 6, 0);
 		blockPosList.add(mutableBlockPos.toImmutable());
