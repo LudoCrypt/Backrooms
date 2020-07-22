@@ -35,7 +35,7 @@ public class GoToBackroomsMixin {
 					if ((playerEntity.dimension != BackroomsDimensionTypes.LEVEL0)) {
 						ci.cancel();
 						pearlEntity.kill();
-						Backrooms.teleportPlayer(playerEntity, BackroomsDimensionTypes.LEVEL0);
+						Backrooms.teleportedEntity = playerEntity;
 					}
 				}
 

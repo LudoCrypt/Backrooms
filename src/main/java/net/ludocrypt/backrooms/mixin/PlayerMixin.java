@@ -27,7 +27,10 @@ public class PlayerMixin {
 						Backrooms.teleportPlayer(playerEntity, BackroomsDimensionTypes.LEVEL0);
 					}
 				}
-
+			}
+			if (Backrooms.teleportedEntity == playerEntity) {
+				Backrooms.teleportPlayer(playerEntity, BackroomsDimensionTypes.LEVEL0);
+				Backrooms.teleportedEntity = null;
 			}
 		}
 	}

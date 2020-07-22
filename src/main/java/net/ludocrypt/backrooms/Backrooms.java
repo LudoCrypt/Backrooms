@@ -78,7 +78,7 @@ public class Backrooms implements ModInitializer {
 	public static boolean Display = false;
 	public static int DisplayLevel = 0;
 	public static final String MOD_ID = "backrooms";
-
+	public static PlayerEntity teleportedEntity = null;
 	// items
 	public static final Item RAW_ALMOND_WATER = new RawAlmondWaterItem(new Item.Settings().group(ItemGroup.FOOD)
 			.food(new FoodComponent.Builder().hunger(3).snack().alwaysEdible().saturationModifier(1).build()));
