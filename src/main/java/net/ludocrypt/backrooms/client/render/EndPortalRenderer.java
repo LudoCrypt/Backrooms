@@ -19,7 +19,6 @@ import net.minecraft.client.util.math.MatrixStack;
 
 @Environment(EnvType.CLIENT)
 public class EndPortalRenderer<T extends EndPortalBlockEntity> extends BlockEntityRenderer<T> {
-	
 	private static final Random RANDOM = new Random(9500L);
 	private static final List<RenderLayer> renderLayers = IntStream.range(0, 16)
 			.mapToObj(i -> RenderLayer.getEndPortal(i + 1)).collect(ImmutableList.toImmutableList());
@@ -42,8 +41,8 @@ public class EndPortalRenderer<T extends EndPortalBlockEntity> extends BlockEnti
 
 	private static void renderLayer(Matrix4f matrix, VertexConsumer vertexConsumer, float colourScalar) {
 		float red = (RANDOM.nextFloat() * 0.5F + 1.0F) * colourScalar;
-		float green = (RANDOM.nextFloat() * 0.5F + 0.54F) * colourScalar;
-		float blue = (RANDOM.nextFloat() * 0.5F + 0.54F) * colourScalar;
+		float green = (RANDOM.nextFloat() * 0.5F + 0.9F) * colourScalar;
+		float blue = (RANDOM.nextFloat() * 0.5F + 0.4F) * colourScalar;
 		renderFace(matrix, vertexConsumer, 0, 1, 1, 0, 0, 0, 0, 0, red, green, blue); // Direction.NORTH
 		renderFace(matrix, vertexConsumer, 1, 1, 1, 0, 0, 1, 1, 0, red, green, blue); // Direction.EAST
 		renderFace(matrix, vertexConsumer, 0, 1, 0, 1, 1, 1, 1, 1, red, green, blue); // Direction.SOUTH

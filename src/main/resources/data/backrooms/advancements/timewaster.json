@@ -1,0 +1,95 @@
+{
+	"display": {
+		"icon": {
+			"item": "backrooms:wall"
+		},
+		"title": {
+			"translate": "advancements.timewaster.title"
+		},
+		"description": {
+			"translate": "advancements.timewaster.descr"
+		},
+		"frame": "challenge",
+		"show_toast": true,
+		"announce_to_chat": true,
+		"hidden": true
+	},
+	"criteria": {
+		"level0": {
+			"trigger": "minecraft:location",
+			"conditions": {
+				"dimension": "backrooms:level0",
+				"position": {
+					"y": {
+						"min": 62,
+						"max": 69
+					}
+				}
+			}
+		},
+		"level1": {
+			"trigger": "minecraft:location",
+			"conditions": {
+				"dimension": "backrooms:level1",
+				"position": {
+					"y": {
+						"min": 62,
+						"max": 69
+					}
+				}
+			}
+		},
+		"level2": {
+			"trigger": "minecraft:location",
+			"conditions": {
+				"dimension": "backrooms:level2",
+				"position": {
+					"y": {
+						"min": 62,
+						"max": 69
+					}
+				}
+			}
+		},
+		"level3": {
+			"trigger": "minecraft:location",
+			"conditions": {
+				"dimension": "backrooms:level3",
+				"position": {
+					"y": {
+						"min": 62,
+						"max": 69
+					}
+				}
+			}
+		},
+		"level0dotted": {
+			"trigger": "minecraft:location",
+			"conditions": {
+				"dimension": "backrooms:level0dotted",
+				"position": {
+					"y": {
+						"min": 62,
+						"max": 69
+					}
+				}
+			}
+		},
+		"level0red": {
+			"trigger": "minecraft:location",
+			"conditions": {
+				"dimension": "backrooms:level0red",
+				"position": {
+					"y": {
+						"min": 62,
+						"max": 69
+					}
+				}
+			}
+		}
+	},
+	"rewards": {
+		"experience": 500
+	},
+	"parent": "backrooms:backrooms"
+}

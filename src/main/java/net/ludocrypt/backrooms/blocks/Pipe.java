@@ -95,7 +95,8 @@ public class Pipe extends Block {
 		}
 		if (random.nextInt(10) == 0) {
 			world.addParticle(ParticleTypes.DRIPPING_WATER, (double) pos.getX() + (random.nextDouble() / 4) + 0.5,
-					(double) pos.getY() + 0.18, (double) pos.getZ() + (random.nextDouble() / 4) + 0.5, 0.0D, 0.0D, 0.0D);
+					(double) pos.getY() + 0.18, (double) pos.getZ() + (random.nextDouble() / 4) + 0.5, 0.0D, 0.0D,
+					0.0D);
 		}
 	}
 

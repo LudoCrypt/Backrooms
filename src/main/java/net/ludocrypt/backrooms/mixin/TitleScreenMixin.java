@@ -1,11 +1,14 @@
 package net.ludocrypt.backrooms.mixin;
 
 import org.spongepowered.asm.mixin.Mixin;
+
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
+import net.fabricmc.api.EnvType;
+import net.fabricmc.api.Environment;
 import net.ludocrypt.backrooms.Backrooms;
 import net.ludocrypt.backrooms.config.BackroomsConfig;
 import net.minecraft.client.gui.CubeMapRenderer;
@@ -17,6 +20,7 @@ import net.minecraft.client.resource.language.I18n;
 import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 
+@Environment(EnvType.CLIENT)
 @Mixin(TitleScreen.class)
 public abstract class TitleScreenMixin extends Screen {
 
@@ -28,6 +32,8 @@ public abstract class TitleScreenMixin extends Screen {
 			new Identifier("backrooms:textures/gui/title/background/level1"));
 	private static CubeMapRenderer LEVEL2_CUBE_MAP = new CubeMapRenderer(
 			new Identifier("backrooms:textures/gui/title/background/level2"));
+	private static CubeMapRenderer LEVEL3_CUBE_MAP = new CubeMapRenderer(
+			new Identifier("backrooms:textures/gui/title/background/level3"));
 	@Shadow
 	private RotatingCubeMapRenderer backgroundRenderer = new RotatingCubeMapRenderer(NORMAL_CUBE_MAP);
 
@@ -48,6 +54,8 @@ public abstract class TitleScreenMixin extends Screen {
 						this.backgroundRenderer = new RotatingCubeMapRenderer(LEVEL1_CUBE_MAP);
 					} else if (BackroomsConfig.getInstance().ForceLevel2) {
 						this.backgroundRenderer = new RotatingCubeMapRenderer(LEVEL2_CUBE_MAP);
+					} else if (BackroomsConfig.getInstance().ForceLevel3) {
+						this.backgroundRenderer = new RotatingCubeMapRenderer(LEVEL3_CUBE_MAP);
 					} else if (!Backrooms.Display) {
 						Backrooms.Display = true;
 						this.backgroundRenderer = new RotatingCubeMapRenderer(LEVEL0_CUBE_MAP);
@@ -58,6 +66,9 @@ public abstract class TitleScreenMixin extends Screen {
 						Backrooms.DisplayLevel = 2;
 						this.backgroundRenderer = new RotatingCubeMapRenderer(LEVEL2_CUBE_MAP);
 					} else if (Backrooms.Display && Backrooms.DisplayLevel == 2) {
+						Backrooms.DisplayLevel = 3;
+						this.backgroundRenderer = new RotatingCubeMapRenderer(LEVEL3_CUBE_MAP);
+					} else if (Backrooms.Display && Backrooms.DisplayLevel == 3) {
 						Backrooms.DisplayLevel = 0;
 						Backrooms.Display = false;
 						this.backgroundRenderer = new RotatingCubeMapRenderer(NORMAL_CUBE_MAP);
@@ -79,6 +90,10 @@ public abstract class TitleScreenMixin extends Screen {
 			Backrooms.Display = true;
 			Backrooms.DisplayLevel = 2;
 			this.backgroundRenderer = new RotatingCubeMapRenderer(LEVEL2_CUBE_MAP);
+		} else if (BackroomsConfig.getInstance().ForceLevel3) {
+			Backrooms.Display = true;
+			Backrooms.DisplayLevel = 3;
+			this.backgroundRenderer = new RotatingCubeMapRenderer(LEVEL3_CUBE_MAP);
 		} else if (!Backrooms.Display) {
 			this.backgroundRenderer = new RotatingCubeMapRenderer(NORMAL_CUBE_MAP);
 		} else if (Backrooms.Display && Backrooms.DisplayLevel == 0) {
@@ -87,6 +102,8 @@ public abstract class TitleScreenMixin extends Screen {
 			this.backgroundRenderer = new RotatingCubeMapRenderer(LEVEL1_CUBE_MAP);
 		} else if (Backrooms.Display && Backrooms.DisplayLevel == 2) {
 			this.backgroundRenderer = new RotatingCubeMapRenderer(LEVEL2_CUBE_MAP);
+		} else if (Backrooms.Display && Backrooms.DisplayLevel == 3) {
+			this.backgroundRenderer = new RotatingCubeMapRenderer(LEVEL3_CUBE_MAP);
 		}
 	}
 }

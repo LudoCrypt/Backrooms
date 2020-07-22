@@ -21,12 +21,14 @@ public interface PreInitialize {
 		String soundEvent = remapper.mapClassName("intermediary", "net.minecraft.class_3414");
 
 		ClassTinkerers.enumBuilder(musicType, 'L' + soundEvent + ';', "I", "I")
-				.addEnum("LEVEL0MUSIC", () -> new Object[] { BackroomsSoundEvents.LEVEL0MUSIC, 12000, 36000 })
-				.addEnum("LEVEL1MUSIC", () -> new Object[] { BackroomsSoundEvents.LEVEL1MUSIC, 12000, 36000 })
-				.addEnum("LEVEL2MUSIC", () -> new Object[] { BackroomsSoundEvents.LEVEL2MUSIC, 12000, 36000 })
-				.addEnum("LEVEL0MENU", () -> new Object[] { BackroomsSoundEvents.LEVEL0MUSIC, 100, 300 })
-				.addEnum("LEVEL1MENU", () -> new Object[] { BackroomsSoundEvents.LEVEL1MUSIC, 100, 300 })
-				.addEnum("LEVEL2MENU", () -> new Object[] { BackroomsSoundEvents.LEVEL2MUSIC, 100, 300 })
+				.addEnum("LEVEL0MUSIC", () -> new Object[] { BackroomsSoundEvents.LEVEL0MUSIC, 500, 1000 })
+				.addEnum("LEVEL1MUSIC", () -> new Object[] { BackroomsSoundEvents.LEVEL1MUSIC, 500, 1000 })
+				.addEnum("LEVEL2MUSIC", () -> new Object[] { BackroomsSoundEvents.LEVEL2MUSIC, 500, 1000 })
+				.addEnum("LEVEL3MUSIC", () -> new Object[] { BackroomsSoundEvents.LEVEL3MUSIC, 500, 1000 })
+				.addEnum("LEVEL0MENU", () -> new Object[] { BackroomsSoundEvents.LEVEL0MUSIC, 20, 600 })
+				.addEnum("LEVEL1MENU", () -> new Object[] { BackroomsSoundEvents.LEVEL1MUSIC, 20, 600 })
+				.addEnum("LEVEL2MENU", () -> new Object[] { BackroomsSoundEvents.LEVEL2MUSIC, 20, 600 })
+				.addEnum("LEVEL3MENU", () -> new Object[] { BackroomsSoundEvents.LEVEL3MUSIC, 20, 600 })
 				.build();
 	}
 }

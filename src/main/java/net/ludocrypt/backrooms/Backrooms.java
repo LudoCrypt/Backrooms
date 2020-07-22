@@ -16,6 +16,7 @@ import net.ludocrypt.backrooms.biome.Level0Dotted;
 import net.ludocrypt.backrooms.biome.Level0Red;
 import net.ludocrypt.backrooms.biome.Level1;
 import net.ludocrypt.backrooms.biome.Level2;
+import net.ludocrypt.backrooms.biome.Level3;
 import net.ludocrypt.backrooms.blocks.BackroomsSlab;
 import net.ludocrypt.backrooms.blocks.BackroomsStairs;
 import net.ludocrypt.backrooms.blocks.Carpet;
@@ -23,6 +24,7 @@ import net.ludocrypt.backrooms.blocks.Cement;
 import net.ludocrypt.backrooms.blocks.Cement_Bricks;
 import net.ludocrypt.backrooms.blocks.Checkered_Block;
 import net.ludocrypt.backrooms.blocks.Light;
+import net.ludocrypt.backrooms.blocks.LinedPipe;
 import net.ludocrypt.backrooms.blocks.Pipe;
 import net.ludocrypt.backrooms.blocks.Poolstone;
 import net.ludocrypt.backrooms.blocks.Poolstone_Bricks;
@@ -57,6 +59,7 @@ import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Rarity;
 import net.minecraft.util.registry.Registry;
+import net.minecraft.world.Heightmap;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.dimension.DimensionType;
 import net.minecraft.world.gen.GenerationStep;
@@ -70,6 +73,7 @@ public class Backrooms implements ModInitializer {
 	private static final Set<Identifier> LOOT_TABLES = Sets.newHashSet();
 	public static final Identifier LEVEL0CHEST = register("backrooms:chests/level0");
 	public static final Identifier LEVEL1CHEST = register("backrooms:chests/level1");
+	public static final Identifier LEVEL3CHEST = register("backrooms:chests/level3");
 	// variables
 	public static boolean Display = false;
 	public static int DisplayLevel = 0;
@@ -87,6 +91,8 @@ public class Backrooms implements ModInitializer {
 	public static final Block DOTTED_WALLPAPER = new Wallpaper();
 	public static final Block RED_WALLPAPER = new Wallpaper();
 	public static final Block TORN_WALLPAPER = new TornWallpaper();
+	public static final Block RED_TORN_WALLPAPER = new TornWallpaper();
+	public static final Block DOTTED_TORN_WALLPAPER = new TornWallpaper();
 	public static final Block LIGHT = new Light();
 	public static final Block WALL = new Wall();
 	public static final Block CARPET = new Carpet();
@@ -127,6 +133,7 @@ public class Backrooms implements ModInitializer {
 	public static final Block VOID_BLOCK = new VoidBlock();
 	public static BlockEntityType<VoidBlockEntity> VOID_BLOCK_ENTITY;
 	public static final Block PIPE = new Pipe();
+	public static final Block LINEDPIPE = new LinedPipe();
 	// checkered
 	public static final Block CHECKERED_BLOCK = new Checkered_Block();
 	// colours
@@ -157,6 +164,8 @@ public class Backrooms implements ModInitializer {
 			new Level1());
 	public static final Biome LEVEL2 = Registry.register(Registry.BIOME, new Identifier("backrooms", "level2"),
 			new Level2());
+	public static final Biome LEVEL3 = Registry.register(Registry.BIOME, new Identifier("backrooms", "level3"),
+			new Level3());
 	// record discs
 	public static final Item MUSIC_DISC_GLACIAL_CAVERN = new BackroomsMusicDiscItem(1,
 			BackroomsSoundEvents.MUSIC_DISC_GLACIAL_CAVERN,
@@ -211,6 +220,8 @@ public class Backrooms implements ModInitializer {
 		Registry.register(Registry.BLOCK, new Identifier("backrooms", "dotted_wallpaper"), DOTTED_WALLPAPER);
 		Registry.register(Registry.BLOCK, new Identifier("backrooms", "red_wallpaper"), RED_WALLPAPER);
 		Registry.register(Registry.BLOCK, new Identifier("backrooms", "torn_wallpaper"), TORN_WALLPAPER);
+		Registry.register(Registry.BLOCK, new Identifier("backrooms", "red_torn_wallpaper"), RED_TORN_WALLPAPER);
+		Registry.register(Registry.BLOCK, new Identifier("backrooms", "dotted_torn_wallpaper"), DOTTED_TORN_WALLPAPER);
 		Registry.register(Registry.BLOCK, new Identifier("backrooms", "wall"), WALL);
 		Registry.register(Registry.BLOCK, new Identifier("backrooms", "carpet"), CARPET);
 		Registry.register(Registry.BLOCK, new Identifier("backrooms", "carpet_stairs"), CARPET_STAIRS);
@@ -243,6 +254,7 @@ public class Backrooms implements ModInitializer {
 		Registry.register(Registry.BLOCK, new Identifier("backrooms", "poolstone_brick_slab"), POOLSTONE_BRICK_SLAB);
 
 		Registry.register(Registry.BLOCK, new Identifier("backrooms", "pipe"), PIPE);
+		Registry.register(Registry.BLOCK, new Identifier("backrooms", "linedpipe"), LINEDPIPE);
 
 		// checkered
 		Registry.register(Registry.BLOCK, new Identifier("backrooms", "black_checkered"), BLACK_CHECKERED);
@@ -271,6 +283,10 @@ public class Backrooms implements ModInitializer {
 				new BlockItem(RED_WALLPAPER, new Item.Settings().group(ItemGroup.BUILDING_BLOCKS)));
 		Registry.register(Registry.ITEM, new Identifier("backrooms", "torn_wallpaper"),
 				new BlockItem(TORN_WALLPAPER, new Item.Settings().group(ItemGroup.BUILDING_BLOCKS)));
+		Registry.register(Registry.ITEM, new Identifier("backrooms", "red_torn_wallpaper"),
+				new BlockItem(RED_TORN_WALLPAPER, new Item.Settings().group(ItemGroup.BUILDING_BLOCKS)));
+		Registry.register(Registry.ITEM, new Identifier("backrooms", "dotted_torn_wallpaper"),
+				new BlockItem(DOTTED_TORN_WALLPAPER, new Item.Settings().group(ItemGroup.BUILDING_BLOCKS)));
 		Registry.register(Registry.ITEM, new Identifier("backrooms", "wall"),
 				new BlockItem(WALL, new Item.Settings().group(ItemGroup.BUILDING_BLOCKS)));
 		Registry.register(Registry.ITEM, new Identifier("backrooms", "carpet"),
@@ -426,6 +442,9 @@ public class Backrooms implements ModInitializer {
 
 	public static void teleportPlayer(Entity entity, DimensionType newDimension) {
 		entity.changeDimension(newDimension);
+		if (newDimension == DimensionType.OVERWORLD) {
+			entity.teleport(entity.getX(), entity.world.getTopY(Heightmap.Type.MOTION_BLOCKING, (int) entity.getX(), (int) entity.getZ()) + 1, entity.getZ());
+		}
 	}
 
 }

@@ -42,11 +42,14 @@ public class RawAlmondWaterItem extends Item {
 	@Override
 	public ItemStack finishUsing(ItemStack stack, World world, LivingEntity user) {
 		super.finishUsing(stack, world, user);
-		ServerPlayerEntity serverPlayerEntity = (ServerPlayerEntity) user;
-		Criterions.CONSUME_ITEM.trigger(serverPlayerEntity, stack);
-		serverPlayerEntity.incrementStat(Stats.USED.getOrCreateStat(this));
+		if (user instanceof ServerPlayerEntity) {
+			ServerPlayerEntity serverPlayerEntity = (ServerPlayerEntity) user;
+			Criterions.CONSUME_ITEM.trigger(serverPlayerEntity, stack);
+			serverPlayerEntity.incrementStat(Stats.USED.getOrCreateStat(this));
+		}
 		if (!world.isClient) {
 			user.addStatusEffect(new StatusEffectInstance(StatusEffects.POISON, 20 * 60 * 2));
+			user.addStatusEffect(new StatusEffectInstance(StatusEffects.HUNGER, 20 * 60 * 2));
 		}
 		if (stack.isEmpty()) {
 			return new ItemStack(Items.GLASS_BOTTLE);

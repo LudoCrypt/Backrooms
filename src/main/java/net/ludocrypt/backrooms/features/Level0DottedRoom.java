@@ -9,6 +9,7 @@ import net.ludocrypt.backrooms.Backrooms;
 import net.ludocrypt.backrooms.blocks.BackroomsStairs;
 import net.ludocrypt.backrooms.blocks.Carpet;
 import net.ludocrypt.backrooms.blocks.Tile;
+import net.ludocrypt.backrooms.blocks.TornWallpaper;
 import net.ludocrypt.backrooms.config.BackroomsConfig;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -128,6 +129,14 @@ public class Level0DottedRoom extends Feature<DefaultFeatureConfig> {
 	private static final BlockState CHEST = Blocks.CHEST.getDefaultState().with(ChestBlock.CHEST_TYPE, ChestType.SINGLE)
 			.with(ChestBlock.FACING, Direction.NORTH).with(ChestBlock.WATERLOGGED, false);
 	private static final BlockState VOID_BLOCK = Backrooms.VOID_BLOCK.getDefaultState();
+	private static final BlockState TORN_WALLPAPER_1 = Backrooms.DOTTED_TORN_WALLPAPER.getDefaultState()
+			.with(TornWallpaper.TORN_LEVEL, 1);
+	private static final BlockState TORN_WALLPAPER_2 = Backrooms.DOTTED_TORN_WALLPAPER.getDefaultState()
+			.with(TornWallpaper.TORN_LEVEL, 2);
+	private static final BlockState TORN_WALLPAPER_3 = Backrooms.DOTTED_TORN_WALLPAPER.getDefaultState()
+			.with(TornWallpaper.TORN_LEVEL, 3);
+	private static final BlockState TORN_WALLPAPER_4 = Backrooms.DOTTED_TORN_WALLPAPER.getDefaultState()
+			.with(TornWallpaper.TORN_LEVEL, 4);
 
 	public boolean generate(IWorld world, ChunkGenerator<? extends ChunkGeneratorConfig> changedBlock, Random rand,
 			BlockPos position, DefaultFeatureConfig config) {
@@ -297,7 +306,25 @@ public class Level0DottedRoom extends Feature<DefaultFeatureConfig> {
 						world.setBlockState(currentPosition, AIR, 2);
 						break;
 					case 5:
-						world.setBlockState(currentPosition, WALLPAPER, 2);
+						if (rand.nextDouble() < 0.01) {
+							int k = rand.nextInt(4);
+							switch (k) {
+							case 0:
+								world.setBlockState(currentPosition, TORN_WALLPAPER_1, 2);
+								break;
+							case 1:
+								world.setBlockState(currentPosition, TORN_WALLPAPER_2, 2);
+								break;
+							case 2:
+								world.setBlockState(currentPosition, TORN_WALLPAPER_3, 2);
+								break;
+							case 3:
+								world.setBlockState(currentPosition, TORN_WALLPAPER_4, 2);
+								break;
+							}
+						} else {
+							world.setBlockState(currentPosition, WALLPAPER, 2);
+						}
 						break;
 					case 6:
 						if (door1) {

@@ -3,13 +3,13 @@
 	"package": "net.ludocrypt.backrooms.mixin",
 	"compatibilityLevel": "JAVA_8",
 	"mixins": [
-		"TitleScreenMixin",
 		"GoToBackroomsMixin",
-		"PlayerMixin",
-		"MusicMixin",
-		"BuiltinModelItemRendererMixin"
+		"PlayerMixin"
 	],
 	"client": [
+		"BuiltinModelItemRendererMixin",
+		"MusicMixin",
+		"TitleScreenMixin"
 	],
 	"injectors": {
 		"defaultRequire": 1

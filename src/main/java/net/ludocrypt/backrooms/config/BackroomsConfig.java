@@ -14,13 +14,14 @@ public class BackroomsConfig implements ConfigData {
 	public int Level1LayerCount = 3;
 
 	public double VBDoor = 0.05;
-
+	
 	public double EnderPearlChance = 0.01;
 	public double SuffocationChance = 0.01;
 	public boolean TallDoors = true;
 	public boolean ForceLevel0 = false;
 	public boolean ForceLevel1 = false;
 	public boolean ForceLevel2 = false;
+	public boolean ForceLevel3 = false;
 	public boolean ForceNormal = false;
 	public boolean SanityEffects = true;
 

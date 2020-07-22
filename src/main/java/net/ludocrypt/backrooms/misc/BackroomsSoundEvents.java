@@ -9,6 +9,7 @@ public class BackroomsSoundEvents {
 	public static final SoundEvent LEVEL0MUSIC = register("backrooms:level.0.music");
 	public static final SoundEvent LEVEL1MUSIC = register("backrooms:level.1.music");
 	public static final SoundEvent LEVEL2MUSIC = register("backrooms:level.2.music");
+	public static final SoundEvent LEVEL3MUSIC = register("backrooms:level.3.music");
 	public static final SoundEvent MUSIC_DISC_ITS_BEEN_SO_LONG = register("backrooms:music_disc.its_been_so_long");
 	public static final SoundEvent MUSIC_DISC_OMAE_WA_MOU = register("backrooms:music_disc.omae_wa_mou");
 	public static final SoundEvent MUSIC_DISC_012 = register("backrooms:music_disc.012");

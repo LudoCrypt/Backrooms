@@ -279,10 +279,13 @@ public class Level1Room extends Feature<DefaultFeatureConfig> {
 					case 0:
 						break;
 					case 2:
+
 						world.setBlockState(currentPosition, SOUTH_TILE, 2);
+
 						break;
 					case 11:
 						world.setBlockState(currentPosition, NORTH_TILE, 2);
+
 						break;
 					case 12:
 						world.setBlockState(currentPosition, TILE, 2);

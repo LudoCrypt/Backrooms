@@ -1,220 +1,248 @@
 {
-  "level.0.music": {
-   "category": "music",
-    "sounds": [
-	{
-        "name": "backrooms:music/ambient/episodic_lullaby",
-        "stream": true
+	"level.0.music": {
+		"category": "music",
+		"sounds": [
+			{
+				"name": "backrooms:music/ambient/episodic_lullaby",
+				"stream": true
+			},
+			{
+				"name": "backrooms:music/ambient/lining_the_walls",
+				"volume": 0.8,
+				"stream": true,
+				"weight": 2
+			},
+			{
+				"name": "backrooms:music/ambient/parallax",
+				"stream": true
+			},
+			{
+				"name": "backrooms:music/ambient/nerve_receptors",
+				"stream": true
+			},
+			{
+				"name": "backrooms:music/ambient/backrooms",
+				"stream": true,
+				"volume": 0.35,
+				"weight": 2
+			},
+			{
+				"name": "backrooms:music/ambient/foggy_hands",
+				"stream": true
+			}
+		]
 	},
-	{
-        "name": "backrooms:music/ambient/lining_the_walls",
-        "volume": 0.8,
-        "stream": true,
-        "weight": 2
+	"level.1.music": {
+		"category": "music",
+		"sounds": [
+			{
+				"name": "backrooms:music/ambient/episodic_lullaby",
+				"stream": true
+			},
+			{
+				"name": "backrooms:music/ambient/it_darkens",
+				"stream": true
+			},
+			{
+				"name": "backrooms:music/ambient/parallax",
+				"stream": true
+			},
+			{
+				"name": "backrooms:music/ambient/nerve_receptors",
+				"stream": true
+			},
+			{
+				"name": "backrooms:music/ambient/cracked_tiles",
+				"stream": true,
+				"weight": 2
+			},
+			{
+				"name": "backrooms:music/ambient/foggy_hands",
+				"stream": true
+			}
+		]
 	},
-	{
-        "name": "backrooms:music/ambient/parallax",
-        "stream": true
+	"level.2.music": {
+		"category": "music",
+		"sounds": [
+			{
+				"name": "backrooms:music/ambient/the_halls_lengthen",
+				"stream": true,
+				"volume": 0.5,
+				"weight": 2
+			},
+			{
+				"name": "backrooms:music/ambient/foggy_hands",
+				"stream": true
+			},
+			{
+				"name": "backrooms:music/ambient/parallax",
+				"stream": true
+			},
+			{
+				"name": "backrooms:music/ambient/kirifiki",
+				"stream": true,
+				"weight": 2
+			},
+			{
+				"name": "backrooms:music/ambient/reposition",
+				"stream": true
+			}
+		]
 	},
-	{
-        "name": "backrooms:music/ambient/nerve_receptors",
-        "stream": true
+	"level.3.music": {
+		"category": "music",
+		"sounds": [
+			{
+				"name": "backrooms:music/ambient/the_pipes",
+				"stream": true,
+				"volume": 0.5,
+				"weight": 2
+			},
+			{
+				"name": "backrooms:music/ambient/foggy_hands",
+				"stream": true
+			},
+			{
+				"name": "backrooms:music/ambient/parallax",
+				"stream": true
+			},
+			{
+				"name": "backrooms:music/ambient/flowing_in_the_pipes",
+				"stream": true,
+				"weight": 2
+			},
+			{
+				"name": "backrooms:music/ambient/episodic_lullaby",
+				"stream": true
+			}
+		]
 	},
-	{
-        "name": "backrooms:music/ambient/backrooms",
-        "stream": true,
-        "volume": 0.35,
-        "weight": 2
+	"music_disc.its_been_so_long": {
+		"sounds": [
+			{
+				"name": "backrooms:music/records/its_been_so_long",
+				"stream": true
+			}
+		]
 	},
-	{
-        "name": "backrooms:music/ambient/foggy_hands",
-        "stream": true
+	"music_disc.omae_wa_mou": {
+		"sounds": [
+			{
+				"name": "backrooms:music/records/omae_wa_mou",
+				"stream": true
+			}
+		]
+	},
+	"music_disc.glacial_cavern": {
+		"sounds": [
+			{
+				"name": "backrooms:music/records/glacial_cavern",
+				"stream": true
+			}
+		]
+	},
+	"music_disc.012": {
+		"sounds": [
+			{
+				"name": "backrooms:music/records/012",
+				"stream": true
+			}
+		]
+	},
+	"music_disc.those_torn_walls": {
+		"sounds": [
+			{
+				"name": "backrooms:music/records/those_torn_walls",
+				"stream": true
+			}
+		]
+	},
+	"music_disc.burgers_and_fries": {
+		"sounds": [
+			{
+				"name": "backrooms:music/records/burgers_and_fries",
+				"stream": true
+			}
+		]
+	},
+	"tone": {
+		"sounds": [
+			{
+				"name": "backrooms:tone",
+				"stream": true
+			}
+		]
+	},
+	"gulp": {
+		"sounds": [
+			{
+				"name": "backrooms:gulp/gulp1"
+			},
+			{
+				"name": "backrooms:gulp/gulp2"
+			},
+			{
+				"name": "backrooms:gulp/gulp3"
+			}
+		]
+	},
+	"level.0.ambience": {
+		"sounds": [
+			{
+				"name": "backrooms:ambient/breath1"
+			},
+			{
+				"name": "backrooms:ambient/breath2"
+			},
+			{
+				"name": "backrooms:ambient/breath3"
+			},
+			{
+				"name": "backrooms:ambient/breath4"
+			},
+			{
+				"name": "backrooms:ambient/harp1"
+			},
+			{
+				"name": "backrooms:ambient/harp2"
+			},
+			{
+				"name": "backrooms:ambient/harp3"
+			},
+			{
+				"name": "backrooms:ambient/knock1"
+			},
+			{
+				"name": "backrooms:ambient/knock2"
+			},
+			{
+				"name": "backrooms:ambient/knock3"
+			},
+			{
+				"name": "backrooms:ambient/synth1"
+			},
+			{
+				"name": "backrooms:ambient/synth2"
+			},
+			{
+				"name": "backrooms:ambient/synth3"
+			},
+			{
+				"name": "backrooms:ambient/tone1"
+			},
+			{
+				"name": "backrooms:ambient/tone2"
+			},
+			{
+				"name": "backrooms:ambient/tone3"
+			},
+			{
+				"name": "backrooms:ambient/tone4"
+			},
+			{
+				"name": "backrooms:ambient/whistle1"
+			}
+		]
 	}
-    ]
-  },
-  "level.1.music": {
-   "category": "music",
-    "sounds": [
-	{
-        "name": "backrooms:music/ambient/episodic_lullaby",
-        "stream": true
-	},
-	{
-        "name": "backrooms:music/ambient/it_darkens",
-        "stream": true
-	},
-	{
-        "name": "backrooms:music/ambient/parallax",
-        "stream": true
-	},
-	{
-        "name": "backrooms:music/ambient/nerve_receptors",
-        "stream": true
-	},
-	{
-        "name": "backrooms:music/ambient/cracked_tiles",
-        "stream": true,
-        "weight": 2
-	},
-	{
-        "name": "backrooms:music/ambient/foggy_hands",
-        "stream": true
-	}
-    ]
-  },
-    "level.2.music": {
-   "category": "music",
-    "sounds": [
-	{
-        "name": "backrooms:music/ambient/the_halls_lengthen",
-        "stream": true,
-        "volume": 0.5,
-        "weight": 2
-	},
-	{
-        "name": "backrooms:music/ambient/foggy_hands",
-        "stream": true
-	},
-	{
-        "name": "backrooms:music/ambient/parallax",
-        "stream": true
-	},
-	{
-        "name": "backrooms:music/ambient/kirifiki",
-        "stream": true,
-        "weight": 2
-	},
-	{
-        "name": "backrooms:music/ambient/reposition",
-        "stream": true
-	}
-    ]
-  },
-  "music_disc.its_been_so_long": {
-    "sounds": [
-      {
-        "name": "backrooms:music/records/its_been_so_long",
-        "stream": true
-      }
-    ]
-  },
-  "music_disc.omae_wa_mou": {
-    "sounds": [
-      {
-        "name": "backrooms:music/records/omae_wa_mou",
-        "stream": true
-      }
-    ]
-  },
-  "music_disc.glacial_cavern": {
-    "sounds": [
-      {
-        "name": "backrooms:music/records/glacial_cavern",
-        "stream": true
-      }
-    ]
-  },
-  "music_disc.012": {
-    "sounds": [
-      {
-        "name": "backrooms:music/records/012",
-        "stream": true
-      }
-    ]
-  },
-  "music_disc.those_torn_walls": {
-    "sounds": [
-      {
-        "name": "backrooms:music/records/those_torn_walls",
-        "stream": true
-      }
-    ]
-  },
-  "music_disc.burgers_and_fries": {
-    "sounds": [
-      {
-        "name": "backrooms:music/records/burgers_and_fries",
-        "stream": true
-      }
-    ]
-  },
-  "tone": {
-    "sounds": [
-      {
-        "name": "backrooms:tone",
-        "stream": true
-      }
-    ]
-  },
-  "gulp": {
-    "sounds": [
-      {
-        "name": "backrooms:gulp/gulp1"
-      },
-      {
-        "name": "backrooms:gulp/gulp2"
-      },
-      {
-        "name": "backrooms:gulp/gulp3"
-      }
-    ]
-  },
-    "level.0.ambience": {
-    "sounds": [
-	        {
-        "name": "backrooms:ambient/breath1"
-      },
-	  	        {
-        "name": "backrooms:ambient/breath2"
-      },
-	  	        {
-        "name": "backrooms:ambient/breath3"
-      },
-	  	        {
-        "name": "backrooms:ambient/breath4"
-      },
-	  	        {
-        "name": "backrooms:ambient/harp1"
-      },
-	  	        {
-        "name": "backrooms:ambient/harp2"
-      },
-	  	        {
-        "name": "backrooms:ambient/harp3"
-      },
-	  	        {
-        "name": "backrooms:ambient/knock1"
-      },
-	  	        {
-        "name": "backrooms:ambient/knock2"
-      },
-	  	        {
-        "name": "backrooms:ambient/knock3"
-      },
-	  	        {
-        "name": "backrooms:ambient/synth1"
-      },
-	  	        {
-        "name": "backrooms:ambient/synth2"
-      },
-	  	        {
-        "name": "backrooms:ambient/synth3"
-      },
-	  	        {
-        "name": "backrooms:ambient/tone1"
-      },
-	  	        {
-        "name": "backrooms:ambient/tone2"
-      },
-	  	        {
-        "name": "backrooms:ambient/tone3"
-      },
-	  	        {
-        "name": "backrooms:ambient/tone4"
-      },
-	  	        {
-        "name": "backrooms:ambient/whistle1"
-      }
-    ]
-  }
 }

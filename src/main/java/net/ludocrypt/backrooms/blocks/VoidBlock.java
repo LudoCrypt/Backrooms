@@ -40,7 +40,6 @@ public class VoidBlock extends BlockWithEntity {
 	@Override
 	public void onEntityCollision(BlockState state, World world, BlockPos pos, Entity entity) {
 		Random rand = new Random();
-		int k = 0;
 		double t = 0.0;
 		entity.slowMovement(state, new Vec3d(0.25D, 0.05000000074505806D, 0.25D));
 		if (!world.isClient && !entity.hasVehicle() && !entity.hasPassengers() && entity.canUsePortals()
@@ -52,7 +51,7 @@ public class VoidBlock extends BlockWithEntity {
 					|| entity.dimension == BackroomsDimensionTypes.LEVEL0DOTTED
 					|| entity.dimension == BackroomsDimensionTypes.LEVEL0RED) {
 				t = rand.nextDouble();
-				if (t < 0.1) {
+				if (t < 0.001) {
 					Backrooms.teleportPlayer(entity, DimensionType.OVERWORLD);
 				} else if (t < 0.25) {
 					Backrooms.teleportPlayer(entity, BackroomsDimensionTypes.LEVEL1);
@@ -64,40 +63,50 @@ public class VoidBlock extends BlockWithEntity {
 					Backrooms.teleportPlayer(entity, BackroomsDimensionTypes.LEVEL0);
 				}
 			}
-			if (entity.dimension == BackroomsDimensionTypes.LEVEL1) {
-				k = rand.nextInt(3);
-				switch (k) {
-				case 0:
-					Backrooms.teleportPlayer(entity, BackroomsDimensionTypes.LEVEL0);
-					break;
-				case 1:
+			else if (entity.dimension == BackroomsDimensionTypes.LEVEL1) {
+				t = rand.nextDouble();
+				if (t < 0.005) {
 					Backrooms.teleportPlayer(entity, BackroomsDimensionTypes.LEVEL1);
-					break;
-				case 2:
+				} else if (t < 0.25) {
+					Backrooms.teleportPlayer(entity, BackroomsDimensionTypes.LEVEL0);
+				} else if (t < 0.5) {
 					Backrooms.teleportPlayer(entity, BackroomsDimensionTypes.LEVEL2);
-					break;
+				} else if (t < 0.75) {
+					Backrooms.teleportPlayer(entity, BackroomsDimensionTypes.LEVEL2);
+				} else {
+					Backrooms.teleportPlayer(entity, BackroomsDimensionTypes.LEVEL1);
 				}
 			}
-			if (entity.dimension == BackroomsDimensionTypes.LEVEL2) {
-				k = rand.nextInt(4);
-				switch (k) {
-				case 0:
-					Backrooms.teleportPlayer(entity, BackroomsDimensionTypes.LEVEL0);
-					break;
-				case 1:
-					Backrooms.teleportPlayer(entity, BackroomsDimensionTypes.LEVEL1);
-					break;
-				case 2:
-					Backrooms.teleportPlayer(entity, BackroomsDimensionTypes.LEVEL2);
-					break;
-				case 3:
+			else if (entity.dimension == BackroomsDimensionTypes.LEVEL2) {
+				t = rand.nextDouble();
+				if (t < 0.05) {
 					Backrooms.teleportPlayer(entity, DimensionType.OVERWORLD);
-					break;
+				} else if (t < 0.25) {
+					Backrooms.teleportPlayer(entity, BackroomsDimensionTypes.LEVEL2);
+				} else if (t < 0.5) {
+					Backrooms.teleportPlayer(entity, BackroomsDimensionTypes.LEVEL3);
+				} else if (t < 0.75) {
+					Backrooms.teleportPlayer(entity, BackroomsDimensionTypes.LEVEL2);
+				} else {
+					Backrooms.teleportPlayer(entity, BackroomsDimensionTypes.LEVEL3);
 				}
 			}
-			if (entity.dimension == DimensionType.OVERWORLD) {
+			else if (entity.dimension == BackroomsDimensionTypes.LEVEL3) {
+				t = rand.nextDouble();
+				if (t < 0.05) {
+					Backrooms.teleportPlayer(entity, BackroomsDimensionTypes.LEVEL2);
+				} else if (t < 0.15) {
+					Backrooms.teleportPlayer(entity, DimensionType.OVERWORLD);
+				} else if (t < 0.5) {
+					Backrooms.teleportPlayer(entity, BackroomsDimensionTypes.LEVEL3);
+				} else if (t < 0.75) {
+					Backrooms.teleportPlayer(entity, BackroomsDimensionTypes.LEVEL3);
+				} else {
+					Backrooms.teleportPlayer(entity, BackroomsDimensionTypes.LEVEL3);
+				}
+			}
+			else if (entity.dimension == DimensionType.OVERWORLD) {
 				Backrooms.teleportPlayer(entity, BackroomsDimensionTypes.LEVEL0);
-
 			}
 		}
 	}

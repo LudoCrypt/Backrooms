@@ -25,7 +25,7 @@ public class Level2Room extends Feature<DefaultFeatureConfig> {
 
 	private int[][] White = { { 2, 2, 2, 2 }, { 2, 1, 1, 2 }, { 2, 3, 1, 2 }, { 2, 1, 1, 2 }, { 2, 9, 2, 2 } };
 	private int[][] Orange = { { 2, 2, 2, 2 }, { 2, 2, 2, 2 }, { 2, 2, 2, 2 }, { 2, 2, 2, 2 }, { 2, 2, 2, 2 } };
-	private int[][] Red = { { 2, 2, 2, 2 }, { 1, 1, 1, 1 }, { 4, 4, 4, 4 }, { 1, 1, 1, 1 }, { 2, 2, 2, 2 } };
+	private int[][] Red = { { 2, 2, 2, 2 }, { 1, 1, 1, 1 }, { 4, 4, 4, 4 }, { 1, 1, 1, 1 }, { 2, 10, 2, 2 } };
 	private int[][] Brown = { { 2, 2, 2, 2 }, { 1, 1, 1, 1 }, { 1, 1, 1, 1 }, { 1, 1, 1, 1 }, { 2, 2, 2, 2 } };
 	private int[][] Lime = { { 2, 2, 2, 2 }, { 1, 1, 1, 2 }, { 1, 1, 1, 2 }, { 1, 1, 1, 2 }, { 2, 2, 2, 2 } };
 	private int[][] Blue = { { 2, 2, 2, 2 }, { 2, 1, 1, 2 }, { 2, 5, 1, 2 }, { 2, 1, 1, 2 }, { 2, 2, 2, 2 } };
@@ -65,28 +65,23 @@ public class Level2Room extends Feature<DefaultFeatureConfig> {
 		BlockPos.Mutable mutableBlockPos = new BlockPos.Mutable(position);
 
 		Random generator = new Random(world.getSeed());
-		Random generator2 = new Random(world.getSeed());
-		Random generatorFront = new Random(world.getSeed());
-		Random generatorLeft = new Random(world.getSeed());
 		long seed = world.getSeed();
 		long l = generator.nextLong();
 		long m = generator.nextLong();
 		long n = generator.nextLong();
 		long o = position.getX() * l ^ position.getY() * m ^ position.getZ() * n ^ seed;
-		long p = position.getX() * l ^ position.getY() * m ^ (position.getZ() - 4) * n ^ seed;
-		long q = (position.getX() - 4) * l ^ position.getY() * m ^ position.getZ() * n ^ seed;
 		generator = new Random(o);
-		generatorFront = new Random(p);
-		generatorLeft = new Random(q);
-		generator2 = new Random(o * 8);
 
-		int k = generator.nextInt(16);
-		int r = generatorFront.nextInt(16);
-		int s = generatorLeft.nextInt(16);
-		int t = generator2.nextInt(7);
-		int u = generator2.nextInt(3);
+		int k = 12;
+		int t = 8;
 
-		if (s == 3 || s == 6 || s == 7 || s == 9 || s == 10 || s == 11 || s == 12 || s == 15) {
+		if (rand.nextDouble() < 0.1) {
+//			if (rand.nextDouble() < 0.001) {
+//			k = generator.nextInt(16);				
+//			}
+			
+			//4 5 6 7 8 9 10 11 13 15
+			t = generator.nextInt(10);
 			switch (t) {
 			case 0:
 				k = 4;
@@ -95,42 +90,33 @@ public class Level2Room extends Feature<DefaultFeatureConfig> {
 				k = 5;
 				break;
 			case 2:
-				k = 8;
+				k = 6;
 				break;
 			case 3:
-				k = 9;
+				k = 7;
 				break;
 			case 4:
-				k = 11;
+				k = 8;
 				break;
 			case 5:
-				k = 12;
-				break;
-			case 6:
-				k = 15;
-				break;
-			}
-		}
-
-		if (r == 2 || r == 5 || r == 6 || r == 8 || r == 9 || r == 10 || r == 13 || r == 15) {
-			switch (u) {
-			case 0:
 				k = 9;
 				break;
-			case 1:
+			case 6:
+				k = 10;
+				break;
+			case 7:
 				k = 11;
 				break;
-			case 2:
-				k = 12;
+			case 8:
+				k = 13;
 				break;
-			case 3:
+			case 9:
 				k = 15;
 				break;
 			}
 		}
 
 		switch (k) {
-
 		case 0:
 			generateSlice(world, mutableBlockPos.setOffset(Direction.WEST), White, rand);
 			generateSlice(world, mutableBlockPos.setOffset(Direction.WEST), White, rand);
@@ -273,7 +259,14 @@ public class Level2Room extends Feature<DefaultFeatureConfig> {
 						world.setBlockState(currentPosition, PIPENORTHWEST, 2);
 						break;
 					case 6:
-						world.setBlockState(currentPosition, PIPENORTHEAST, 2);
+						if (world.getBlockState(currentPosition.add(1, 0, 1)) == PIPENORTHEAST) {
+							world.setBlockState(currentPosition, PIPENORTHSOUTH, 2);
+							world.setBlockState(currentPosition.add(0, 0, 1), PIPENORTHEAST, 2);
+							world.setBlockState(currentPosition.add(1, 0, 1), PIPEEASTWEST, 2);
+						} else {
+							world.setBlockState(currentPosition, PIPENORTHEAST, 2);
+						}
+
 						break;
 					case 7:
 						world.setBlockState(currentPosition, PIPESOUTHEAST, 2);
@@ -291,6 +284,20 @@ public class Level2Room extends Feature<DefaultFeatureConfig> {
 							world.setBlockState(currentPosition.add(0, 2, 1), VOID_BLOCK, 2);
 							world.setBlockState(currentPosition.add(0, 3, 1), VOID_BLOCK, 2);
 						}
+						break;
+					case 10:
+						world.setBlockState(currentPosition, CEMENT, 2);
+						if (rand.nextDouble() < BackroomsConfig.getInstance().VBDoor) {
+							if (rand.nextDouble() < 0.1) {
+								world.setBlockState(currentPosition.add(0, 1, 0), VOID_BLOCK, 2);
+								world.setBlockState(currentPosition.add(0, 2, 0), VOID_BLOCK, 2);
+								world.setBlockState(currentPosition.add(0, 3, 0), VOID_BLOCK, 2);
+								world.setBlockState(currentPosition.add(-1, 1, 0), VOID_BLOCK, 2);
+								world.setBlockState(currentPosition.add(-1, 2, 0), VOID_BLOCK, 2);
+								world.setBlockState(currentPosition.add(-1, 3, 0), VOID_BLOCK, 2);
+							}
+						}
+						break;
 					}
 				}
 				currentPosition.setOffset(Direction.SOUTH);

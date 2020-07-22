@@ -40,12 +40,13 @@ public class AlmondWaterItem extends Item {
 	}
 
 	@Override
-
 	public ItemStack finishUsing(ItemStack stack, World world, LivingEntity user) {
 		super.finishUsing(stack, world, user);
-		ServerPlayerEntity serverPlayerEntity = (ServerPlayerEntity) user;
-		Criterions.CONSUME_ITEM.trigger(serverPlayerEntity, stack);
-		serverPlayerEntity.incrementStat(Stats.USED.getOrCreateStat(this));
+		if (user instanceof ServerPlayerEntity) {
+			ServerPlayerEntity serverPlayerEntity = (ServerPlayerEntity) user;
+			Criterions.CONSUME_ITEM.trigger(serverPlayerEntity, stack);
+			serverPlayerEntity.incrementStat(Stats.USED.getOrCreateStat(this));
+		}
 		if (!world.isClient) {
 			user.removeStatusEffect(StatusEffects.POISON);
 			user.removeStatusEffect(StatusEffects.HUNGER);

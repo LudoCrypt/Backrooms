@@ -15,14 +15,14 @@
     "announce_to_chat": false,
     "hidden": true
   },
-  "criteria": {
-    "backrooms": {
-      "trigger": "minecraft:changed_dimension",
-      "conditions": {
-        "to": "backrooms:level0"
-      }
-    }
-  },
+	"criteria": {
+		"level0": {
+			"trigger": "minecraft:location",
+			"conditions": {
+				"dimension": "backrooms:level0"
+			}
+		}
+	},
   "rewards": {
     "experience": 10
   }

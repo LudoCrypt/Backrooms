@@ -10,7 +10,7 @@ public class Cement_Bricks extends Block {
 
 	public Cement_Bricks() {
 		super(FabricBlockSettings.of(Material.STONE).breakByTool(FabricToolTags.PICKAXES).sounds(BlockSoundGroup.STONE)
-				.hardness(5).resistance(5));
+				.hardness(4).resistance(5));
 	}
 
 }
