@@ -16,9 +16,12 @@ public class BackroomsSoundEvents {
 	public static final SoundEvent MUSIC_DISC_GLACIAL_CAVERN = register("backrooms:music_disc.glacial_cavern");
 	public static final SoundEvent MUSIC_DISC_THOSE_TORN_WALLS = register("backrooms:music_disc.those_torn_walls");
 	public static final SoundEvent MUSIC_DISC_BURGERS_AND_FRIES = register("backrooms:music_disc.burgers_and_fries");
+	public static final SoundEvent MUSIC_DISC_PRETZELS_AND_CHEESE = register("backrooms:music_disc.pretzels_and_cheese");
 	public static final SoundEvent TONE = register("backrooms:tone");
 	public static final SoundEvent LEVEL0AMBIENCE = register("backrooms:level.0.ambience");
 	public static final SoundEvent GULP = register("backrooms:gulp");
+	public static final SoundEvent BUZZ = register("backrooms:buzz");
+	public static final SoundEvent TEAR = register("backrooms:tear");
 
 	private static SoundEvent register(String id) {
 		return (SoundEvent) Registry.register(Registry.SOUND_EVENT, (String) id, new SoundEvent(new Identifier(id)));

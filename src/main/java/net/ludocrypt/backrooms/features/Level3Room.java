@@ -1,9 +1,8 @@
 package net.ludocrypt.backrooms.features;
 
 import java.util.Random;
-import java.util.function.Function;
 
-import com.mojang.datafixers.Dynamic;
+import com.mojang.serialization.Codec;
 
 import net.ludocrypt.backrooms.Backrooms;
 import net.ludocrypt.backrooms.config.BackroomsConfig;
@@ -14,14 +13,14 @@ import net.minecraft.block.entity.LootableContainerBlockEntity;
 import net.minecraft.block.enums.ChestType;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
-import net.minecraft.world.IWorld;
+import net.minecraft.world.ServerWorldAccess;
+import net.minecraft.world.gen.StructureAccessor;
 import net.minecraft.world.gen.chunk.ChunkGenerator;
-import net.minecraft.world.gen.chunk.ChunkGeneratorConfig;
 import net.minecraft.world.gen.feature.DefaultFeatureConfig;
 import net.minecraft.world.gen.feature.Feature;
 
 public class Level3Room extends Feature<DefaultFeatureConfig> {
-	public Level3Room(Function<Dynamic<?>, ? extends DefaultFeatureConfig> configFactory) {
+	public Level3Room(Codec<DefaultFeatureConfig> configFactory) {
 		super(configFactory);
 	}
 
@@ -46,10 +45,10 @@ public class Level3Room extends Feature<DefaultFeatureConfig> {
 	private static final BlockState CHEST = Blocks.CHEST.getDefaultState().with(ChestBlock.CHEST_TYPE, ChestType.SINGLE)
 			.with(ChestBlock.FACING, Direction.NORTH).with(ChestBlock.WATERLOGGED, false);
 
-	public boolean generate(IWorld world, ChunkGenerator<? extends ChunkGeneratorConfig> changedBlock, Random rand,
-			BlockPos position, DefaultFeatureConfig config) {
+	public boolean generate(ServerWorldAccess world, StructureAccessor structureAccessor, ChunkGenerator chunkGen,
+			Random rand, BlockPos position, DefaultFeatureConfig config) {
 
-		BlockPos.Mutable mutableBlockPos = new BlockPos.Mutable(position);
+		BlockPos.Mutable mutableBlockPos = new BlockPos.Mutable().set(position);
 
 		Random generator = new Random(world.getSeed());
 		Random generator2 = new Random(world.getSeed());
@@ -119,108 +118,107 @@ public class Level3Room extends Feature<DefaultFeatureConfig> {
 		switch (k) {
 
 		case 0:
-			generateSlice(world, mutableBlockPos.setOffset(Direction.WEST), White, rand);
-			generateSlice(world, mutableBlockPos.setOffset(Direction.WEST), White, rand);
-			generateSlice(world, mutableBlockPos.setOffset(Direction.WEST), White, rand);
-			generateSlice(world, mutableBlockPos.setOffset(Direction.WEST), Orange, rand);
+			generateSlice(world, mutableBlockPos.move(Direction.WEST), White, rand);
+			generateSlice(world, mutableBlockPos.move(Direction.WEST), White, rand);
+			generateSlice(world, mutableBlockPos.move(Direction.WEST), White, rand);
+			generateSlice(world, mutableBlockPos.move(Direction.WEST), Orange, rand);
 			break;
 		case 1:
-			generateSlice(world, mutableBlockPos.setOffset(Direction.WEST), Orange, rand);
-			generateSlice(world, mutableBlockPos.setOffset(Direction.WEST), Magenta, rand);
-			generateSlice(world, mutableBlockPos.setOffset(Direction.WEST), Magenta, rand);
-			generateSlice(world, mutableBlockPos.setOffset(Direction.WEST), Orange, rand);
+			generateSlice(world, mutableBlockPos.move(Direction.WEST), Orange, rand);
+			generateSlice(world, mutableBlockPos.move(Direction.WEST), Magenta, rand);
+			generateSlice(world, mutableBlockPos.move(Direction.WEST), Magenta, rand);
+			generateSlice(world, mutableBlockPos.move(Direction.WEST), Orange, rand);
 			break;
 		case 2:
-			generateSlice(world, mutableBlockPos.setOffset(Direction.WEST), Orange, rand);
-			generateSlice(world, mutableBlockPos.setOffset(Direction.WEST), White, rand);
-			generateSlice(world, mutableBlockPos.setOffset(Direction.WEST), White, rand);
-			generateSlice(world, mutableBlockPos.setOffset(Direction.WEST), White, rand);
+			generateSlice(world, mutableBlockPos.move(Direction.WEST), Orange, rand);
+			generateSlice(world, mutableBlockPos.move(Direction.WEST), White, rand);
+			generateSlice(world, mutableBlockPos.move(Direction.WEST), White, rand);
+			generateSlice(world, mutableBlockPos.move(Direction.WEST), White, rand);
 			break;
 		case 3:
-			generateSlice(world, mutableBlockPos.setOffset(Direction.WEST), Orange, rand);
-			generateSlice(world, mutableBlockPos.setOffset(Direction.WEST), Yellow, rand);
-			generateSlice(world, mutableBlockPos.setOffset(Direction.WEST), Yellow, rand);
-			generateSlice(world, mutableBlockPos.setOffset(Direction.WEST), Orange, rand);
+			generateSlice(world, mutableBlockPos.move(Direction.WEST), Orange, rand);
+			generateSlice(world, mutableBlockPos.move(Direction.WEST), Yellow, rand);
+			generateSlice(world, mutableBlockPos.move(Direction.WEST), Yellow, rand);
+			generateSlice(world, mutableBlockPos.move(Direction.WEST), Orange, rand);
 			break;
 		case 4:
-			generateSlice(world, mutableBlockPos.setOffset(Direction.WEST), White, rand);
-			generateSlice(world, mutableBlockPos.setOffset(Direction.WEST), Magenta, rand);
-			generateSlice(world, mutableBlockPos.setOffset(Direction.WEST), Magenta, rand);
-			generateSlice(world, mutableBlockPos.setOffset(Direction.WEST), Orange, rand);
+			generateSlice(world, mutableBlockPos.move(Direction.WEST), White, rand);
+			generateSlice(world, mutableBlockPos.move(Direction.WEST), Magenta, rand);
+			generateSlice(world, mutableBlockPos.move(Direction.WEST), Magenta, rand);
+			generateSlice(world, mutableBlockPos.move(Direction.WEST), Orange, rand);
 			break;
 		case 5:
-			generateSlice(world, mutableBlockPos.setOffset(Direction.WEST), Orange, rand);
-			generateSlice(world, mutableBlockPos.setOffset(Direction.WEST), Magenta, rand);
-			generateSlice(world, mutableBlockPos.setOffset(Direction.WEST), Magenta, rand);
-			generateSlice(world, mutableBlockPos.setOffset(Direction.WEST), White, rand);
+			generateSlice(world, mutableBlockPos.move(Direction.WEST), Orange, rand);
+			generateSlice(world, mutableBlockPos.move(Direction.WEST), Magenta, rand);
+			generateSlice(world, mutableBlockPos.move(Direction.WEST), Magenta, rand);
+			generateSlice(world, mutableBlockPos.move(Direction.WEST), White, rand);
 			break;
 		case 6:
-			generateSlice(world, mutableBlockPos.setOffset(Direction.WEST), Orange, rand);
-			generateSlice(world, mutableBlockPos.setOffset(Direction.WEST), Yellow, rand);
-			generateSlice(world, mutableBlockPos.setOffset(Direction.WEST), Yellow, rand);
-			generateSlice(world, mutableBlockPos.setOffset(Direction.WEST), White, rand);
+			generateSlice(world, mutableBlockPos.move(Direction.WEST), Orange, rand);
+			generateSlice(world, mutableBlockPos.move(Direction.WEST), Yellow, rand);
+			generateSlice(world, mutableBlockPos.move(Direction.WEST), Yellow, rand);
+			generateSlice(world, mutableBlockPos.move(Direction.WEST), White, rand);
 			break;
 		case 7:
-			generateSlice(world, mutableBlockPos.setOffset(Direction.WEST), White, rand);
-			generateSlice(world, mutableBlockPos.setOffset(Direction.WEST), Yellow, rand);
-			generateSlice(world, mutableBlockPos.setOffset(Direction.WEST), Yellow, rand);
-			generateSlice(world, mutableBlockPos.setOffset(Direction.WEST), Orange, rand);
+			generateSlice(world, mutableBlockPos.move(Direction.WEST), White, rand);
+			generateSlice(world, mutableBlockPos.move(Direction.WEST), Yellow, rand);
+			generateSlice(world, mutableBlockPos.move(Direction.WEST), Yellow, rand);
+			generateSlice(world, mutableBlockPos.move(Direction.WEST), Orange, rand);
 			break;
 		case 8:
-			generateSlice(world, mutableBlockPos.setOffset(Direction.WEST), White, rand);
-			generateSlice(world, mutableBlockPos.setOffset(Direction.WEST), Magenta, rand);
-			generateSlice(world, mutableBlockPos.setOffset(Direction.WEST), Magenta, rand);
-			generateSlice(world, mutableBlockPos.setOffset(Direction.WEST), White, rand);
+			generateSlice(world, mutableBlockPos.move(Direction.WEST), White, rand);
+			generateSlice(world, mutableBlockPos.move(Direction.WEST), Magenta, rand);
+			generateSlice(world, mutableBlockPos.move(Direction.WEST), Magenta, rand);
+			generateSlice(world, mutableBlockPos.move(Direction.WEST), White, rand);
 			break;
 		case 9:
-			generateSlice(world, mutableBlockPos.setOffset(Direction.WEST), Orange, rand);
-			generateSlice(world, mutableBlockPos.setOffset(Direction.WEST), Blue, rand);
-			generateSlice(world, mutableBlockPos.setOffset(Direction.WEST), Blue, rand);
-			generateSlice(world, mutableBlockPos.setOffset(Direction.WEST), White, rand);
+			generateSlice(world, mutableBlockPos.move(Direction.WEST), Orange, rand);
+			generateSlice(world, mutableBlockPos.move(Direction.WEST), Blue, rand);
+			generateSlice(world, mutableBlockPos.move(Direction.WEST), Blue, rand);
+			generateSlice(world, mutableBlockPos.move(Direction.WEST), White, rand);
 			break;
 		case 10:
-			generateSlice(world, mutableBlockPos.setOffset(Direction.WEST), White, rand);
-			generateSlice(world, mutableBlockPos.setOffset(Direction.WEST), Yellow, rand);
-			generateSlice(world, mutableBlockPos.setOffset(Direction.WEST), Yellow, rand);
-			generateSlice(world, mutableBlockPos.setOffset(Direction.WEST), White, rand);
+			generateSlice(world, mutableBlockPos.move(Direction.WEST), White, rand);
+			generateSlice(world, mutableBlockPos.move(Direction.WEST), Yellow, rand);
+			generateSlice(world, mutableBlockPos.move(Direction.WEST), Yellow, rand);
+			generateSlice(world, mutableBlockPos.move(Direction.WEST), White, rand);
 			break;
 		case 11:
-			generateSlice(world, mutableBlockPos.setOffset(Direction.WEST), White, rand);
-			generateSlice(world, mutableBlockPos.setOffset(Direction.WEST), Blue, rand);
-			generateSlice(world, mutableBlockPos.setOffset(Direction.WEST), Blue, rand);
-			generateSlice(world, mutableBlockPos.setOffset(Direction.WEST), Orange, rand);
+			generateSlice(world, mutableBlockPos.move(Direction.WEST), White, rand);
+			generateSlice(world, mutableBlockPos.move(Direction.WEST), Blue, rand);
+			generateSlice(world, mutableBlockPos.move(Direction.WEST), Blue, rand);
+			generateSlice(world, mutableBlockPos.move(Direction.WEST), Orange, rand);
 			break;
 		case 12:
-			generateSlice(world, mutableBlockPos.setOffset(Direction.WEST), White, rand);
-			generateSlice(world, mutableBlockPos.setOffset(Direction.WEST), White, rand);
-			generateSlice(world, mutableBlockPos.setOffset(Direction.WEST), White, rand);
-			generateSlice(world, mutableBlockPos.setOffset(Direction.WEST), White, rand);
+			generateSlice(world, mutableBlockPos.move(Direction.WEST), White, rand);
+			generateSlice(world, mutableBlockPos.move(Direction.WEST), White, rand);
+			generateSlice(world, mutableBlockPos.move(Direction.WEST), White, rand);
+			generateSlice(world, mutableBlockPos.move(Direction.WEST), White, rand);
 			break;
 		case 13:
-			generateSlice(world, mutableBlockPos.setOffset(Direction.WEST), Orange, rand);
-			generateSlice(world, mutableBlockPos.setOffset(Direction.WEST), Blue, rand);
-			generateSlice(world, mutableBlockPos.setOffset(Direction.WEST), Blue, rand);
-			generateSlice(world, mutableBlockPos.setOffset(Direction.WEST), Orange, rand);
+			generateSlice(world, mutableBlockPos.move(Direction.WEST), Orange, rand);
+			generateSlice(world, mutableBlockPos.move(Direction.WEST), Blue, rand);
+			generateSlice(world, mutableBlockPos.move(Direction.WEST), Blue, rand);
+			generateSlice(world, mutableBlockPos.move(Direction.WEST), Orange, rand);
 			break;
 		case 14:
-			generateSlice(world, mutableBlockPos.setOffset(Direction.WEST), Orange, rand);
-			generateSlice(world, mutableBlockPos.setOffset(Direction.WEST), White, rand);
-			generateSlice(world, mutableBlockPos.setOffset(Direction.WEST), White, rand);
-			generateSlice(world, mutableBlockPos.setOffset(Direction.WEST), Orange, rand);
+			generateSlice(world, mutableBlockPos.move(Direction.WEST), Orange, rand);
+			generateSlice(world, mutableBlockPos.move(Direction.WEST), White, rand);
+			generateSlice(world, mutableBlockPos.move(Direction.WEST), White, rand);
+			generateSlice(world, mutableBlockPos.move(Direction.WEST), Orange, rand);
 			break;
 		case 15:
-			generateSlice(world, mutableBlockPos.setOffset(Direction.WEST), White, rand);
-			generateSlice(world, mutableBlockPos.setOffset(Direction.WEST), Blue, rand);
-			generateSlice(world, mutableBlockPos.setOffset(Direction.WEST), Blue, rand);
-			generateSlice(world, mutableBlockPos.setOffset(Direction.WEST), White, rand);
+			generateSlice(world, mutableBlockPos.move(Direction.WEST), White, rand);
+			generateSlice(world, mutableBlockPos.move(Direction.WEST), Blue, rand);
+			generateSlice(world, mutableBlockPos.move(Direction.WEST), Blue, rand);
+			generateSlice(world, mutableBlockPos.move(Direction.WEST), White, rand);
 			break;
 		}
 
 		return true;
 
 	}
-
-	private void generateSlice(IWorld world, BlockPos.Mutable centerPos, int[][] slice, Random rand) {
+	private void generateSlice(ServerWorldAccess world, BlockPos.Mutable centerPos, int[][] slice, Random rand) {
 
 		BlockPos currentPositionOffsetted = new BlockPos(centerPos.add(0, 3, slice[0].length));
 		BlockPos.Mutable currentPosition = new BlockPos.Mutable(currentPositionOffsetted.getX(),
@@ -241,10 +239,12 @@ public class Level3Room extends Feature<DefaultFeatureConfig> {
 						break;
 					case 2:
 						world.setBlockState(currentPosition, FLOOR, 2);
-						if (rand.nextDouble() < 0.0005) {
-							world.setBlockState(currentPosition.add(0, 1, 0), CHEST, 2);
-							LootableContainerBlockEntity.setLootTable(world, rand, currentPosition.add(0, 1, 0),
-									Backrooms.LEVEL3CHEST);
+						if (rand.nextDouble() < 0.001) {
+							if (rand.nextDouble() < BackroomsConfig.getInstance().ChestSpawnChance) {
+								world.setBlockState(currentPosition.add(0, 1, 0), CHEST, 2);
+								LootableContainerBlockEntity.setLootTable(world, rand, currentPosition.add(0, 1, 0),
+										Backrooms.LEVEL3CHEST);
+							}
 						}
 						break;
 					case 3:
@@ -276,9 +276,9 @@ public class Level3Room extends Feature<DefaultFeatureConfig> {
 						break;
 					}
 				}
-				currentPosition.setOffset(Direction.SOUTH);
+				currentPosition.move(Direction.SOUTH);
 			}
-			currentPosition.setOffset(0, -1, -slice[0].length);
+			currentPosition.move(0, -1, -slice[0].length);
 		}
 	}
 }

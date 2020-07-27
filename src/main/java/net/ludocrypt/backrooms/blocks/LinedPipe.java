@@ -9,7 +9,7 @@ import net.fabricmc.fabric.api.tool.attribute.v1.FabricToolTags;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Material;
-import net.minecraft.entity.EntityContext;
+import net.minecraft.block.ShapeContext;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.state.StateManager;
@@ -32,7 +32,7 @@ public class LinedPipe extends Block {
 	}
 
 	@Override
-	public VoxelShape getOutlineShape(BlockState state, BlockView view, BlockPos pos, EntityContext context) {
+	public VoxelShape getOutlineShape(BlockState state, BlockView view, BlockPos pos, ShapeContext context) {
 		return SHAPE;
 	}
 
@@ -52,8 +52,7 @@ public class LinedPipe extends Block {
 		}
 		if (random.nextInt(10) == 0) {
 			world.addParticle(ParticleTypes.DRIPPING_WATER, (double) pos.getX() + (random.nextDouble() / 4) + 0.5,
-					(double) pos.getY(), (double) pos.getZ() + (random.nextDouble() / 4) + 0.5, 0.0D, 0.0D,
-					0.0D);
+					(double) pos.getY(), (double) pos.getZ() + (random.nextDouble() / 4) + 0.5, 0.0D, 0.0D, 0.0D);
 		}
 	}
 }

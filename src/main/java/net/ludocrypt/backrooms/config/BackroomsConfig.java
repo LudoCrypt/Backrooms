@@ -17,6 +17,7 @@ public class BackroomsConfig implements ConfigData {
 	
 	public double EnderPearlChance = 0.01;
 	public double SuffocationChance = 0.01;
+	public double ChestSpawnChance = 0.1;
 	public boolean TallDoors = true;
 	public boolean ForceLevel0 = false;
 	public boolean ForceLevel1 = false;

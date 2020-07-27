@@ -1,5 +1,7 @@
 package net.ludocrypt.backrooms.blocks;
 
+import java.util.function.ToIntFunction;
+
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.fabricmc.fabric.api.tool.attribute.v1.FabricToolTags;
 import net.minecraft.block.Block;
@@ -15,13 +17,14 @@ public class Light extends Block {
 	public Light() {
 
 		super(FabricBlockSettings.of(Material.GLASS).breakByTool(FabricToolTags.PICKAXES).sounds(BlockSoundGroup.GLASS)
-				.hardness(2).resistance(1).lightLevel(10));
+				.hardness(2).resistance(1).lightLevel(createLightLevelFromBlockState(10)));
 		setDefaultState(getStateManager().getDefaultState().with(ON, true));
 	}
 
-	@Override
-	public int getLuminance(BlockState state) {
-		return (Boolean) state.get(ON) ? super.getLuminance(state) : 0;
+	private static ToIntFunction<BlockState> createLightLevelFromBlockState(int litLevel) {
+		return (blockState) -> {
+			return (Boolean) blockState.get(Light.ON) ? litLevel : 0;
+		};
 	}
 
 	@Override

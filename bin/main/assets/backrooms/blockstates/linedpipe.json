@@ -1,0 +1,32 @@
+{
+	"variants": {
+		"type=1": [
+			{
+				"model": "backrooms:block/linedpipe/lp0"
+			},
+			{
+				"model": "backrooms:block/linedpipe/lp1"
+			},
+			{
+				"model": "backrooms:block/linedpipe/lp2"
+			},
+			{
+				"model": "backrooms:block/linedpipe/lp3"
+			}
+		],
+		"type=2": [
+			{
+				"model": "backrooms:block/linedpipe/lp0"
+			},
+			{
+				"model": "backrooms:block/linedpipe/lp1"
+			},
+			{
+				"model": "backrooms:block/linedpipe/lp2"
+			},
+			{
+				"model": "backrooms:block/linedpipe/lp3"
+			}
+		]
+	}
+}

@@ -11,7 +11,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.ConnectingBlock;
 import net.minecraft.block.Material;
-import net.minecraft.entity.EntityContext;
+import net.minecraft.block.ShapeContext;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.sound.BlockSoundGroup;
@@ -23,8 +23,8 @@ import net.minecraft.util.math.Direction;
 import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.util.shape.VoxelShapes;
 import net.minecraft.world.BlockView;
-import net.minecraft.world.IWorld;
 import net.minecraft.world.World;
+import net.minecraft.world.WorldAccess;
 
 public class Pipe extends Block {
 
@@ -50,7 +50,7 @@ public class Pipe extends Block {
 	}
 
 	@Override
-	public VoxelShape getOutlineShape(BlockState state, BlockView view, BlockPos pos, EntityContext context) {
+	public VoxelShape getOutlineShape(BlockState state, BlockView view, BlockPos pos, ShapeContext context) {
 		VoxelShape up = UPSHAPE;
 		VoxelShape down = DOWNSHAPE;
 		VoxelShape east = EASTSHAPE;
@@ -120,9 +120,10 @@ public class Pipe extends Block {
 
 	@Override
 	public BlockState getStateForNeighborUpdate(BlockState state, Direction facing, BlockState neighborState,
-			IWorld world, BlockPos pos, BlockPos neighborPos) {
+			WorldAccess world, BlockPos pos, BlockPos posFrom) {
 		Block block = neighborState.getBlock();
 		boolean bl = block == Backrooms.PIPE;
 		return (BlockState) state.with((Property<Boolean>) ConnectingBlock.FACING_PROPERTIES.get(facing), bl);
 	}
+	
 }

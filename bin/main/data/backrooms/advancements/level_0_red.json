@@ -1,0 +1,32 @@
+{
+	"display": {
+		"icon": {
+			"item": "backrooms:red_wallpaper"
+		},
+		"title": {
+			"translate": "advancements.level0red.title"
+		},
+		"description": {
+			"translate": "advancements.level0red.descr"
+		},
+		"frame": "task",
+		"show_toast": true,
+		"announce_to_chat": true,
+		"hidden": false
+	},
+	"criteria": {
+		"level0red": {
+			"trigger": "minecraft:location",
+			"conditions": {
+				"dimension": "backrooms:level0red"
+			}
+		}
+	},
+	"rewards": {
+		"recipes": [
+			"backrooms:oak_planks2"
+		],
+		"experience": 10
+	},
+	"parent": "backrooms:level_0"
+}

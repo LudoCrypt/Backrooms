@@ -1,7 +1,6 @@
 package net.ludocrypt.backrooms.config;
 
-import java.util.Optional;
-import java.util.function.Supplier;
+import java.util.function.Function;
 
 import io.github.prospector.modmenu.api.ModMenuApi;
 import me.sargunvohra.mcmods.autoconfig1u.AutoConfig;
@@ -17,10 +16,10 @@ public class ModMenuConfig implements ModMenuApi {
 	public String getModId() {
 		return Backrooms.MOD_ID;
 	}
-
+	
 	@Override
-	public Optional<Supplier<Screen>> getConfigScreen(Screen screen) {
-		return Optional.of(AutoConfig.getConfigScreen(BackroomsConfig.class, screen));
+	public Function<Screen, ? extends Screen> getConfigScreenFactory() {
+		return screen -> AutoConfig.getConfigScreen(BackroomsConfig.class, screen).get();
 	}
 
 }

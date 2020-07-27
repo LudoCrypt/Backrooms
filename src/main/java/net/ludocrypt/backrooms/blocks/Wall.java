@@ -8,7 +8,7 @@ import net.minecraft.sound.BlockSoundGroup;
 
 public class Wall extends Block {
 	public Wall() {
-		super(FabricBlockSettings.of(Material.WOOD).breakByTool(FabricToolTags.PICKAXES).sounds(BlockSoundGroup.STONE)
-				.hardness(9999).resistance(9999));
+		super(FabricBlockSettings.of(Material.STONE).breakByTool(FabricToolTags.PICKAXES).sounds(BlockSoundGroup.STONE)
+				.strength(3600000.8F, 3600000.8F));
 	}
 }

@@ -10,8 +10,7 @@ import net.minecraft.world.BlockView;
 
 public class VoidBlockEntity extends EndPortalBlockEntity
 {
-	@SuppressWarnings("rawtypes")
-	public static BlockEntityType blockEntityType;
+	public static BlockEntityType<?> blockEntityType;
 
 	public VoidBlockEntity()
 	{

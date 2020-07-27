@@ -1,7 +1,6 @@
 package net.ludocrypt.backrooms.mixin;
 
 import org.spongepowered.asm.mixin.Mixin;
-
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -16,8 +15,8 @@ import net.minecraft.client.gui.RotatingCubeMapRenderer;
 import net.minecraft.client.gui.screen.Screen;
 import net.minecraft.client.gui.screen.TitleScreen;
 import net.minecraft.client.gui.widget.ButtonWidget;
-import net.minecraft.client.resource.language.I18n;
 import net.minecraft.text.Text;
+import net.minecraft.text.TranslatableText;
 import net.minecraft.util.Identifier;
 
 @Environment(EnvType.CLIENT)
@@ -44,8 +43,10 @@ public abstract class TitleScreenMixin extends Screen {
 	@Inject(method = "initWidgetsNormal", at = @At(value = "RETURN"), cancellable = false)
 
 	private void addCustomButton(int y, int spacingY, CallbackInfo ci) {
+
 		this.addButton(new ButtonWidget(this.width / 2 - 100 + 228, this.height / 4 + 48 + 72 + 12, 40, 20,
-				I18n.translate("menu.switch"), (buttonWidget) -> {
+				new TranslatableText("menu.switch"), (buttonWidget) -> {
+
 					if (BackroomsConfig.getInstance().ForceNormal) {
 						this.backgroundRenderer = new RotatingCubeMapRenderer(NORMAL_CUBE_MAP);
 					} else if (BackroomsConfig.getInstance().ForceLevel0) {

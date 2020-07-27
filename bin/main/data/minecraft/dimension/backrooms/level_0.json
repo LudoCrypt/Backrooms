@@ -1,0 +1,13 @@
+{
+  "type": "backrooms:level_0",
+  "generator": {
+    "biome_source": {
+      "seed": 0,
+      "biome": "backrooms:level0",
+      "type": "minecraft:fixed"
+    },
+    "seed": 0,
+    "settings": "minecraft:overworld",
+    "type": "minecraft:noise"
+  }
+}

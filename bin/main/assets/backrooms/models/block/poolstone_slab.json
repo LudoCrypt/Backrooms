@@ -1,0 +1,8 @@
+{
+    "parent": "block/slab",
+    "textures": {
+        "bottom": "backrooms:block/poolstone",
+        "top": "backrooms:block/poolstone",
+        "side": "backrooms:block/poolstone"
+    }
+}

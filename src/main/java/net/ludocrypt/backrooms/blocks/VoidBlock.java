@@ -2,17 +2,19 @@ package net.ludocrypt.backrooms.blocks;
 
 import java.util.Random;
 
+import net.fabricmc.fabric.api.dimension.v1.FabricDimensions;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.ludocrypt.backrooms.Backrooms;
 import net.ludocrypt.backrooms.blocks.entity.VoidBlockEntity;
-import net.ludocrypt.backrooms.dimension.BackroomsDimensionTypes;
+import net.ludocrypt.backrooms.dimension.BDimension;
+import net.ludocrypt.backrooms.dimension.BackroomsPlacers;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.BlockWithEntity;
 import net.minecraft.block.Material;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.sound.BlockSoundGroup;
-import net.minecraft.util.BooleanBiFunction;
+import net.minecraft.util.function.BooleanBiFunction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.shape.VoxelShapes;
@@ -20,6 +22,7 @@ import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
 import net.minecraft.world.dimension.DimensionType;
 
+@SuppressWarnings("deprecation")
 public class VoidBlock extends BlockWithEntity {
 
 	public VoidBlock() {
@@ -38,8 +41,20 @@ public class VoidBlock extends BlockWithEntity {
 	}
 
 	@Override
+	public void onBlockAdded(BlockState state, World world, BlockPos pos, BlockState oldState, boolean notify) {
+		Backrooms.SEED = world.getServer().getOverworld().getSeed();
+	}
+
+	@Override
 	public void onEntityCollision(BlockState state, World world, BlockPos pos, Entity entity) {
-		Random rand = new Random();
+		Random generator = new Random(Backrooms.SEED);
+		long seed = (Backrooms.SEED);
+		long l = generator.nextLong();
+		long m = generator.nextLong();
+		long n = generator.nextLong();
+		long o = pos.getX() * l ^ pos.getY() * m ^ pos.getZ() * n ^ seed;
+		generator = new Random(o);
+		Random rand = generator;
 		double t = 0.0;
 		entity.slowMovement(state, new Vec3d(0.25D, 0.05000000074505806D, 0.25D));
 		if (!world.isClient && !entity.hasVehicle() && !entity.hasPassengers() && entity.canUsePortals()
@@ -47,66 +62,83 @@ public class VoidBlock extends BlockWithEntity {
 						VoxelShapes.cuboid(entity.getBoundingBox().offset((double) (-pos.getX()),
 								(double) (-pos.getY()), (double) (-pos.getZ()))),
 						state.getOutlineShape(world, pos), BooleanBiFunction.AND)) {
-			if (entity.dimension == BackroomsDimensionTypes.LEVEL0
-					|| entity.dimension == BackroomsDimensionTypes.LEVEL0DOTTED
-					|| entity.dimension == BackroomsDimensionTypes.LEVEL0RED) {
+			if (entity.world.getDimensionRegistryKey() == BDimension.LEVEL0
+					|| entity.world.getDimensionRegistryKey() == BDimension.LEVEL0DOTTED
+					|| entity.world.getDimensionRegistryKey() == BDimension.LEVEL0RED) {
 				t = rand.nextDouble();
 				if (t < 0.001) {
-					Backrooms.teleportPlayer(entity, DimensionType.OVERWORLD);
+					FabricDimensions.teleport(entity, entity.getServer().getWorld(World.OVERWORLD),
+							BackroomsPlacers.HOME);
 				} else if (t < 0.25) {
-					Backrooms.teleportPlayer(entity, BackroomsDimensionTypes.LEVEL1);
+					FabricDimensions.teleport(entity, entity.getServer().getWorld(BDimension.LEVEL1WORLD),
+							BackroomsPlacers.LEVEL01);
 				} else if (t < 0.5) {
-					Backrooms.teleportPlayer(entity, BackroomsDimensionTypes.LEVEL0DOTTED);
+					FabricDimensions.teleport(entity, entity.getServer().getWorld(BDimension.LEVEL0DOTTEDWORLD),
+							BackroomsPlacers.LEVEL01);
 				} else if (t < 0.75) {
-					Backrooms.teleportPlayer(entity, BackroomsDimensionTypes.LEVEL0RED);
+					FabricDimensions.teleport(entity, entity.getServer().getWorld(BDimension.LEVEL0REDWORLD),
+							BackroomsPlacers.LEVEL01);
 				} else {
-					Backrooms.teleportPlayer(entity, BackroomsDimensionTypes.LEVEL0);
+					FabricDimensions.teleport(entity, entity.getServer().getWorld(BDimension.LEVEL0WORLD),
+							BackroomsPlacers.LEVEL01);
 				}
-			}
-			else if (entity.dimension == BackroomsDimensionTypes.LEVEL1) {
+			} else if (entity.world.getDimensionRegistryKey() == BDimension.LEVEL1) {
 				t = rand.nextDouble();
 				if (t < 0.005) {
-					Backrooms.teleportPlayer(entity, BackroomsDimensionTypes.LEVEL1);
+					FabricDimensions.teleport(entity, entity.getServer().getWorld(BDimension.LEVEL1WORLD),
+							BackroomsPlacers.LEVEL01);
 				} else if (t < 0.25) {
-					Backrooms.teleportPlayer(entity, BackroomsDimensionTypes.LEVEL0);
+					FabricDimensions.teleport(entity, entity.getServer().getWorld(BDimension.LEVEL0WORLD),
+							BackroomsPlacers.LEVEL01);
 				} else if (t < 0.5) {
-					Backrooms.teleportPlayer(entity, BackroomsDimensionTypes.LEVEL2);
+					FabricDimensions.teleport(entity, entity.getServer().getWorld(BDimension.LEVEL2WORLD),
+							BackroomsPlacers.LEVEL2);
 				} else if (t < 0.75) {
-					Backrooms.teleportPlayer(entity, BackroomsDimensionTypes.LEVEL2);
+					FabricDimensions.teleport(entity, entity.getServer().getWorld(BDimension.LEVEL2WORLD),
+							BackroomsPlacers.LEVEL2);
 				} else {
-					Backrooms.teleportPlayer(entity, BackroomsDimensionTypes.LEVEL1);
+					FabricDimensions.teleport(entity, entity.getServer().getWorld(BDimension.LEVEL1WORLD),
+							BackroomsPlacers.LEVEL01);
 				}
-			}
-			else if (entity.dimension == BackroomsDimensionTypes.LEVEL2) {
+			} else if (entity.world.getDimensionRegistryKey() == BDimension.LEVEL2) {
 				t = rand.nextDouble();
 				if (t < 0.05) {
-					Backrooms.teleportPlayer(entity, DimensionType.OVERWORLD);
+					FabricDimensions.teleport(entity, entity.getServer().getWorld(World.OVERWORLD),
+							BackroomsPlacers.HOME);
 				} else if (t < 0.25) {
-					Backrooms.teleportPlayer(entity, BackroomsDimensionTypes.LEVEL2);
+					FabricDimensions.teleport(entity, entity.getServer().getWorld(BDimension.LEVEL2WORLD),
+							BackroomsPlacers.LEVEL2);
 				} else if (t < 0.5) {
-					Backrooms.teleportPlayer(entity, BackroomsDimensionTypes.LEVEL3);
+					FabricDimensions.teleport(entity, entity.getServer().getWorld(BDimension.LEVEL3WORLD),
+							BackroomsPlacers.LEVEL3);
 				} else if (t < 0.75) {
-					Backrooms.teleportPlayer(entity, BackroomsDimensionTypes.LEVEL2);
+					FabricDimensions.teleport(entity, entity.getServer().getWorld(BDimension.LEVEL2WORLD),
+							BackroomsPlacers.LEVEL2);
 				} else {
-					Backrooms.teleportPlayer(entity, BackroomsDimensionTypes.LEVEL3);
+					FabricDimensions.teleport(entity, entity.getServer().getWorld(BDimension.LEVEL3WORLD),
+							BackroomsPlacers.LEVEL3);
 				}
-			}
-			else if (entity.dimension == BackroomsDimensionTypes.LEVEL3) {
+			} else if (entity.world.getDimensionRegistryKey() == BDimension.LEVEL3) {
 				t = rand.nextDouble();
 				if (t < 0.05) {
-					Backrooms.teleportPlayer(entity, BackroomsDimensionTypes.LEVEL2);
+					FabricDimensions.teleport(entity, entity.getServer().getWorld(BDimension.LEVEL2WORLD),
+							BackroomsPlacers.LEVEL2);
 				} else if (t < 0.15) {
-					Backrooms.teleportPlayer(entity, DimensionType.OVERWORLD);
+					FabricDimensions.teleport(entity, entity.getServer().getWorld(World.OVERWORLD),
+							BackroomsPlacers.HOME);
 				} else if (t < 0.5) {
-					Backrooms.teleportPlayer(entity, BackroomsDimensionTypes.LEVEL3);
+					FabricDimensions.teleport(entity, entity.getServer().getWorld(BDimension.LEVEL2WORLD),
+							BackroomsPlacers.LEVEL2);
 				} else if (t < 0.75) {
-					Backrooms.teleportPlayer(entity, BackroomsDimensionTypes.LEVEL3);
+					FabricDimensions.teleport(entity, entity.getServer().getWorld(BDimension.LEVEL3WORLD),
+							BackroomsPlacers.LEVEL3);
 				} else {
-					Backrooms.teleportPlayer(entity, BackroomsDimensionTypes.LEVEL3);
+					FabricDimensions.teleport(entity, entity.getServer().getWorld(BDimension.LEVEL3WORLD),
+							BackroomsPlacers.LEVEL3);
 				}
-			}
-			else if (entity.dimension == DimensionType.OVERWORLD) {
-				Backrooms.teleportPlayer(entity, BackroomsDimensionTypes.LEVEL0);
+			} else if (entity.world.getDimensionRegistryKey() == DimensionType.OVERWORLD_REGISTRY_KEY) {
+				FabricDimensions.teleport(entity, entity.getServer().getWorld(BDimension.LEVEL0WORLD),
+						BackroomsPlacers.LEVEL01);
 			}
 		}
 	}

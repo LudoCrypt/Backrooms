@@ -33,21 +33,23 @@ import net.ludocrypt.backrooms.blocks.Poolstone_Tile;
 import net.ludocrypt.backrooms.blocks.Smooth_Poolstone;
 import net.ludocrypt.backrooms.blocks.Tile;
 import net.ludocrypt.backrooms.blocks.TornWallpaper;
+import net.ludocrypt.backrooms.blocks.Vent;
 import net.ludocrypt.backrooms.blocks.VoidBlock;
 import net.ludocrypt.backrooms.blocks.Wall;
 import net.ludocrypt.backrooms.blocks.Wallpaper;
 import net.ludocrypt.backrooms.blocks.entity.VoidBlockEntity;
 import net.ludocrypt.backrooms.config.BackroomsConfig;
-import net.ludocrypt.backrooms.dimension.BackroomsDimensionTypes;
+import net.ludocrypt.backrooms.dimension.BDimension;
 import net.ludocrypt.backrooms.items.AlmondWaterItem;
 import net.ludocrypt.backrooms.items.BackroomsMusicDiscItem;
 import net.ludocrypt.backrooms.items.RawAlmondWaterItem;
+import net.ludocrypt.backrooms.items.WallpaperPattern;
 import net.ludocrypt.backrooms.items.Wrench;
 import net.ludocrypt.backrooms.misc.BackroomsSoundEvents;
 import net.minecraft.block.Block;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityType;
-import net.minecraft.entity.Entity;
+import net.minecraft.entity.decoration.painting.PaintingMotive;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.FoodComponent;
@@ -59,9 +61,7 @@ import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Rarity;
 import net.minecraft.util.registry.Registry;
-import net.minecraft.world.Heightmap;
 import net.minecraft.world.biome.Biome;
-import net.minecraft.world.dimension.DimensionType;
 import net.minecraft.world.gen.GenerationStep;
 import net.minecraft.world.gen.decorator.Decorator;
 import net.minecraft.world.gen.decorator.RangeDecoratorConfig;
@@ -79,12 +79,16 @@ public class Backrooms implements ModInitializer {
 	public static int DisplayLevel = 0;
 	public static final String MOD_ID = "backrooms";
 	public static PlayerEntity teleportedEntity = null;
+	public static long SEED = 0;
 	// items
 	public static final Item RAW_ALMOND_WATER = new RawAlmondWaterItem(new Item.Settings().group(ItemGroup.FOOD)
 			.food(new FoodComponent.Builder().hunger(3).snack().alwaysEdible().saturationModifier(1).build()));
 	public static final Item ALMOND_WATER = new AlmondWaterItem(new Item.Settings().group(ItemGroup.FOOD)
 			.food(new FoodComponent.Builder().alwaysEdible().snack().saturationModifier(17).hunger(9).build()));
 	public static final Item WRENCH = new Wrench(new Item.Settings().group(ItemGroup.MISC).maxCount(1));
+	public static final Item WALLPAPER_PATTERN = new WallpaperPattern(new Item.Settings().group(ItemGroup.MISC));
+	public static final Item DOTTED_WALLPAPER_PATTERN = new WallpaperPattern(new Item.Settings().group(ItemGroup.MISC));
+	public static final Item RED_WALLPAPER_PATTERN = new WallpaperPattern(new Item.Settings().group(ItemGroup.MISC));
 
 	// blocks
 	public static final Block WALLPAPER = new Wallpaper();
@@ -134,8 +138,7 @@ public class Backrooms implements ModInitializer {
 	public static BlockEntityType<VoidBlockEntity> VOID_BLOCK_ENTITY;
 	public static final Block PIPE = new Pipe();
 	public static final Block LINEDPIPE = new LinedPipe();
-	// checkered
-	public static final Block CHECKERED_BLOCK = new Checkered_Block();
+	public static final Block VENT = new Vent();
 	// colours
 	public static final Block BLACK_CHECKERED = new Checkered_Block();
 	public static final Block BLUE_CHECKERED = new Checkered_Block();
@@ -184,6 +187,24 @@ public class Backrooms implements ModInitializer {
 			(new Item.Settings()).maxCount(1).group(ItemGroup.MISC).rarity(Rarity.RARE));
 	public static final Item MUSIC_DISC_012 = new BackroomsMusicDiscItem(1, BackroomsSoundEvents.MUSIC_DISC_012,
 			(new Item.Settings()).maxCount(1).group(ItemGroup.MISC).rarity(Rarity.RARE));
+	public static final Item MUSIC_DISC_PRETZELS_AND_CHEESE = new BackroomsMusicDiscItem(1,
+			BackroomsSoundEvents.MUSIC_DISC_PRETZELS_AND_CHEESE,
+			(new Item.Settings()).maxCount(1).group(ItemGroup.MISC).rarity(Rarity.RARE));
+	// painting motives
+	public static final PaintingMotive ASHES = new PaintingMotive(64, 48);
+	public static final PaintingMotive BACKROOMS = new PaintingMotive(64, 48);
+	public static final PaintingMotive BIRD = new PaintingMotive(64, 64);
+	public static final PaintingMotive CAT = new PaintingMotive(64, 64);
+	public static final PaintingMotive DESOLATION = new PaintingMotive(64, 48);
+	public static final PaintingMotive DOG = new PaintingMotive(64, 64);
+	public static final PaintingMotive FLOWERS = new PaintingMotive(64, 32);
+	public static final PaintingMotive FOREST = new PaintingMotive(64, 32);
+	public static final PaintingMotive FROG = new PaintingMotive(64, 64);
+	public static final PaintingMotive LANDSCAPE = new PaintingMotive(64, 32);
+	public static final PaintingMotive MOUNTIANS = new PaintingMotive(64, 48);
+	public static final PaintingMotive OCEANIC_HELLSCAPE = new PaintingMotive(64, 64);
+	public static final PaintingMotive SEA_LIFE = new PaintingMotive(64, 64);
+	public static final PaintingMotive WOLF = new PaintingMotive(64, 64);
 
 	// Ore Gen
 	private void handleBiome(Biome biome) {
@@ -210,11 +231,15 @@ public class Backrooms implements ModInitializer {
 	public void onInitialize() {
 
 		// dimensions
-		BackroomsDimensionTypes.register();
+		BDimension.register();
 		// items
 		Registry.register(Registry.ITEM, new Identifier("backrooms", "almond_water"), ALMOND_WATER);
 		Registry.register(Registry.ITEM, new Identifier("backrooms", "raw_almond_water"), RAW_ALMOND_WATER);
 		Registry.register(Registry.ITEM, new Identifier("backrooms", "wrench"), WRENCH);
+		Registry.register(Registry.ITEM, new Identifier("backrooms", "wallpaper_pattern"), WALLPAPER_PATTERN);
+		Registry.register(Registry.ITEM, new Identifier("backrooms", "dotted_wallpaper_pattern"),
+				DOTTED_WALLPAPER_PATTERN);
+		Registry.register(Registry.ITEM, new Identifier("backrooms", "red_wallpaper_pattern"), RED_WALLPAPER_PATTERN);
 		// blocks
 		Registry.register(Registry.BLOCK, new Identifier("backrooms", "wallpaper"), WALLPAPER);
 		Registry.register(Registry.BLOCK, new Identifier("backrooms", "dotted_wallpaper"), DOTTED_WALLPAPER);
@@ -255,6 +280,7 @@ public class Backrooms implements ModInitializer {
 
 		Registry.register(Registry.BLOCK, new Identifier("backrooms", "pipe"), PIPE);
 		Registry.register(Registry.BLOCK, new Identifier("backrooms", "linedpipe"), LINEDPIPE);
+		Registry.register(Registry.BLOCK, new Identifier("backrooms", "vent"), VENT);
 
 		// checkered
 		Registry.register(Registry.BLOCK, new Identifier("backrooms", "black_checkered"), BLACK_CHECKERED);
@@ -275,6 +301,8 @@ public class Backrooms implements ModInitializer {
 		Registry.register(Registry.BLOCK, new Identifier("backrooms", "yellow_checkered"), YELLOW_CHECKERED);
 
 		// blockitems
+		Registry.register(Registry.ITEM, new Identifier("backrooms", "wall"),
+				new BlockItem(WALL, new Item.Settings().group(ItemGroup.BUILDING_BLOCKS)));
 		Registry.register(Registry.ITEM, new Identifier("backrooms", "wallpaper"),
 				new BlockItem(WALLPAPER, new Item.Settings().group(ItemGroup.BUILDING_BLOCKS)));
 		Registry.register(Registry.ITEM, new Identifier("backrooms", "dotted_wallpaper"),
@@ -287,8 +315,6 @@ public class Backrooms implements ModInitializer {
 				new BlockItem(RED_TORN_WALLPAPER, new Item.Settings().group(ItemGroup.BUILDING_BLOCKS)));
 		Registry.register(Registry.ITEM, new Identifier("backrooms", "dotted_torn_wallpaper"),
 				new BlockItem(DOTTED_TORN_WALLPAPER, new Item.Settings().group(ItemGroup.BUILDING_BLOCKS)));
-		Registry.register(Registry.ITEM, new Identifier("backrooms", "wall"),
-				new BlockItem(WALL, new Item.Settings().group(ItemGroup.BUILDING_BLOCKS)));
 		Registry.register(Registry.ITEM, new Identifier("backrooms", "carpet"),
 				new BlockItem(CARPET, new Item.Settings().group(ItemGroup.BUILDING_BLOCKS)));
 		Registry.register(Registry.ITEM, new Identifier("backrooms", "carpet_stairs"),
@@ -343,6 +369,8 @@ public class Backrooms implements ModInitializer {
 
 		Registry.register(Registry.ITEM, new Identifier("backrooms", "pipe"),
 				new BlockItem(PIPE, new Item.Settings().group(ItemGroup.BUILDING_BLOCKS)));
+		Registry.register(Registry.ITEM, new Identifier("backrooms", "vent"),
+				new BlockItem(VENT, new Item.Settings().group(ItemGroup.BUILDING_BLOCKS)));
 		// checkered
 
 		Registry.register(Registry.ITEM, new Identifier("backrooms", "white_checkered"),
@@ -377,10 +405,22 @@ public class Backrooms implements ModInitializer {
 				new BlockItem(RED_CHECKERED, new Item.Settings().group(ItemGroup.BUILDING_BLOCKS)));
 		Registry.register(Registry.ITEM, new Identifier("backrooms", "black_checkered"),
 				new BlockItem(BLACK_CHECKERED, new Item.Settings().group(ItemGroup.BUILDING_BLOCKS)));
-
-		// hm
-//		Registry.register(Registry.ITEM, new Identifier("backrooms", "void_block"),
-//				new BlockItem(VOID_BLOCK, new Item.Settings().group(ItemGroup.MISC)));
+		// Painting Motives
+		Registry.register(Registry.PAINTING_MOTIVE, new Identifier("backrooms", "ashes"), ASHES);
+		Registry.register(Registry.PAINTING_MOTIVE, new Identifier("backrooms", "backrooms"), BACKROOMS);
+		Registry.register(Registry.PAINTING_MOTIVE, new Identifier("backrooms", "bird"), BIRD);
+		Registry.register(Registry.PAINTING_MOTIVE, new Identifier("backrooms", "cat"), CAT);
+		Registry.register(Registry.PAINTING_MOTIVE, new Identifier("backrooms", "desolation"), DESOLATION);
+		Registry.register(Registry.PAINTING_MOTIVE, new Identifier("backrooms", "dog"), DOG);
+		Registry.register(Registry.PAINTING_MOTIVE, new Identifier("backrooms", "flowers"), FLOWERS);
+		Registry.register(Registry.PAINTING_MOTIVE, new Identifier("backrooms", "forest"), FOREST);
+		Registry.register(Registry.PAINTING_MOTIVE, new Identifier("backrooms", "frog"), FROG);
+		Registry.register(Registry.PAINTING_MOTIVE, new Identifier("backrooms", "landscape"), LANDSCAPE);
+		Registry.register(Registry.PAINTING_MOTIVE, new Identifier("backrooms", "mountians"), MOUNTIANS);
+		Registry.register(Registry.PAINTING_MOTIVE, new Identifier("backrooms", "oceanic_hellscape"),
+				OCEANIC_HELLSCAPE);
+		Registry.register(Registry.PAINTING_MOTIVE, new Identifier("backrooms", "sea_life"), SEA_LIFE);
+		Registry.register(Registry.PAINTING_MOTIVE, new Identifier("backrooms", "wolf"), WOLF);
 
 		// music discs
 		Registry.register(Registry.ITEM, new Identifier("backrooms", "music_disc_glacial_cavern"),
@@ -393,6 +433,8 @@ public class Backrooms implements ModInitializer {
 		Registry.register(Registry.ITEM, new Identifier("backrooms", "music_disc_burgers_and_fries"),
 				MUSIC_DISC_BURGERS_AND_FRIES);
 		Registry.register(Registry.ITEM, new Identifier("backrooms", "music_disc_012"), MUSIC_DISC_012);
+		Registry.register(Registry.ITEM, new Identifier("backrooms", "music_disc_pretzels_and_cheese"),
+				MUSIC_DISC_PRETZELS_AND_CHEESE);
 		// config
 		AutoConfig.register(BackroomsConfig.class, GsonConfigSerializer::new);
 		// Ore Generation
@@ -438,13 +480,6 @@ public class Backrooms implements ModInitializer {
 		float d = volume + random.nextFloat();
 		float e = pitch + random.nextFloat();
 		target.playSound(sound, category, d, e);
-	}
-
-	public static void teleportPlayer(Entity entity, DimensionType newDimension) {
-		entity.changeDimension(newDimension);
-		if (newDimension == DimensionType.OVERWORLD) {
-			entity.teleport(entity.getX(), entity.world.getTopY(Heightmap.Type.MOTION_BLOCKING, (int) entity.getX(), (int) entity.getZ()) + 1, entity.getZ());
-		}
 	}
 
 }

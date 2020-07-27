@@ -1,0 +1,18 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "#W"
+    ],
+    "key": {
+        "#": {
+            "item": "minecraft:redstone_lamp"
+        },
+        "W": {
+            "item": "minecraft:white_dye"
+        }
+    },
+    "result": {
+        "item": "backrooms:light",
+        "count": 1
+    }
+}
