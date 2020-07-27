@@ -18,7 +18,7 @@
 		"level0": {
 			"trigger": "minecraft:location",
 			"conditions": {
-				"dimension": "backrooms:level0",
+				"dimension": "backrooms:level_0",
 				"position": {
 					"y": 255
 				}
@@ -27,7 +27,7 @@
 		"level1": {
 			"trigger": "minecraft:location",
 			"conditions": {
-				"dimension": "backrooms:level1",
+				"dimension": "backrooms:level_1",
 				"position": {
 					"y": 255
 				}
@@ -36,7 +36,7 @@
 		"level2": {
 			"trigger": "minecraft:location",
 			"conditions": {
-				"dimension": "backrooms:level2",
+				"dimension": "backrooms:level_2",
 				"position": {
 					"y": 255
 				}
@@ -45,7 +45,7 @@
 		"level3": {
 			"trigger": "minecraft:location",
 			"conditions": {
-				"dimension": "backrooms:level3",
+				"dimension": "backrooms:level_3",
 				"position": {
 					"y": 255
 				}
@@ -54,7 +54,7 @@
 		"level0dotted": {
 			"trigger": "minecraft:location",
 			"conditions": {
-				"dimension": "backrooms:level0dotted",
+				"dimension": "backrooms:level_0_dotted",
 				"position": {
 					"y": 255
 				}
@@ -63,7 +63,7 @@
 		"level0red": {
 			"trigger": "minecraft:location",
 			"conditions": {
-				"dimension": "backrooms:level0red",
+				"dimension": "backrooms:level_0_red",
 				"position": {
 					"y": 255
 				}

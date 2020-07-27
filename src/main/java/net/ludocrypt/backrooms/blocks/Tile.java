@@ -32,6 +32,6 @@ public class Tile extends Block {
 		if (ctx.getPlayerFacing() == Direction.EAST || ctx.getPlayerFacing() == Direction.WEST) {
 			return (BlockState) this.getDefaultState().with(FACING, Direction.EAST).with(SINGLE, true);
 		}
-		return (BlockState) this.getDefaultState().with(FACING, ctx.getPlayerFacing()).with(SINGLE, false);
+		return (BlockState) this.getDefaultState().with(FACING, ctx.getPlayerFacing().getOpposite()).with(SINGLE, false);
 	}
 }

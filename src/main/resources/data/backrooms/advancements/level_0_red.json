@@ -18,7 +18,7 @@
 		"level0red": {
 			"trigger": "minecraft:location",
 			"conditions": {
-				"dimension": "backrooms:level0red"
+				"dimension": "backrooms:level_0_red"
 			}
 		}
 	},

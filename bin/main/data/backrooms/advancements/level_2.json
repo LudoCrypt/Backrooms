@@ -18,7 +18,7 @@
 		"level2": {
 			"trigger": "minecraft:location",
 			"conditions": {
-				"dimension": "backrooms:level2"
+				"dimension": "backrooms:level_2"
 			}
 		}
 	},

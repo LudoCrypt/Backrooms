@@ -35,26 +35,9 @@ public class Level0 extends Biome {
 				LevelsFeatureInit.LEVEL0ROOM.configure(FeatureConfig.DEFAULT)
 						.createDecoratedFeature(LEVEL0PLACER.configure(DecoratorConfig.DEFAULT)));
 		
-		this.addSpawn(SpawnGroup.CREATURE, new Biome.SpawnEntry(EntityType.ENDERMAN, 50, 2, 5));
-		this.addSpawn(SpawnGroup.CREATURE, new Biome.SpawnEntry(EntityType.ENDERMITE, 10, 3, 8));
-		this.addSpawn(SpawnGroup.CREATURE, new Biome.SpawnEntry(EntityType.SILVERFISH, 50, 0, 2));
-		this.addSpawn(SpawnGroup.CREATURE, new Biome.SpawnEntry(EntityType.ZOMBIE, 50, 4, 12));
-		this.addSpawn(SpawnGroup.CREATURE, new Biome.SpawnEntry(EntityType.ENDERMAN, 50, 2, 5));
-		this.addSpawn(SpawnGroup.CREATURE, new Biome.SpawnEntry(EntityType.ENDERMITE, 10, 3, 8));
-		this.addSpawn(SpawnGroup.CREATURE, new Biome.SpawnEntry(EntityType.SILVERFISH, 50, 0, 2));
-		this.addSpawn(SpawnGroup.CREATURE, new Biome.SpawnEntry(EntityType.ZOMBIE, 50, 4, 12));
-		this.addSpawn(SpawnGroup.CREATURE, new Biome.SpawnEntry(EntityType.ENDERMAN, 50, 2, 5));
-		this.addSpawn(SpawnGroup.CREATURE, new Biome.SpawnEntry(EntityType.ENDERMITE, 10, 3, 8));
-		this.addSpawn(SpawnGroup.CREATURE, new Biome.SpawnEntry(EntityType.SILVERFISH, 50, 0, 2));
-		this.addSpawn(SpawnGroup.CREATURE, new Biome.SpawnEntry(EntityType.ZOMBIE, 50, 4, 12));
-		this.addSpawn(SpawnGroup.CREATURE, new Biome.SpawnEntry(EntityType.ENDERMAN, 50, 2, 5));
-		this.addSpawn(SpawnGroup.CREATURE, new Biome.SpawnEntry(EntityType.ENDERMITE, 10, 3, 8));
-		this.addSpawn(SpawnGroup.CREATURE, new Biome.SpawnEntry(EntityType.SILVERFISH, 50, 0, 2));
-		this.addSpawn(SpawnGroup.CREATURE, new Biome.SpawnEntry(EntityType.ZOMBIE, 50, 4, 12));
-		this.addSpawn(SpawnGroup.CREATURE, new Biome.SpawnEntry(EntityType.ENDERMAN, 50, 2, 5));
-		this.addSpawn(SpawnGroup.CREATURE, new Biome.SpawnEntry(EntityType.ENDERMITE, 10, 3, 8));
-		this.addSpawn(SpawnGroup.CREATURE, new Biome.SpawnEntry(EntityType.SILVERFISH, 50, 0, 2));
-		this.addSpawn(SpawnGroup.CREATURE, new Biome.SpawnEntry(EntityType.ZOMBIE, 50, 4, 12));
+		this.addSpawn(SpawnGroup.AMBIENT, new Biome.SpawnEntry(EntityType.ENDERMAN, 5, 0, 2));
+		this.addSpawn(SpawnGroup.AMBIENT, new Biome.SpawnEntry(EntityType.SNOWBALL, 500, 0, 2));
+
 	}
 
 	@Override

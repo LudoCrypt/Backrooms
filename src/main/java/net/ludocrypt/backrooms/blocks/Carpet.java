@@ -63,43 +63,43 @@ public class Carpet extends Block {
 			Item item = null;
 			switch (k) {
 			case 0:
-				item = Items.WHEAT_SEEDS;
+				item = Items.OAK_SAPLING;
 				break;
 			case 1:
-				item = Items.BEETROOT_SEEDS;
+				item = Items.OAK_SAPLING;
 				break;
 			case 2:
-				item = Items.OAK_SAPLING;
+				item = Items.BIRCH_SAPLING;
 				break;
 			case 3:
 				item = Items.JUNGLE_SAPLING;
 				break;
 			case 4:
-				item = Items.BEETROOT_SEEDS;
+				item = Items.PUMPKIN_SEEDS;
 				break;
 			case 5:
-				item = Items.BEETROOT_SEEDS;
+				item = Items.PUMPKIN_SEEDS;
 				break;
 			case 6:
-				item = Items.WHEAT_SEEDS;
+				item = Items.PUMPKIN_SEEDS;
 				break;
 			case 7:
-				item = Items.BEETROOT_SEEDS;
+				item = Items.MELON_SEEDS;
 				break;
 			case 8:
-				item = Items.WHEAT_SEEDS;
+				item = Items.MELON_SEEDS;
 				break;
 			case 9:
-				item = Items.BEETROOT_SEEDS;
+				item = Items.MELON_SEEDS;
 				break;
 			case 10:
-				item = Items.WHEAT_SEEDS;
+				item = Items.MELON_SEEDS;
 				break;
 			case 11:
-				item = Items.BEETROOT_SEEDS;
+				item = Items.MELON_SEEDS;
 				break;
 			case 12:
-				item = Items.WHEAT_SEEDS;
+				item = Items.MELON_SEEDS;
 				break;
 			}
 			ItemEntity entity = new ItemEntity(world, pos.getX() + 0.5, pos.getY() + 1.2, pos.getZ() + 0.5,

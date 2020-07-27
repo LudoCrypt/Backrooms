@@ -6,6 +6,8 @@ import net.ludocrypt.backrooms.Backrooms;
 import net.ludocrypt.backrooms.features.LevelsFeatureInit;
 import net.ludocrypt.backrooms.features.decorators.Level1RoomDecorator;
 import net.minecraft.block.BlockState;
+import net.minecraft.entity.EntityType;
+import net.minecraft.entity.SpawnGroup;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.BiomeEffects;
 import net.minecraft.world.gen.GenerationStep;
@@ -32,6 +34,10 @@ public class Level1 extends Biome {
 		this.addFeature(GenerationStep.Feature.LOCAL_MODIFICATIONS,
 				LevelsFeatureInit.LEVEL1ROOM.configure(FeatureConfig.DEFAULT)
 						.createDecoratedFeature(LEVEL1PLACER.configure(DecoratorConfig.DEFAULT)));
+
+		this.addSpawn(SpawnGroup.AMBIENT, new Biome.SpawnEntry(EntityType.ENDERMAN, 4, 0, 2));
+		this.addSpawn(SpawnGroup.AMBIENT, new Biome.SpawnEntry(EntityType.SILVERFISH, 4, 0, 3));
+		this.addSpawn(SpawnGroup.AMBIENT, new Biome.SpawnEntry(EntityType.SNOWBALL, 500, 0, 2));
 	}
 
 	@Override

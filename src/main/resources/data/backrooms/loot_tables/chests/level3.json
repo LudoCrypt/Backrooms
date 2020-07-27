@@ -98,6 +98,21 @@
 				},
 				{
 					"type": "item",
+					"name": "minecraft:iron_pickaxe",
+					"weight": 2
+				},
+				{
+					"type": "item",
+					"name": "minecraft:gold_pickaxe",
+					"weight": 3
+				},
+				{
+					"type": "item",
+					"name": "backrooms:music_disc_pretzels_and_cheese",
+					"weight": 3
+				},
+				{
+					"type": "item",
 					"name": "minecraft:golden_apple",
 					"weight": 1,
 					"functions": [

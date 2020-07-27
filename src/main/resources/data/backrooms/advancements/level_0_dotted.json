@@ -18,7 +18,7 @@
 		"level0dotted": {
 			"trigger": "minecraft:location",
 			"conditions": {
-				"dimension": "backrooms:level0dotted"
+				"dimension": "backrooms:level_0_dotted"
 			}
 		}
 	},

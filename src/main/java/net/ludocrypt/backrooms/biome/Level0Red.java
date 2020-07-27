@@ -6,6 +6,8 @@ import net.ludocrypt.backrooms.Backrooms;
 import net.ludocrypt.backrooms.features.LevelsFeatureInit;
 import net.ludocrypt.backrooms.features.decorators.Level0RedRoomDecorator;
 import net.minecraft.block.BlockState;
+import net.minecraft.entity.EntityType;
+import net.minecraft.entity.SpawnGroup;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.biome.BiomeEffects;
 import net.minecraft.world.gen.GenerationStep;
@@ -32,6 +34,10 @@ public class Level0Red extends Biome {
 		this.addFeature(GenerationStep.Feature.LOCAL_MODIFICATIONS,
 				LevelsFeatureInit.LEVEL0REDROOM.configure(FeatureConfig.DEFAULT)
 						.createDecoratedFeature(LEVEL0REDPLACER.configure(DecoratorConfig.DEFAULT)));
+		
+		this.addSpawn(SpawnGroup.AMBIENT, new Biome.SpawnEntry(EntityType.ENDERMAN, 4, 0, 2));
+		this.addSpawn(SpawnGroup.AMBIENT, new Biome.SpawnEntry(EntityType.SNOWBALL, 500, 0, 2));
+
 	}
 
 	@Override

@@ -23,7 +23,10 @@ public class MobSpawnLocationMixin {
 			SpawnHelper.Checker checker, SpawnHelper.Runner runner, CallbackInfo ci) {
 
 		// No mobs allowed to spawn on roof
-		if (world.getRegistryKey() == BDimension.LEVEL0WORLD && pos.getY() > 255) {
+		if ((world.getRegistryKey() == BDimension.LEVEL0WORLD || world.getRegistryKey() == BDimension.LEVEL0DOTTEDWORLD
+				|| world.getRegistryKey() == BDimension.LEVEL0REDWORLD
+				|| world.getRegistryKey() == BDimension.LEVEL1WORLD || world.getRegistryKey() == BDimension.LEVEL2WORLD
+				|| world.getRegistryKey() == BDimension.LEVEL3WORLD ) && pos.getY() > 255) {
 			ci.cancel();
 		}
 	}

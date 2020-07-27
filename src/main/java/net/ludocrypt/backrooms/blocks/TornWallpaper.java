@@ -12,6 +12,7 @@ import net.minecraft.block.Blocks;
 import net.minecraft.block.Material;
 import net.minecraft.entity.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.AxeItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
@@ -46,7 +47,7 @@ public class TornWallpaper extends Block {
 			BlockHitResult hit) {
 		Random rand = world.random;
 		ItemStack itemStack = player.getStackInHand(hand);
-		if (itemStack.getItem() == Items.SHEARS) {
+		if (itemStack.getItem() == Items.SHEARS || itemStack.getItem() instanceof AxeItem) {
 			if (player instanceof ServerPlayerEntity && !player.isCreative()) {
 				itemStack.damage(1, rand, (ServerPlayerEntity) player);
 			}
