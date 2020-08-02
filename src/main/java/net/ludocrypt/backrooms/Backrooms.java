@@ -1,5 +1,6 @@
 package net.ludocrypt.backrooms;
 
+import java.util.Iterator;
 import java.util.Random;
 import java.util.Set;
 import java.util.function.Consumer;
@@ -10,12 +11,19 @@ import com.google.common.collect.Sets;
 import me.sargunvohra.mcmods.autoconfig1u.AutoConfig;
 import me.sargunvohra.mcmods.autoconfig1u.serializer.GsonConfigSerializer;
 import net.fabricmc.api.ModInitializer;
+import net.fabricmc.fabric.api.command.v1.CommandRegistrationCallback;
+import net.fabricmc.fabric.api.dimension.v1.FabricDimensions;
 import net.fabricmc.fabric.api.event.registry.RegistryEntryAddedCallback;
 import net.ludocrypt.backrooms.biome.Level0;
+import net.ludocrypt.backrooms.biome.Level0Decrepit;
 import net.ludocrypt.backrooms.biome.Level0Dotted;
+import net.ludocrypt.backrooms.biome.Level0DottedRed;
 import net.ludocrypt.backrooms.biome.Level0Red;
 import net.ludocrypt.backrooms.biome.Level1;
+import net.ludocrypt.backrooms.biome.Level1Off;
 import net.ludocrypt.backrooms.biome.Level2;
+import net.ludocrypt.backrooms.biome.Level2Long;
+import net.ludocrypt.backrooms.biome.Level2Messy;
 import net.ludocrypt.backrooms.biome.Level3;
 import net.ludocrypt.backrooms.blocks.BackroomsSlab;
 import net.ludocrypt.backrooms.blocks.BackroomsStairs;
@@ -40,12 +48,18 @@ import net.ludocrypt.backrooms.blocks.Wallpaper;
 import net.ludocrypt.backrooms.blocks.entity.VoidBlockEntity;
 import net.ludocrypt.backrooms.config.BackroomsConfig;
 import net.ludocrypt.backrooms.dimension.BDimension;
+import net.ludocrypt.backrooms.dimension.BackroomsPlacers;
 import net.ludocrypt.backrooms.items.AlmondWaterItem;
 import net.ludocrypt.backrooms.items.BackroomsMusicDiscItem;
+import net.ludocrypt.backrooms.items.CompressedWallPickaxe;
 import net.ludocrypt.backrooms.items.RawAlmondWaterItem;
+import net.ludocrypt.backrooms.items.WallPickaxe;
 import net.ludocrypt.backrooms.items.WallpaperPattern;
 import net.ludocrypt.backrooms.items.Wrench;
 import net.ludocrypt.backrooms.misc.BackroomsSoundEvents;
+import net.ludocrypt.backrooms.misc.WallMaterial;
+import net.minecraft.advancement.Advancement;
+import net.minecraft.advancement.AdvancementProgress;
 import net.minecraft.block.Block;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityType;
@@ -56,6 +70,8 @@ import net.minecraft.item.FoodComponent;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
+import net.minecraft.server.command.CommandManager;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.Identifier;
@@ -68,6 +84,7 @@ import net.minecraft.world.gen.decorator.RangeDecoratorConfig;
 import net.minecraft.world.gen.feature.Feature;
 import net.minecraft.world.gen.feature.OreFeatureConfig;
 
+@SuppressWarnings("deprecation")
 public class Backrooms implements ModInitializer {
 	// loot tables
 	private static final Set<Identifier> LOOT_TABLES = Sets.newHashSet();
@@ -89,16 +106,25 @@ public class Backrooms implements ModInitializer {
 	public static final Item WALLPAPER_PATTERN = new WallpaperPattern(new Item.Settings().group(ItemGroup.MISC));
 	public static final Item DOTTED_WALLPAPER_PATTERN = new WallpaperPattern(new Item.Settings().group(ItemGroup.MISC));
 	public static final Item RED_WALLPAPER_PATTERN = new WallpaperPattern(new Item.Settings().group(ItemGroup.MISC));
+	public static final Item DOTTED_RED_WALLPAPER_PATTERN = new WallpaperPattern(
+			new Item.Settings().group(ItemGroup.MISC));
+	public static final Item WALL_PICKAXE = new WallPickaxe(WallMaterial.WALL, 1, -3,
+			(new Item.Settings()).group(ItemGroup.SEARCH));
+	public static final Item COMPRESSED_WALL_PICKAXE = new CompressedWallPickaxe(WallMaterial.COMPRESSED_WALL, 1, -3,
+			(new Item.Settings()).group(ItemGroup.SEARCH));
 
 	// blocks
 	public static final Block WALLPAPER = new Wallpaper();
 	public static final Block DOTTED_WALLPAPER = new Wallpaper();
 	public static final Block RED_WALLPAPER = new Wallpaper();
+	public static final Block DOTTED_RED_WALLPAPER = new Wallpaper();
 	public static final Block TORN_WALLPAPER = new TornWallpaper();
 	public static final Block RED_TORN_WALLPAPER = new TornWallpaper();
 	public static final Block DOTTED_TORN_WALLPAPER = new TornWallpaper();
+	public static final Block DOTTED_RED_TORN_WALLPAPER = new TornWallpaper();
 	public static final Block LIGHT = new Light();
 	public static final Block WALL = new Wall();
+	public static final Block COMPRESSED_WALL = new Wall();
 	public static final Block CARPET = new Carpet();
 	public static final Block CARPET_STAIRS = new BackroomsStairs(CARPET.getDefaultState(),
 			Block.Settings.copy(CARPET));
@@ -163,10 +189,20 @@ public class Backrooms implements ModInitializer {
 			new Level0Red());
 	public static final Biome LEVEL0DOTTED = Registry.register(Registry.BIOME,
 			new Identifier("backrooms", "level0dotted"), new Level0Dotted());
+	public static final Biome LEVEL0DECREPIT = Registry.register(Registry.BIOME,
+			new Identifier("backrooms", "level0decrepit"), new Level0Decrepit());
+	public static final Biome LEVEL0DOTTEDRED = Registry.register(Registry.BIOME,
+			new Identifier("backrooms", "level0dottedred"), new Level0DottedRed());
 	public static final Biome LEVEL1 = Registry.register(Registry.BIOME, new Identifier("backrooms", "level1"),
 			new Level1());
+	public static final Biome LEVEL1OFF = Registry.register(Registry.BIOME, new Identifier("backrooms", "level1off"),
+			new Level1Off());
+	public static final Biome LEVEL2LONG = Registry.register(Registry.BIOME, new Identifier("backrooms", "level2long"),
+			new Level2Long());
 	public static final Biome LEVEL2 = Registry.register(Registry.BIOME, new Identifier("backrooms", "level2"),
 			new Level2());
+	public static final Biome LEVEL2MESSY = Registry.register(Registry.BIOME,
+			new Identifier("backrooms", "level2messy"), new Level2Messy());
 	public static final Biome LEVEL3 = Registry.register(Registry.BIOME, new Identifier("backrooms", "level3"),
 			new Level3());
 	// record discs
@@ -229,7 +265,31 @@ public class Backrooms implements ModInitializer {
 
 	@Override
 	public void onInitialize() {
-
+		// commands
+		CommandRegistrationCallback.EVENT.register((dispatcher, dedicated) -> {
+			dispatcher.register(CommandManager.literal("backrooms").requires(source -> source.hasPermissionLevel(2))
+					.then(CommandManager.literal("level").then(CommandManager.literal("0").executes(context -> {
+						PlayerEntity player = context.getSource().getPlayer();
+						FabricDimensions.teleport(player, player.getServer().getWorld(BDimension.LEVEL0WORLD),
+								BackroomsPlacers.LEVEL01);
+						return 1;
+					})).then(CommandManager.literal("1").executes(context -> {
+						PlayerEntity player = context.getSource().getPlayer();
+						FabricDimensions.teleport(player, player.getServer().getWorld(BDimension.LEVEL1WORLD),
+								BackroomsPlacers.LEVEL01);
+						return 1;
+					})).then(CommandManager.literal("2").executes(context -> {
+						PlayerEntity player = context.getSource().getPlayer();
+						FabricDimensions.teleport(player, player.getServer().getWorld(BDimension.LEVEL2WORLD),
+								BackroomsPlacers.LEVEL2);
+						return 1;
+					})).then(CommandManager.literal("3").executes(context -> {
+						PlayerEntity player = context.getSource().getPlayer();
+						FabricDimensions.teleport(player, player.getServer().getWorld(BDimension.LEVEL3WORLD),
+								BackroomsPlacers.LEVEL3);
+						return 1;
+					}))));
+		});
 		// dimensions
 		BDimension.register();
 		// items
@@ -240,14 +300,22 @@ public class Backrooms implements ModInitializer {
 		Registry.register(Registry.ITEM, new Identifier("backrooms", "dotted_wallpaper_pattern"),
 				DOTTED_WALLPAPER_PATTERN);
 		Registry.register(Registry.ITEM, new Identifier("backrooms", "red_wallpaper_pattern"), RED_WALLPAPER_PATTERN);
+		Registry.register(Registry.ITEM, new Identifier("backrooms", "dotted_red_wallpaper_pattern"),
+				DOTTED_RED_WALLPAPER_PATTERN);
+		Registry.register(Registry.ITEM, new Identifier("backrooms", "wall_pickaxe"), WALL_PICKAXE);
+		Registry.register(Registry.ITEM, new Identifier("backrooms", "compressed_wall_pickaxe"), COMPRESSED_WALL_PICKAXE);
 		// blocks
 		Registry.register(Registry.BLOCK, new Identifier("backrooms", "wallpaper"), WALLPAPER);
 		Registry.register(Registry.BLOCK, new Identifier("backrooms", "dotted_wallpaper"), DOTTED_WALLPAPER);
 		Registry.register(Registry.BLOCK, new Identifier("backrooms", "red_wallpaper"), RED_WALLPAPER);
+		Registry.register(Registry.BLOCK, new Identifier("backrooms", "dotted_red_wallpaper"), DOTTED_RED_WALLPAPER);
 		Registry.register(Registry.BLOCK, new Identifier("backrooms", "torn_wallpaper"), TORN_WALLPAPER);
 		Registry.register(Registry.BLOCK, new Identifier("backrooms", "red_torn_wallpaper"), RED_TORN_WALLPAPER);
 		Registry.register(Registry.BLOCK, new Identifier("backrooms", "dotted_torn_wallpaper"), DOTTED_TORN_WALLPAPER);
+		Registry.register(Registry.BLOCK, new Identifier("backrooms", "dotted_red_torn_wallpaper"),
+				DOTTED_RED_TORN_WALLPAPER);
 		Registry.register(Registry.BLOCK, new Identifier("backrooms", "wall"), WALL);
+		Registry.register(Registry.BLOCK, new Identifier("backrooms", "compressed_wall"), COMPRESSED_WALL);
 		Registry.register(Registry.BLOCK, new Identifier("backrooms", "carpet"), CARPET);
 		Registry.register(Registry.BLOCK, new Identifier("backrooms", "carpet_stairs"), CARPET_STAIRS);
 		Registry.register(Registry.BLOCK, new Identifier("backrooms", "light"), LIGHT);
@@ -303,18 +371,24 @@ public class Backrooms implements ModInitializer {
 		// blockitems
 		Registry.register(Registry.ITEM, new Identifier("backrooms", "wall"),
 				new BlockItem(WALL, new Item.Settings().group(ItemGroup.BUILDING_BLOCKS)));
+		Registry.register(Registry.ITEM, new Identifier("backrooms", "compressed_wall"),
+				new BlockItem(COMPRESSED_WALL, new Item.Settings().group(ItemGroup.SEARCH)));
 		Registry.register(Registry.ITEM, new Identifier("backrooms", "wallpaper"),
 				new BlockItem(WALLPAPER, new Item.Settings().group(ItemGroup.BUILDING_BLOCKS)));
 		Registry.register(Registry.ITEM, new Identifier("backrooms", "dotted_wallpaper"),
 				new BlockItem(DOTTED_WALLPAPER, new Item.Settings().group(ItemGroup.BUILDING_BLOCKS)));
 		Registry.register(Registry.ITEM, new Identifier("backrooms", "red_wallpaper"),
 				new BlockItem(RED_WALLPAPER, new Item.Settings().group(ItemGroup.BUILDING_BLOCKS)));
+		Registry.register(Registry.ITEM, new Identifier("backrooms", "dotted_red_wallpaper"),
+				new BlockItem(DOTTED_RED_WALLPAPER, new Item.Settings().group(ItemGroup.BUILDING_BLOCKS)));
 		Registry.register(Registry.ITEM, new Identifier("backrooms", "torn_wallpaper"),
 				new BlockItem(TORN_WALLPAPER, new Item.Settings().group(ItemGroup.BUILDING_BLOCKS)));
 		Registry.register(Registry.ITEM, new Identifier("backrooms", "red_torn_wallpaper"),
 				new BlockItem(RED_TORN_WALLPAPER, new Item.Settings().group(ItemGroup.BUILDING_BLOCKS)));
 		Registry.register(Registry.ITEM, new Identifier("backrooms", "dotted_torn_wallpaper"),
 				new BlockItem(DOTTED_TORN_WALLPAPER, new Item.Settings().group(ItemGroup.BUILDING_BLOCKS)));
+		Registry.register(Registry.ITEM, new Identifier("backrooms", "dotted_red_torn_wallpaper"),
+				new BlockItem(DOTTED_RED_TORN_WALLPAPER, new Item.Settings().group(ItemGroup.BUILDING_BLOCKS)));
 		Registry.register(Registry.ITEM, new Identifier("backrooms", "carpet"),
 				new BlockItem(CARPET, new Item.Settings().group(ItemGroup.BUILDING_BLOCKS)));
 		Registry.register(Registry.ITEM, new Identifier("backrooms", "carpet_stairs"),
@@ -482,4 +556,17 @@ public class Backrooms implements ModInitializer {
 		target.playSound(sound, category, d, e);
 	}
 
+	public static void grantAdvancement(PlayerEntity player, Identifier id) {
+		if (player instanceof ServerPlayerEntity) {
+			Advancement adv = ((ServerPlayerEntity) player).server.getAdvancementLoader().get(id);
+			AdvancementProgress advp = ((ServerPlayerEntity) player).getAdvancementTracker().getProgress(adv);
+			if (!advp.isDone()) {
+				Iterator<String> itr = advp.getUnobtainedCriteria().iterator();
+				while (itr.hasNext()) {
+					String crit = itr.next();
+					((ServerPlayerEntity) player).getAdvancementTracker().grantCriterion(adv, crit);
+				}
+			}
+		}
+	}
 }

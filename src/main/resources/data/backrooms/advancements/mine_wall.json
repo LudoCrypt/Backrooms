@@ -27,7 +27,7 @@
 		}
 	},
 	"rewards": {
-		"experience": 500
+		"experience": 10
 	},
-	"parent": "backrooms:timewaster"
+	"parent": "backrooms:backrooms"
 }

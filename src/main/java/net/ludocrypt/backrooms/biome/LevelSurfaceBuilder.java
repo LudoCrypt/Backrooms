@@ -5,6 +5,7 @@ import java.util.Random;
 import com.mojang.serialization.Codec;
 
 import net.ludocrypt.backrooms.Backrooms;
+import net.ludocrypt.backrooms.config.BackroomsConfig;
 import net.minecraft.block.BlockState;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.biome.Biome;
@@ -25,9 +26,19 @@ public class LevelSurfaceBuilder extends SurfaceBuilder<TernarySurfaceConfig> {
 				seaLevel, seed, config);
 		int xpos = x & 15;
 		int zpos = z & 15;
+		int yheight = 75;
 		BlockPos.Mutable blockpos$Mutable = new BlockPos.Mutable();
-
-		for (int ypos = 255; ypos >= 0; --ypos) {
+		if (biomeIn == Backrooms.LEVEL0 || biomeIn == Backrooms.LEVEL0DECREPIT || biomeIn == Backrooms.LEVEL0DOTTED
+				|| biomeIn == Backrooms.LEVEL0DOTTEDRED || biomeIn == Backrooms.LEVEL0RED) {
+			if (BackroomsConfig.getInstance().Level0LayerCount > 11) {
+				yheight = (BackroomsConfig.getInstance().Level0LayerCount * 6) + 8;
+			}
+		} else if (biomeIn == Backrooms.LEVEL1 || biomeIn == Backrooms.LEVEL1OFF) {
+			if (BackroomsConfig.getInstance().Level1LayerCount > 11) {
+				yheight = (BackroomsConfig.getInstance().Level1LayerCount * 6) + 8;
+			}
+		}
+		for (int ypos = 0; ypos <= yheight; ++ypos) {
 			blockpos$Mutable.set(xpos, ypos, zpos);
 			BlockState currentBlockState = chunkIn.getBlockState(blockpos$Mutable);
 
@@ -35,5 +46,6 @@ public class LevelSurfaceBuilder extends SurfaceBuilder<TernarySurfaceConfig> {
 				chunkIn.setBlockState(blockpos$Mutable, WALL, false);
 			}
 		}
+
 	}
 }

@@ -316,7 +316,7 @@ public class Level0Room extends Feature<DefaultFeatureConfig> {
 						world.setBlockState(currentPosition, AIR, 2);
 						break;
 					case 5:
-						if (rand.nextDouble() < 0.01) {
+						if (rand.nextDouble() < 0.005) {
 							int k = rand.nextInt(4);
 							switch (k) {
 							case 0:

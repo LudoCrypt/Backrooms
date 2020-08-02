@@ -28,17 +28,34 @@ public class PlayerMixin {
 					&& !playerEntity.isCreative()) {
 				if (Math.random() < 0.75) {
 					if (Math.random() < BackroomsConfig.getInstance().SuffocationChance) {
-						FabricDimensions.teleport(playerEntity, playerEntity.getServer().getWorld(BDimension.LEVEL0WORLD),
-								BackroomsPlacers.LEVEL01);
+						if (Math.random() < 0.02) {
+							FabricDimensions.teleport(playerEntity,
+									playerEntity.getServer().getWorld(BDimension.LEVEL1WORLD),
+									BackroomsPlacers.LEVEL01);
+						} else if (Math.random() < 0.01) {
+							FabricDimensions.teleport(playerEntity,
+									playerEntity.getServer().getWorld(BDimension.LEVEL2WORLD), BackroomsPlacers.LEVEL2);
+						} else {
+							FabricDimensions.teleport(playerEntity,
+									playerEntity.getServer().getWorld(BDimension.LEVEL0WORLD),
+									BackroomsPlacers.LEVEL01);
+						}
 					}
 				}
 			}
 			if (Backrooms.teleportedEntity == playerEntity) {
-				FabricDimensions.teleport(playerEntity, playerEntity.getServer().getWorld(BDimension.LEVEL0WORLD),
-						BackroomsPlacers.LEVEL01);
+				if (Math.random() < 0.02) {
+					FabricDimensions.teleport(playerEntity, playerEntity.getServer().getWorld(BDimension.LEVEL1WORLD),
+							BackroomsPlacers.LEVEL01);
+				} else if (Math.random() < 0.01) {
+					FabricDimensions.teleport(playerEntity, playerEntity.getServer().getWorld(BDimension.LEVEL2WORLD),
+							BackroomsPlacers.LEVEL2);
+				} else {
+					FabricDimensions.teleport(playerEntity, playerEntity.getServer().getWorld(BDimension.LEVEL0WORLD),
+							BackroomsPlacers.LEVEL01);
+				}
 				Backrooms.teleportedEntity = null;
 			}
 		}
 	}
-
 }

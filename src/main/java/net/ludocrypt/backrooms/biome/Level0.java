@@ -5,7 +5,9 @@ import net.fabricmc.api.Environment;
 import net.ludocrypt.backrooms.Backrooms;
 import net.ludocrypt.backrooms.features.LevelsFeatureInit;
 import net.ludocrypt.backrooms.features.decorators.Level0RoomDecorator;
+import net.ludocrypt.backrooms.misc.BackroomsSoundEvents;
 import net.minecraft.block.BlockState;
+import net.minecraft.client.sound.MusicType;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.SpawnGroup;
 import net.minecraft.world.biome.Biome;
@@ -29,9 +31,9 @@ public class Level0 extends Biome {
 						new TernarySurfaceConfig(WALL, WALL, WALL))
 				.precipitation(Biome.Precipitation.NONE).category(Biome.Category.NONE).depth(0F).scale(0F)
 				.temperature(1.0F).downfall(0F).effects(new BiomeEffects.Builder().waterColor(14402413)
-						.waterFogColor(14402413).fogColor(14402413).build()));
+						.waterFogColor(14402413).fogColor(14402413).music(MusicType.method_27283(BackroomsSoundEvents.LEVEL0MUSIC)).build()));
 
-		this.addFeature(GenerationStep.Feature.SURFACE_STRUCTURES,
+		this.addFeature(GenerationStep.Feature.LOCAL_MODIFICATIONS,
 				LevelsFeatureInit.LEVEL0ROOM.configure(FeatureConfig.DEFAULT)
 						.createDecoratedFeature(LEVEL0PLACER.configure(DecoratorConfig.DEFAULT)));
 		

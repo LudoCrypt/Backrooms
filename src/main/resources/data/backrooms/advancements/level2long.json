@@ -1,0 +1,29 @@
+{
+	"display": {
+		"icon": {
+			"item": "backrooms:cement"
+		},
+		"title": {
+			"translate": "advancements.level2long.title"
+		},
+		"description": {
+			"translate": "advancements.level2long.descr"
+		},
+		"frame": "task",
+		"show_toast": true,
+		"announce_to_chat": true,
+		"hidden": true
+	},
+	"criteria": {
+		"level0": {
+			"trigger": "minecraft:location",
+			"conditions": {
+				"biome": "backrooms:level2long"
+			}
+		}
+	},
+	"rewards": {
+		"experience": 10
+	},
+	"parent": "backrooms:level_2"
+}

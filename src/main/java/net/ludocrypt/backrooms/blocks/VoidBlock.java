@@ -13,7 +13,10 @@ import net.minecraft.block.BlockWithEntity;
 import net.minecraft.block.Material;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.ItemEntity;
+import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.sound.BlockSoundGroup;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.function.BooleanBiFunction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
@@ -26,7 +29,7 @@ import net.minecraft.world.dimension.DimensionType;
 public class VoidBlock extends BlockWithEntity {
 
 	public VoidBlock() {
-		super(FabricBlockSettings.of(Material.PORTAL).strength(-1.0F, 3600000.8F).sounds(BlockSoundGroup.METAL)
+		super(FabricBlockSettings.of(Material.PORTAL).strength(100000F, 3600000.8F).sounds(BlockSoundGroup.METAL)
 				.collidable(false).nonOpaque());
 	}
 
@@ -56,27 +59,30 @@ public class VoidBlock extends BlockWithEntity {
 		generator = new Random(o);
 		Random rand = generator;
 		double t = 0.0;
-		entity.slowMovement(state, new Vec3d(0.25D, 0.05000000074505806D, 0.25D));
-		if (!world.isClient && !entity.hasVehicle() && !entity.hasPassengers() && entity.canUsePortals()
+		if (!(entity instanceof ItemEntity)) {
+			entity.slowMovement(state, new Vec3d(0.25D, 0.05000000074505806D, 0.25D));
+		}
+		if ((!world.isClient && !entity.hasVehicle() && !entity.hasPassengers() && entity.canUsePortals()
 				&& VoxelShapes.matchesAnywhere(
 						VoxelShapes.cuboid(entity.getBoundingBox().offset((double) (-pos.getX()),
 								(double) (-pos.getY()), (double) (-pos.getZ()))),
-						state.getOutlineShape(world, pos), BooleanBiFunction.AND)) {
-			if (entity.world.getDimensionRegistryKey() == BDimension.LEVEL0
-					|| entity.world.getDimensionRegistryKey() == BDimension.LEVEL0DOTTED
-					|| entity.world.getDimensionRegistryKey() == BDimension.LEVEL0RED) {
+						state.getOutlineShape(world, pos), BooleanBiFunction.AND)) && !(entity instanceof ItemEntity)) {
+			if (entity.world.getDimensionRegistryKey() == BDimension.LEVEL0) {
 				t = rand.nextDouble();
 				if (t < 0.001) {
 					FabricDimensions.teleport(entity, entity.getServer().getWorld(World.OVERWORLD),
 							BackroomsPlacers.HOME);
+					if (entity instanceof ServerPlayerEntity) {
+						Backrooms.grantAdvancement((ServerPlayerEntity) entity, new Identifier("backrooms", "come_back"));
+					}
 				} else if (t < 0.25) {
 					FabricDimensions.teleport(entity, entity.getServer().getWorld(BDimension.LEVEL1WORLD),
 							BackroomsPlacers.LEVEL01);
 				} else if (t < 0.5) {
-					FabricDimensions.teleport(entity, entity.getServer().getWorld(BDimension.LEVEL0DOTTEDWORLD),
+					FabricDimensions.teleport(entity, entity.getServer().getWorld(BDimension.LEVEL1WORLD),
 							BackroomsPlacers.LEVEL01);
 				} else if (t < 0.75) {
-					FabricDimensions.teleport(entity, entity.getServer().getWorld(BDimension.LEVEL0REDWORLD),
+					FabricDimensions.teleport(entity, entity.getServer().getWorld(BDimension.LEVEL0WORLD),
 							BackroomsPlacers.LEVEL01);
 				} else {
 					FabricDimensions.teleport(entity, entity.getServer().getWorld(BDimension.LEVEL0WORLD),
@@ -88,13 +94,13 @@ public class VoidBlock extends BlockWithEntity {
 					FabricDimensions.teleport(entity, entity.getServer().getWorld(BDimension.LEVEL1WORLD),
 							BackroomsPlacers.LEVEL01);
 				} else if (t < 0.25) {
-					FabricDimensions.teleport(entity, entity.getServer().getWorld(BDimension.LEVEL0WORLD),
+					FabricDimensions.teleport(entity, entity.getServer().getWorld(BDimension.LEVEL2WORLD),
 							BackroomsPlacers.LEVEL01);
 				} else if (t < 0.5) {
 					FabricDimensions.teleport(entity, entity.getServer().getWorld(BDimension.LEVEL2WORLD),
 							BackroomsPlacers.LEVEL2);
 				} else if (t < 0.75) {
-					FabricDimensions.teleport(entity, entity.getServer().getWorld(BDimension.LEVEL2WORLD),
+					FabricDimensions.teleport(entity, entity.getServer().getWorld(BDimension.LEVEL0WORLD),
 							BackroomsPlacers.LEVEL2);
 				} else {
 					FabricDimensions.teleport(entity, entity.getServer().getWorld(BDimension.LEVEL1WORLD),
@@ -105,6 +111,9 @@ public class VoidBlock extends BlockWithEntity {
 				if (t < 0.05) {
 					FabricDimensions.teleport(entity, entity.getServer().getWorld(World.OVERWORLD),
 							BackroomsPlacers.HOME);
+					if (entity instanceof ServerPlayerEntity) {
+						Backrooms.grantAdvancement((ServerPlayerEntity) entity, new Identifier("backrooms", "come_back"));
+					}
 				} else if (t < 0.25) {
 					FabricDimensions.teleport(entity, entity.getServer().getWorld(BDimension.LEVEL2WORLD),
 							BackroomsPlacers.LEVEL2);
@@ -126,6 +135,9 @@ public class VoidBlock extends BlockWithEntity {
 				} else if (t < 0.15) {
 					FabricDimensions.teleport(entity, entity.getServer().getWorld(World.OVERWORLD),
 							BackroomsPlacers.HOME);
+					if (entity instanceof ServerPlayerEntity) {
+						Backrooms.grantAdvancement((ServerPlayerEntity) entity, new Identifier("backrooms", "come_back"));
+					}
 				} else if (t < 0.5) {
 					FabricDimensions.teleport(entity, entity.getServer().getWorld(BDimension.LEVEL2WORLD),
 							BackroomsPlacers.LEVEL2);

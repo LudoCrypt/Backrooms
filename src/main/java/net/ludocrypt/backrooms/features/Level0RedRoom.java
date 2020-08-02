@@ -237,7 +237,9 @@ public class Level0RedRoom extends Feature<DefaultFeatureConfig> {
 				int sliceBlock = slice[y][z];
 
 				if (((world.getBlockState(currentPosition).getBlock() == Backrooms.WALL)
-						|| (world.getBlockState(currentPosition).getBlock() == Blocks.BEDROCK))) {
+						|| (world.getBlockState(currentPosition).getBlock() == Blocks.BEDROCK))
+						&& (world.getBlockState(currentPosition).getBlock() != Backrooms.CARPET_STAIRS)) {
+					
 					if ((generator.nextDouble()) < ((BackroomsConfig.getInstance().Level0DoorChance))) {
 						Level0RedRoom.door1 = true;
 					} else {
@@ -287,7 +289,7 @@ public class Level0RedRoom extends Feature<DefaultFeatureConfig> {
 						world.setBlockState(currentPosition, AIR, 2);
 						break;
 					case 5:
-						if (rand.nextDouble() < 0.01) {
+						if (rand.nextDouble() < 0.005) {
 							int k = rand.nextInt(4);
 							switch (k) {
 							case 0:

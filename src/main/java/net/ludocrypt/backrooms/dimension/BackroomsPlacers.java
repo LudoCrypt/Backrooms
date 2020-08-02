@@ -11,22 +11,22 @@ public class BackroomsPlacers {
 	public static final EntityPlacer LEVEL01 = (oldEntity, destination, portalDir, horizontalOffset,
 			verticalOffset) -> {
 		return new BlockPattern.TeleportTarget(
-				new Vec3d(oldEntity.getX() + ((destination.random.nextInt(20) - 10) * 16) + 3.5, 6,
-						oldEntity.getZ() + ((destination.random.nextInt(20) - 10) * 16) + 3.5),
+				new Vec3d(oldEntity.getX() + ((destination.random.nextInt(100) - 50) * 16) + 3.5, 6,
+						oldEntity.getZ() + ((destination.random.nextInt(100) - 50) * 16) + 3.5),
 				oldEntity.getVelocity(), (int) oldEntity.yaw);
 	};
 
 	public static final EntityPlacer LEVEL2 = (oldEntity, destination, portalDir, horizontalOffset, verticalOffset) -> {
 		return new BlockPattern.TeleportTarget(
-				new Vec3d(oldEntity.getX() + ((destination.random.nextInt(20) - 10) * 16) + 3.5, 5,
-						oldEntity.getZ() + ((destination.random.nextInt(20) - 10) * 16) + 3.5),
+				new Vec3d(oldEntity.getX() + ((destination.random.nextInt(100) - 10) * 16) + 3.5, 5,
+						oldEntity.getZ() + ((destination.random.nextInt(100) - 10) * 16) + 3.5),
 				oldEntity.getVelocity(), (int) oldEntity.yaw);
 	};
 
 	public static final EntityPlacer LEVEL3 = (oldEntity, destination, portalDir, horizontalOffset, verticalOffset) -> {
 		return new BlockPattern.TeleportTarget(
-				new Vec3d(oldEntity.getX() + ((destination.random.nextInt(20) - 10) * 16) + 3.5, 4,
-						oldEntity.getZ() + ((destination.random.nextInt(20) - 10) * 16) + 3.5),
+				new Vec3d(oldEntity.getX() + ((destination.random.nextInt(100) - 50) * 16) + 3.5, 4,
+						oldEntity.getZ() + ((destination.random.nextInt(100) - 50) * 16) + 3.5),
 				oldEntity.getVelocity(), (int) oldEntity.yaw);
 	};
 

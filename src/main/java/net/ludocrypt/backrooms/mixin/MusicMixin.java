@@ -39,16 +39,18 @@ public class MusicMixin {
 			callbackInfoReturnable.setReturnValue(BackroomsMusicType.LEVEL3MENU);
 		} else if (this.player == null && Backrooms.Display == false) {
 			callbackInfoReturnable.setReturnValue(MusicType.MENU);
-		} else if (world != null && this.world.getDimensionRegistryKey() == BDimension.LEVEL0
-				|| world != null && this.world.getDimensionRegistryKey() == BDimension.LEVEL0DOTTED
-				|| world != null && this.world.getDimensionRegistryKey() == BDimension.LEVEL0RED) {
-			callbackInfoReturnable.setReturnValue(BackroomsMusicType.LEVEL0MUSIC);
+		} else if (world != null && this.world.getDimensionRegistryKey() == BDimension.LEVEL0) {
+			callbackInfoReturnable.setReturnValue((MusicSound) this.world.getBiomeAccess()
+					.method_27344(this.player.getBlockPos()).method_27343().orElse(BackroomsMusicType.LEVEL0MUSIC));
 		} else if (world != null && this.world.getDimensionRegistryKey() == BDimension.LEVEL1) {
-			callbackInfoReturnable.setReturnValue(BackroomsMusicType.LEVEL1MUSIC);
+			callbackInfoReturnable.setReturnValue((MusicSound) this.world.getBiomeAccess()
+					.method_27344(this.player.getBlockPos()).method_27343().orElse(BackroomsMusicType.LEVEL1MUSIC));
 		} else if (world != null && this.world.getDimensionRegistryKey() == BDimension.LEVEL2) {
-			callbackInfoReturnable.setReturnValue(BackroomsMusicType.LEVEL2MUSIC);
+			callbackInfoReturnable.setReturnValue((MusicSound) this.world.getBiomeAccess()
+					.method_27344(this.player.getBlockPos()).method_27343().orElse(BackroomsMusicType.LEVEL2MUSIC));
 		} else if (world != null && this.world.getDimensionRegistryKey() == BDimension.LEVEL3) {
-			callbackInfoReturnable.setReturnValue(BackroomsMusicType.LEVEL3MUSIC);
+			callbackInfoReturnable.setReturnValue((MusicSound) this.world.getBiomeAccess()
+					.method_27344(this.player.getBlockPos()).method_27343().orElse(BackroomsMusicType.LEVEL3MUSIC));
 		}
 	}
 }

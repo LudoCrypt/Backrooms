@@ -17,7 +17,7 @@ public class Light extends Block {
 	public Light() {
 
 		super(FabricBlockSettings.of(Material.GLASS).breakByTool(FabricToolTags.PICKAXES).sounds(BlockSoundGroup.GLASS)
-				.hardness(2).resistance(1).lightLevel(createLightLevelFromBlockState(10)));
+				.hardness(2).resistance(1).lightLevel(createLightLevelFromBlockState(15)));
 		setDefaultState(getStateManager().getDefaultState().with(ON, true));
 	}
 

@@ -12,8 +12,6 @@ import net.minecraft.block.Material;
 import net.minecraft.block.ShapeContext;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.sound.BlockSoundGroup;
-import net.minecraft.state.StateManager;
-import net.minecraft.state.property.IntProperty;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.shape.VoxelShape;
 import net.minecraft.world.BlockView;
@@ -21,24 +19,16 @@ import net.minecraft.world.World;
 
 public class LinedPipe extends Block {
 
-	public static final IntProperty TYPE = IntProperty.of("type", 1, 2);
-
 	public static final VoxelShape SHAPE = Block.createCuboidShape(0.0D, 0.0D, 0.0D, 16.0D, 14.0D, 16.0D);
 
 	public LinedPipe() {
 		super(FabricBlockSettings.of(Material.STONE).breakByTool(FabricToolTags.PICKAXES).sounds(BlockSoundGroup.STONE)
 				.hardness(6).resistance(6).lightLevel(5));
-		setDefaultState(getStateManager().getDefaultState().with(TYPE, 1));
 	}
 
 	@Override
 	public VoxelShape getOutlineShape(BlockState state, BlockView view, BlockPos pos, ShapeContext context) {
 		return SHAPE;
-	}
-
-	@Override
-	protected void appendProperties(StateManager.Builder<Block, BlockState> stateManager) {
-		stateManager.add(TYPE);
 	}
 
 	@Override

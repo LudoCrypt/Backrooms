@@ -1,0 +1,17 @@
+{
+    "type": "minecraft:crafting_shaped",
+    "pattern": [
+        "###",
+        "###",
+        "###"
+    ],
+    "key": {
+        "#": {
+            "item": "backrooms:wall"
+        }
+    },
+    "result": {
+        "item": "backrooms:compressed_wall",
+        "count": 1
+    }
+}

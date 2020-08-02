@@ -1,0 +1,6 @@
+{
+    "parent": "item/handheld",
+    "textures": {
+        "layer0": "backrooms:items/compressed_wall_pickaxe"
+    }
+}

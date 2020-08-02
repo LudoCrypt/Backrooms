@@ -1,0 +1,35 @@
+{
+	"display": {
+		"icon": {
+			"item": "backrooms:light"
+		},
+		"title": {
+			"translate": "advancements.level1off.title"
+		},
+		"description": {
+			"translate": "advancements.level1off.descr"
+		},
+		"frame": "task",
+		"show_toast": true,
+		"announce_to_chat": true,
+		"hidden": true
+	},
+	"criteria": {
+		"level0": {
+			"trigger": "minecraft:location",
+			"conditions": {
+				"biome": "backrooms:level1off",
+				"light": {
+					"light": {
+						"min": 0,
+						"max": 2
+					}
+				}
+			}
+		}
+	},
+	"rewards": {
+		"experience": 10
+	},
+	"parent": "backrooms:level_1"
+}

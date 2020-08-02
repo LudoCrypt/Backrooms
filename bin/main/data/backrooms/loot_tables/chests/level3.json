@@ -99,17 +99,17 @@
 				{
 					"type": "item",
 					"name": "minecraft:iron_pickaxe",
-					"weight": 2
+					"weight": 8
 				},
 				{
 					"type": "item",
-					"name": "minecraft:gold_pickaxe",
-					"weight": 3
+					"name": "minecraft:golden_pickaxe",
+					"weight": 15
 				},
 				{
 					"type": "item",
 					"name": "backrooms:music_disc_pretzels_and_cheese",
-					"weight": 3
+					"weight": 10
 				},
 				{
 					"type": "item",

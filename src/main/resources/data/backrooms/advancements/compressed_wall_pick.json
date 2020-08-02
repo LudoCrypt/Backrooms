@@ -1,0 +1,33 @@
+{
+	"display": {
+		"icon": {
+			"item": "backrooms:compressed_wall_pickaxe"
+		},
+		"title": {
+			"translate": "advancements.compressed_wall_pick.title"
+		},
+		"description": {
+			"translate": "advancements.compressed_wall_pick.descr"
+		},
+		"frame": "challenge",
+		"show_toast": true,
+		"announce_to_chat": true,
+		"hidden": true
+	},
+	"criteria": {
+		"wall_pick": {
+			"trigger": "minecraft:inventory_changed",
+			"conditions": {
+				"items": [
+					{
+						"item": "backrooms:compressed_wall_pickaxe"
+					}
+				]
+			}
+		}
+	},
+	"rewards": {
+		"experience": 10
+	},
+	"parent": "backrooms:compressed_wall"
+}

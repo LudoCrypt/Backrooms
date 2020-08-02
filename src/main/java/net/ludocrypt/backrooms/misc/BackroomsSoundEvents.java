@@ -7,8 +7,12 @@ import net.minecraft.util.registry.Registry;
 public class BackroomsSoundEvents {
 
 	public static final SoundEvent LEVEL0MUSIC = register("backrooms:level.0.music");
-	public static final SoundEvent LEVEL1MUSIC = register("backrooms:level.1.music");
+	public static final SoundEvent LEVEL0WEIGHTEDMUSIC = register("backrooms:level.0weighted.music");
+	public static final SoundEvent LEVEL1OFFMUSIC = register("backrooms:level.1off.music");
+	public static final SoundEvent LEVEL1ONMUSIC = register("backrooms:level.1on.music");
 	public static final SoundEvent LEVEL2MUSIC = register("backrooms:level.2.music");
+	public static final SoundEvent LEVEL2LONGMUSIC = register("backrooms:level.2long.music");
+	public static final SoundEvent LEVEL2MESSYMUSIC = register("backrooms:level.2messy.music");
 	public static final SoundEvent LEVEL3MUSIC = register("backrooms:level.3.music");
 	public static final SoundEvent MUSIC_DISC_ITS_BEEN_SO_LONG = register("backrooms:music_disc.its_been_so_long");
 	public static final SoundEvent MUSIC_DISC_OMAE_WA_MOU = register("backrooms:music_disc.omae_wa_mou");

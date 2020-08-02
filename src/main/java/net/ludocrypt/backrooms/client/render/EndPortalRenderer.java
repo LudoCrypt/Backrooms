@@ -15,13 +15,15 @@ import net.minecraft.client.render.VertexConsumerProvider;
 import net.minecraft.client.render.block.entity.BlockEntityRenderDispatcher;
 import net.minecraft.client.render.block.entity.BlockEntityRenderer;
 import net.minecraft.client.util.math.MatrixStack;
+import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Matrix4f;
 
 @Environment(EnvType.CLIENT)
 public class EndPortalRenderer<T extends EndPortalBlockEntity> extends BlockEntityRenderer<T> {
 	private static final Random RANDOM = new Random(9500L);
+	public static final Identifier TEXTURE = new Identifier("backrooms", "textures/block/void_block.png");
 	private static final List<RenderLayer> renderLayers = IntStream.range(0, 16)
-			.mapToObj(i -> RenderLayer.getEndPortal(i + 1)).collect(ImmutableList.toImmutableList());
+			.mapToObj(i -> BRenderLayer.getEndPortal(i + 1)).collect(ImmutableList.toImmutableList());
 
 	public EndPortalRenderer(BlockEntityRenderDispatcher dispatcher) {
 		super(dispatcher);
@@ -34,15 +36,17 @@ public class EndPortalRenderer<T extends EndPortalBlockEntity> extends BlockEnti
 		RANDOM.setSeed(9500L);
 		int iterations = renderIterations(d);
 		Matrix4f matrix = matrixStack.peek().getModel();
-		renderLayer(matrix, vertexConsumerProvider.getBuffer(renderLayers.get(0)), 0.15F);
-		for (int i = 1; i < iterations; ++i)
-			renderLayer(matrix, vertexConsumerProvider.getBuffer(renderLayers.get(i)), 2.0F / (18 - i));
+		renderLayer(matrix, vertexConsumerProvider.getBuffer(renderLayers.get(0)), 1.0F);
+		for (int i = 1; i < iterations; ++i) {
+			renderLayer(matrix, vertexConsumerProvider.getBuffer(renderLayers.get(i)), 1.0F);
+		}
+
 	}
 
 	private static void renderLayer(Matrix4f matrix, VertexConsumer vertexConsumer, float colourScalar) {
-		float red = (RANDOM.nextFloat() * 0.5F + 1.0F) * colourScalar;
-		float green = (RANDOM.nextFloat() * 0.5F + 0.9F) * colourScalar;
-		float blue = (RANDOM.nextFloat() * 0.5F + 0.4F) * colourScalar;
+		float red = (1.0F) * colourScalar;
+		float green = (1.0F) * colourScalar;
+		float blue = (1.0F) * colourScalar;
 		renderFace(matrix, vertexConsumer, 0, 1, 1, 0, 0, 0, 0, 0, red, green, blue); // Direction.NORTH
 		renderFace(matrix, vertexConsumer, 1, 1, 1, 0, 0, 1, 1, 0, red, green, blue); // Direction.EAST
 		renderFace(matrix, vertexConsumer, 0, 1, 0, 1, 1, 1, 1, 1, red, green, blue); // Direction.SOUTH
@@ -91,9 +95,10 @@ public class EndPortalRenderer<T extends EndPortalBlockEntity> extends BlockEnti
 		int iterations = renderIterations(cameraDistance);
 		Matrix4f matrix = matrixStack.peek().getModel();
 
-		renderLayer(matrix, vertexConsumerProvider.getBuffer(renderLayers.get(0)), 0.15F);
-		for (int i = 1; i < iterations; ++i)
-			renderLayer(matrix, vertexConsumerProvider.getBuffer(renderLayers.get(i)), 2.0F / (18 - i));
+		renderLayer(matrix, vertexConsumerProvider.getBuffer(renderLayers.get(0)), 1.0F);
+		for (int i = 1; i < iterations; ++i) {
+			renderLayer(matrix, vertexConsumerProvider.getBuffer(renderLayers.get(i)), 1.0F);
+		}
 	}
 
 }

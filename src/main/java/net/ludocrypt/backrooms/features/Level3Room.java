@@ -239,7 +239,7 @@ public class Level3Room extends Feature<DefaultFeatureConfig> {
 						break;
 					case 2:
 						world.setBlockState(currentPosition, FLOOR, 2);
-						if (rand.nextDouble() < 0.001) {
+						if (rand.nextDouble() < 0.01) {
 							if (rand.nextDouble() < BackroomsConfig.getInstance().ChestSpawnChance) {
 								world.setBlockState(currentPosition.add(0, 1, 0), CHEST, 2);
 								LootableContainerBlockEntity.setLootTable(world, rand, currentPosition.add(0, 1, 0),

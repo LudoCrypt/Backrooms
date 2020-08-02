@@ -27,7 +27,7 @@ public class Level1RoomDecorator extends Decorator<NopeDecoratorConfig> {
 		BlockPos.Mutable mutableBlockPos = new BlockPos.Mutable(pos.getX(), 0, pos.getZ());
 		List<BlockPos> blockPosList = new ArrayList<BlockPos>();
 
-		for (int repeat = 0; repeat < BackroomsConfig.getInstance().Level0LayerCount; repeat++) {
+		for (int repeat = 0; repeat < BackroomsConfig.getInstance().Level1LayerCount; repeat++) {
 			mutableBlockPos.move(0, 6, 0);
 			blockPosList.add(mutableBlockPos.toImmutable());
 		}
