@@ -50,12 +50,15 @@ public class Wallpaper extends Block {
 			ItemStack normal = new ItemStack(Backrooms.WALLPAPER_PATTERN, rand.nextInt(4) + 1);
 			ItemStack dotted = new ItemStack(Backrooms.DOTTED_WALLPAPER_PATTERN, rand.nextInt(4) + 1);
 			ItemStack red = new ItemStack(Backrooms.RED_WALLPAPER_PATTERN, rand.nextInt(4) + 1);
+			ItemStack dottedred = new ItemStack(Backrooms.DOTTED_RED_WALLPAPER_PATTERN, rand.nextInt(4) + 1);
 			ItemEntity normalItem = new ItemEntity(world, hit.getPos().getX(), hit.getPos().getY(), hit.getPos().getZ(),
 					normal);
 			ItemEntity dottedItem = new ItemEntity(world, hit.getPos().getX(), hit.getPos().getY(), hit.getPos().getZ(),
 					dotted);
 			ItemEntity redItem = new ItemEntity(world, hit.getPos().getX(), hit.getPos().getY(), hit.getPos().getZ(),
 					red);
+			ItemEntity dottedRedItem = new ItemEntity(world, hit.getPos().getX(), hit.getPos().getY(), hit.getPos().getZ(),
+					dottedred);
 
 			if (world.getBlockState(pos) == Backrooms.WALLPAPER.getDefaultState()) {
 				world.spawnEntity(normalItem);
@@ -66,6 +69,10 @@ public class Wallpaper extends Block {
 			if (world.getBlockState(pos) == Backrooms.RED_WALLPAPER.getDefaultState()) {
 				world.spawnEntity(redItem);
 			}
+			if (world.getBlockState(pos) == Backrooms.DOTTED_RED_WALLPAPER.getDefaultState()) {
+				world.spawnEntity(dottedRedItem);
+			}
+
 
 			world.setBlockState(pos, Blocks.OAK_PLANKS.getDefaultState());
 			player.playSound(BackroomsSoundEvents.TEAR, 1, 1);

@@ -86,6 +86,18 @@ public class TornWallpaper extends Block {
 					4)) {
 				this.TornWallpaperSpawn(world, 1, Backrooms.DOTTED_WALLPAPER_PATTERN, pos);
 			}
+			if (world.getBlockState(pos) == Backrooms.DOTTED_RED_TORN_WALLPAPER.getDefaultState().with(TORN_LEVEL, 1)) {
+				this.TornWallpaperSpawn(world, 4, Backrooms.DOTTED_RED_WALLPAPER_PATTERN, pos);
+			} else if (world.getBlockState(pos) == Backrooms.DOTTED_RED_TORN_WALLPAPER.getDefaultState()
+					.with(TORN_LEVEL, 2)) {
+				this.TornWallpaperSpawn(world, 3, Backrooms.DOTTED_RED_WALLPAPER_PATTERN, pos);
+			} else if (world.getBlockState(pos) == Backrooms.DOTTED_RED_TORN_WALLPAPER.getDefaultState()
+					.with(TORN_LEVEL, 3)) {
+				this.TornWallpaperSpawn(world, 2, Backrooms.DOTTED_RED_WALLPAPER_PATTERN, pos);
+			} else if (world.getBlockState(pos) == Backrooms.DOTTED_RED_TORN_WALLPAPER.getDefaultState()
+					.with(TORN_LEVEL, 4)) {
+				this.TornWallpaperSpawn(world, 1, Backrooms.DOTTED_RED_WALLPAPER_PATTERN, pos);
+			}
 			world.setBlockState(pos, Blocks.OAK_PLANKS.getDefaultState());
 			player.playSound(BackroomsSoundEvents.TEAR, SoundCategory.BLOCKS, 1, 1);
 			Backrooms.grantAdvancement(player, new Identifier("backrooms", "tear_wallpaper"));
