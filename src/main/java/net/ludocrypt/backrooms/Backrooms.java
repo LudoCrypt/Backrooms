@@ -1,7 +1,6 @@
 package net.ludocrypt.backrooms;
 
 import java.util.Iterator;
-import java.util.Random;
 import java.util.Set;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
@@ -12,19 +11,10 @@ import me.sargunvohra.mcmods.autoconfig1u.AutoConfig;
 import me.sargunvohra.mcmods.autoconfig1u.serializer.GsonConfigSerializer;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.command.v1.CommandRegistrationCallback;
-import net.fabricmc.fabric.api.dimension.v1.FabricDimensions;
-import net.fabricmc.fabric.api.event.registry.RegistryEntryAddedCallback;
-import net.ludocrypt.backrooms.biome.Level0;
-import net.ludocrypt.backrooms.biome.Level0Decrepit;
-import net.ludocrypt.backrooms.biome.Level0Dotted;
-import net.ludocrypt.backrooms.biome.Level0DottedRed;
-import net.ludocrypt.backrooms.biome.Level0Red;
-import net.ludocrypt.backrooms.biome.Level1;
-import net.ludocrypt.backrooms.biome.Level1Off;
-import net.ludocrypt.backrooms.biome.Level2;
-import net.ludocrypt.backrooms.biome.Level2Long;
-import net.ludocrypt.backrooms.biome.Level2Messy;
-import net.ludocrypt.backrooms.biome.Level3;
+import net.ludocrypt.backrooms.biome.BkBiomeKeys;
+import net.ludocrypt.backrooms.biome.BkBuiltInBiomes;
+import net.ludocrypt.backrooms.biome.ConfiguratedSurfaceBuilders;
+import net.ludocrypt.backrooms.biome.SurfaceBuilders;
 import net.ludocrypt.backrooms.blocks.BackroomsSlab;
 import net.ludocrypt.backrooms.blocks.BackroomsStairs;
 import net.ludocrypt.backrooms.blocks.Carpet;
@@ -48,7 +38,7 @@ import net.ludocrypt.backrooms.blocks.Wallpaper;
 import net.ludocrypt.backrooms.blocks.entity.VoidBlockEntity;
 import net.ludocrypt.backrooms.config.BackroomsConfig;
 import net.ludocrypt.backrooms.dimension.BDimension;
-import net.ludocrypt.backrooms.dimension.BackroomsPlacers;
+import net.ludocrypt.backrooms.features.LevelsFeatureInit;
 import net.ludocrypt.backrooms.items.AlmondWaterItem;
 import net.ludocrypt.backrooms.items.BackroomsMusicDiscItem;
 import net.ludocrypt.backrooms.items.CompressedWallPickaxe;
@@ -72,19 +62,10 @@ import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.server.command.CommandManager;
 import net.minecraft.server.network.ServerPlayerEntity;
-import net.minecraft.sound.SoundCategory;
-import net.minecraft.sound.SoundEvent;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Rarity;
 import net.minecraft.util.registry.Registry;
-import net.minecraft.world.biome.Biome;
-import net.minecraft.world.gen.GenerationStep;
-import net.minecraft.world.gen.decorator.Decorator;
-import net.minecraft.world.gen.decorator.RangeDecoratorConfig;
-import net.minecraft.world.gen.feature.Feature;
-import net.minecraft.world.gen.feature.OreFeatureConfig;
 
-@SuppressWarnings("deprecation")
 public class Backrooms implements ModInitializer {
 	// loot tables
 	private static final Set<Identifier> LOOT_TABLES = Sets.newHashSet();
@@ -182,29 +163,6 @@ public class Backrooms implements ModInitializer {
 	public static final Block RED_CHECKERED = new Checkered_Block();
 	public static final Block WHITE_CHECKERED = new Checkered_Block();
 	public static final Block YELLOW_CHECKERED = new Checkered_Block();
-	// biomes
-	public static final Biome LEVEL0 = Registry.register(Registry.BIOME, new Identifier("backrooms", "level0"),
-			new Level0());
-	public static final Biome LEVEL0RED = Registry.register(Registry.BIOME, new Identifier("backrooms", "level0red"),
-			new Level0Red());
-	public static final Biome LEVEL0DOTTED = Registry.register(Registry.BIOME,
-			new Identifier("backrooms", "level0dotted"), new Level0Dotted());
-	public static final Biome LEVEL0DECREPIT = Registry.register(Registry.BIOME,
-			new Identifier("backrooms", "level0decrepit"), new Level0Decrepit());
-	public static final Biome LEVEL0DOTTEDRED = Registry.register(Registry.BIOME,
-			new Identifier("backrooms", "level0dottedred"), new Level0DottedRed());
-	public static final Biome LEVEL1 = Registry.register(Registry.BIOME, new Identifier("backrooms", "level1"),
-			new Level1());
-	public static final Biome LEVEL1OFF = Registry.register(Registry.BIOME, new Identifier("backrooms", "level1off"),
-			new Level1Off());
-	public static final Biome LEVEL2LONG = Registry.register(Registry.BIOME, new Identifier("backrooms", "level2long"),
-			new Level2Long());
-	public static final Biome LEVEL2 = Registry.register(Registry.BIOME, new Identifier("backrooms", "level2"),
-			new Level2());
-	public static final Biome LEVEL2MESSY = Registry.register(Registry.BIOME,
-			new Identifier("backrooms", "level2messy"), new Level2Messy());
-	public static final Biome LEVEL3 = Registry.register(Registry.BIOME, new Identifier("backrooms", "level3"),
-			new Level3());
 	// record discs
 	public static final Item MUSIC_DISC_GLACIAL_CAVERN = new BackroomsMusicDiscItem(1,
 			BackroomsSoundEvents.MUSIC_DISC_GLACIAL_CAVERN,
@@ -242,21 +200,9 @@ public class Backrooms implements ModInitializer {
 	public static final PaintingMotive SEA_LIFE = new PaintingMotive(64, 64);
 	public static final PaintingMotive WOLF = new PaintingMotive(64, 64);
 
-	// Ore Gen
-	private void handleBiome(Biome biome) {
-		if (biome.getCategory() != Biome.Category.NETHER && biome.getCategory() != Biome.Category.THEEND) {
-			biome.addFeature(GenerationStep.Feature.UNDERGROUND_ORES,
-					Feature.ORE.configure(new OreFeatureConfig(OreFeatureConfig.Target.NATURAL_STONE,
-							Backrooms.POOLSTONE.getDefaultState(), 25 // Ore vein size
-					)).createDecoratedFeature(Decorator.COUNT_RANGE.configure(new RangeDecoratorConfig(6, // Number of
-																											// veins per
-																											// chunk
-							0, // Bottom Offset
-							0, // Min y level
-							64 // Max y level
-					))));
-		}
-	}
+	// builders
+//	public static SurfaceBuilder<TernarySurfaceConfig> LEVELBUILDER;
+//	public static ConfiguredSurfaceBuilder<TernarySurfaceConfig> CONFIGUREDLEVELBUILDER;
 
 	// identifier
 	public static Identifier getId(String id) {
@@ -270,28 +216,30 @@ public class Backrooms implements ModInitializer {
 			dispatcher.register(CommandManager.literal("backrooms").requires(source -> source.hasPermissionLevel(2))
 					.then(CommandManager.literal("level").then(CommandManager.literal("0").executes(context -> {
 						PlayerEntity player = context.getSource().getPlayer();
-						FabricDimensions.teleport(player, player.getServer().getWorld(BDimension.LEVEL0WORLD),
-								BackroomsPlacers.LEVEL01);
+						player.moveToWorld(player.getServer().getWorld(BDimension.LEVEL0WORLD));
 						return 1;
 					})).then(CommandManager.literal("1").executes(context -> {
 						PlayerEntity player = context.getSource().getPlayer();
-						FabricDimensions.teleport(player, player.getServer().getWorld(BDimension.LEVEL1WORLD),
-								BackroomsPlacers.LEVEL01);
+						player.moveToWorld(player.getServer().getWorld(BDimension.LEVEL1WORLD));
 						return 1;
 					})).then(CommandManager.literal("2").executes(context -> {
 						PlayerEntity player = context.getSource().getPlayer();
-						FabricDimensions.teleport(player, player.getServer().getWorld(BDimension.LEVEL2WORLD),
-								BackroomsPlacers.LEVEL2);
+						player.moveToWorld(player.getServer().getWorld(BDimension.LEVEL2WORLD));
 						return 1;
 					})).then(CommandManager.literal("3").executes(context -> {
 						PlayerEntity player = context.getSource().getPlayer();
-						FabricDimensions.teleport(player, player.getServer().getWorld(BDimension.LEVEL3WORLD),
-								BackroomsPlacers.LEVEL3);
+						player.moveToWorld(player.getServer().getWorld(BDimension.LEVEL3WORLD));
 						return 1;
 					}))));
 		});
 		// dimensions
 		BDimension.register();
+		// biomes
+		LevelsFeatureInit.registerFeatures();
+		BkBiomeKeys.turnOn();
+		BkBuiltInBiomes.turnOn();
+		ConfiguratedSurfaceBuilders.turnOn();
+		SurfaceBuilders.turnOn();
 		// items
 		Registry.register(Registry.ITEM, new Identifier("backrooms", "almond_water"), ALMOND_WATER);
 		Registry.register(Registry.ITEM, new Identifier("backrooms", "raw_almond_water"), RAW_ALMOND_WATER);
@@ -303,7 +251,8 @@ public class Backrooms implements ModInitializer {
 		Registry.register(Registry.ITEM, new Identifier("backrooms", "dotted_red_wallpaper_pattern"),
 				DOTTED_RED_WALLPAPER_PATTERN);
 		Registry.register(Registry.ITEM, new Identifier("backrooms", "wall_pickaxe"), WALL_PICKAXE);
-		Registry.register(Registry.ITEM, new Identifier("backrooms", "compressed_wall_pickaxe"), COMPRESSED_WALL_PICKAXE);
+		Registry.register(Registry.ITEM, new Identifier("backrooms", "compressed_wall_pickaxe"),
+				COMPRESSED_WALL_PICKAXE);
 		// blocks
 		Registry.register(Registry.BLOCK, new Identifier("backrooms", "wallpaper"), WALLPAPER);
 		Registry.register(Registry.BLOCK, new Identifier("backrooms", "dotted_wallpaper"), DOTTED_WALLPAPER);
@@ -509,11 +458,10 @@ public class Backrooms implements ModInitializer {
 		Registry.register(Registry.ITEM, new Identifier("backrooms", "music_disc_012"), MUSIC_DISC_012);
 		Registry.register(Registry.ITEM, new Identifier("backrooms", "music_disc_pretzels_and_cheese"),
 				MUSIC_DISC_PRETZELS_AND_CHEESE);
+
 		// config
 		AutoConfig.register(BackroomsConfig.class, GsonConfigSerializer::new);
-		// Ore Generation
-		Registry.BIOME.forEach(this::handleBiome);
-		RegistryEntryAddedCallback.event(Registry.BIOME).register((i, identifier, biome) -> handleBiome(biome));
+		// blocks
 		registerBlockEntity("void_block", VOID_BLOCK, VoidBlockEntity::new,
 				(blockEntityType) -> VoidBlockEntity.blockEntityType = blockEntityType);
 
@@ -525,7 +473,7 @@ public class Backrooms implements ModInitializer {
 
 		Registry.register(Registry.BLOCK, getId(identifier), block);
 
-		BlockEntityType blockEntityType = Registry.register(Registry.BLOCK_ENTITY_TYPE, getId(identifier),
+		BlockEntityType<?> blockEntityType = Registry.register(Registry.BLOCK_ENTITY_TYPE, getId(identifier),
 				BlockEntityType.Builder.create(blockEntitySupplier, block).build(null));
 
 		blockEntityConsumer.accept(blockEntityType);
@@ -547,13 +495,6 @@ public class Backrooms implements ModInitializer {
 		} else {
 			throw new IllegalArgumentException(id + " is already a registered built-in loot table");
 		}
-	}
-
-	public static void ambientSoundGenerator(PlayerEntity target, SoundEvent sound, SoundCategory category,
-			float volume, float pitch, Random random) {
-		float d = volume + random.nextFloat();
-		float e = pitch + random.nextFloat();
-		target.playSound(sound, category, d, e);
 	}
 
 	public static void grantAdvancement(PlayerEntity player, Identifier id) {

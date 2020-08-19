@@ -18,7 +18,7 @@ import net.minecraft.block.enums.StairShape;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.ServerWorldAccess;
-import net.minecraft.world.gen.StructureAccessor;
+import net.minecraft.world.StructureWorldAccess;
 import net.minecraft.world.gen.chunk.ChunkGenerator;
 import net.minecraft.world.gen.feature.DefaultFeatureConfig;
 import net.minecraft.world.gen.feature.Feature;
@@ -127,8 +127,8 @@ public class Level1Room extends Feature<DefaultFeatureConfig> {
 	private static final BlockState VOID_BLOCK = Backrooms.VOID_BLOCK.getDefaultState();
 	private static final BlockState VENT = Backrooms.VENT.getDefaultState();
 
-	public boolean generate(ServerWorldAccess world, StructureAccessor structureAccessor, ChunkGenerator chunkGen,
-			Random rand, BlockPos position, DefaultFeatureConfig config) {
+	public boolean generate(StructureWorldAccess world, ChunkGenerator chunkGenerator, Random rand, BlockPos position,
+			DefaultFeatureConfig featureConfig) {
 
 		Random generator = new Random(world.getSeed());
 		long seed = world.getSeed();
@@ -239,14 +239,6 @@ public class Level1Room extends Feature<DefaultFeatureConfig> {
 		BlockPos.Mutable currentPosition = new BlockPos.Mutable(currentPositionOffsetted.getX(),
 				currentPositionOffsetted.getY(), currentPositionOffsetted.getZ());
 
-		Random generator = new Random(world.getSeed());
-		long seed = world.getSeed();
-		long l = generator.nextLong();
-		long m = generator.nextLong();
-		long n = generator.nextLong();
-		long o = currentPosition.getX() * l ^ currentPosition.getY() * m ^ currentPosition.getZ() * n ^ seed * 5;
-		generator = new Random(o);
-
 		for (int y = 0; y < slice.length; y++) {
 			for (int z = 0; z < slice[0].length; z++) {
 				int sliceBlock = slice[y][z];
@@ -254,22 +246,22 @@ public class Level1Room extends Feature<DefaultFeatureConfig> {
 				if (((world.getBlockState(currentPosition).getBlock() == Backrooms.WALL)
 						|| (world.getBlockState(currentPosition).getBlock() == Blocks.BEDROCK))
 						&& (world.getBlockState(currentPosition).getBlock() != Backrooms.CEMENT_STAIRS)) {
-					if ((generator.nextDouble()) < ((BackroomsConfig.getInstance().Level1DoorChance))) {
+					if ((rand.nextDouble()) < ((BackroomsConfig.getInstance().Level1DoorChance))) {
 						Level1Room.door1 = true;
 					} else {
 						Level1Room.door1 = false;
 					}
-					if ((generator.nextDouble()) < ((BackroomsConfig.getInstance().Level1DoorChance))) {
+					if ((rand.nextDouble()) < ((BackroomsConfig.getInstance().Level1DoorChance))) {
 						Level1Room.door2 = true;
 					} else {
 						Level1Room.door2 = false;
 					}
-					if ((generator.nextDouble()) < ((BackroomsConfig.getInstance().Level1DoorChance))) {
+					if ((rand.nextDouble()) < ((BackroomsConfig.getInstance().Level1DoorChance))) {
 						Level1Room.door3 = true;
 					} else {
 						Level1Room.door3 = false;
 					}
-					if ((generator.nextDouble()) < ((BackroomsConfig.getInstance().Level1DoorChance))) {
+					if ((rand.nextDouble()) < ((BackroomsConfig.getInstance().Level1DoorChance))) {
 						Level1Room.door4 = true;
 					} else {
 						Level1Room.door4 = false;
@@ -349,7 +341,7 @@ public class Level1Room extends Feature<DefaultFeatureConfig> {
 								world.setBlockState(currentPosition.add(0, 3, -1), AIR, 2);
 								world.setBlockState(currentPosition.add(-1, 3, -1), AIR, 2);
 							}
-							if (generator.nextDouble() < BackroomsConfig.getInstance().VBDoor) {
+							if (rand.nextDouble() < BackroomsConfig.getInstance().VBDoor) {
 								world.setBlockState(currentPosition, VOID_BLOCK, 3);
 								world.setBlockState(currentPosition.add(0, 1, 0), VOID_BLOCK, 3);
 								world.setBlockState(currentPosition.add(0, 2, 0), VOID_BLOCK, 3);
@@ -416,11 +408,12 @@ public class Level1Room extends Feature<DefaultFeatureConfig> {
 							world.setBlockState(currentPosition, CEMENT_BRICKS, 2);
 						}
 						break;
+						
 					case 10:
 						world.setBlockState(currentPosition, CEMENT_STAIRS, 2);
 						break;
 					case 1:
-						if (generator.nextDouble() < 0.005) {
+						if (rand.nextDouble() < 0.005) {
 							if (rand.nextDouble() < BackroomsConfig.getInstance().ChestSpawnChance) {
 								world.setBlockState(currentPosition.add(0, 1, 0), CHEST, 2);
 								LootableContainerBlockEntity.setLootTable(world, rand, currentPosition.add(0, 1, 0),

@@ -1,0 +1,24 @@
+{
+    "type": "minecraft:crafting_shapeless",
+    "ingredients": [
+        {
+            "item": "backrooms:dotted_red_wallpaper_pattern"
+        },
+        {
+            "item": "backrooms:dotted_red_wallpaper_pattern"
+        },
+        {
+            "item": "minecraft:oak_planks"
+        },
+        {
+            "item": "backrooms:dotted_red_wallpaper_pattern"
+        },
+        {
+            "item": "backrooms:dotted_red_wallpaper_pattern"
+        }
+    ],
+    "result": {
+        "item": "backrooms:dotted_red_wallpaper",
+        "count": 1
+    }
+}

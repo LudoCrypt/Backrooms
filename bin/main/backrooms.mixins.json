@@ -4,8 +4,8 @@
 	"compatibilityLevel": "JAVA_8",
 	"mixins": [
 		"GoToBackroomsMixin",
-		"PlayerMixin",
-		"MobSpawnLocationMixin"
+		"MobSpawnLocationMixin",
+		"EntityMixin"
 	],
 	"client": [
 		"BuiltinModelItemRendererMixin",

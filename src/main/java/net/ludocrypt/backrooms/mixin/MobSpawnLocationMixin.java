@@ -5,7 +5,6 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-import net.ludocrypt.backrooms.Backrooms;
 import net.ludocrypt.backrooms.config.BackroomsConfig;
 import net.ludocrypt.backrooms.dimension.BDimension;
 import net.minecraft.entity.SpawnGroup;
@@ -24,14 +23,13 @@ public class MobSpawnLocationMixin {
 	@Inject(method = "Lnet/minecraft/world/SpawnHelper;spawnEntitiesInChunk(Lnet/minecraft/entity/SpawnGroup;Lnet/minecraft/server/world/ServerWorld;Lnet/minecraft/world/chunk/Chunk;Lnet/minecraft/util/math/BlockPos;Lnet/minecraft/world/SpawnHelper$Checker;Lnet/minecraft/world/SpawnHelper$Runner;)V", at = @At(value = "HEAD"), cancellable = true)
 	private static void spawnEntitiesInChunk(SpawnGroup group, ServerWorld world, Chunk chunk, BlockPos pos,
 			SpawnHelper.Checker checker, SpawnHelper.Runner runner, CallbackInfo ci) {
-		int yheight = 75;
 		Biome biomeIn = world.getBiome(pos);
-		if (biomeIn == Backrooms.LEVEL0 || biomeIn == Backrooms.LEVEL0DECREPIT || biomeIn == Backrooms.LEVEL0DOTTED
-				|| biomeIn == Backrooms.LEVEL0DOTTEDRED || biomeIn == Backrooms.LEVEL0RED) {
+		int yheight = 75;
+		if (biomeIn.getCategory() == Biome.Category.THEEND) {
 			if (BackroomsConfig.getInstance().Level0LayerCount > 11) {
 				yheight = (BackroomsConfig.getInstance().Level0LayerCount * 6) + 8;
 			}
-		} else if (biomeIn == Backrooms.LEVEL1 || biomeIn == Backrooms.LEVEL1OFF) {
+		} else if (biomeIn.getCategory() == Biome.Category.NETHER) {
 			if (BackroomsConfig.getInstance().Level1LayerCount > 11) {
 				yheight = (BackroomsConfig.getInstance().Level1LayerCount * 6) + 8;
 			}

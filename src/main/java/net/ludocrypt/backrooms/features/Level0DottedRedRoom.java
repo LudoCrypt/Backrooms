@@ -20,7 +20,7 @@ import net.minecraft.block.enums.StairShape;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.ServerWorldAccess;
-import net.minecraft.world.gen.StructureAccessor;
+import net.minecraft.world.StructureWorldAccess;
 import net.minecraft.world.gen.chunk.ChunkGenerator;
 import net.minecraft.world.gen.feature.DefaultFeatureConfig;
 import net.minecraft.world.gen.feature.Feature;
@@ -138,8 +138,8 @@ public class Level0DottedRedRoom extends Feature<DefaultFeatureConfig> {
 			.with(TornWallpaper.TORN_LEVEL, 4);
 	private static final BlockState VENT = Backrooms.VENT.getDefaultState();
 
-	public boolean generate(ServerWorldAccess world, StructureAccessor structureAccessor, ChunkGenerator chunkGen,
-			Random rand, BlockPos position, DefaultFeatureConfig config) {
+	public boolean generate(StructureWorldAccess world, ChunkGenerator chunkGenerator, Random rand, BlockPos position,
+			DefaultFeatureConfig featureConfig) {
 
 		Random generator = new Random(world.getSeed());
 		long seed = world.getSeed();
@@ -249,16 +249,6 @@ public class Level0DottedRedRoom extends Feature<DefaultFeatureConfig> {
 		BlockPos.Mutable currentPosition = new BlockPos.Mutable(currentPositionOffsetted.getX(),
 				currentPositionOffsetted.getY(), currentPositionOffsetted.getZ());
 
-		Random generator = new Random(world.getSeed());
-		Random generator2 = new Random(world.getSeed());
-		long seed = world.getSeed();
-		long l = generator.nextLong();
-		long m = generator.nextLong();
-		long n = generator.nextLong();
-		long o = currentPosition.getX() * l ^ currentPosition.getY() * m ^ currentPosition.getZ() * n ^ seed;
-		generator = new Random(o);
-		generator2 = new Random(o * 3);
-
 		for (int y = 0; y < slice.length; y++) {
 			for (int z = 0; z < slice[0].length; z++) {
 				int sliceBlock = slice[y][z];
@@ -267,22 +257,22 @@ public class Level0DottedRedRoom extends Feature<DefaultFeatureConfig> {
 						|| (world.getBlockState(currentPosition).getBlock() == Blocks.BEDROCK))
 						&& (world.getBlockState(currentPosition).getBlock() != Backrooms.CARPET_STAIRS)) {
 					
-					if ((generator.nextDouble()) < ((BackroomsConfig.getInstance().Level0DoorChance))) {
+					if ((rand.nextDouble()) < ((BackroomsConfig.getInstance().Level0DoorChance))) {
 						Level0DottedRedRoom.door1 = true;
 					} else {
 						Level0DottedRedRoom.door1 = false;
 					}
-					if ((generator.nextDouble()) < ((BackroomsConfig.getInstance().Level0DoorChance))) {
+					if ((rand.nextDouble()) < ((BackroomsConfig.getInstance().Level0DoorChance))) {
 						Level0DottedRedRoom.door2 = true;
 					} else {
 						Level0DottedRedRoom.door2 = false;
 					}
-					if ((generator.nextDouble()) < ((BackroomsConfig.getInstance().Level0DoorChance))) {
+					if ((rand.nextDouble()) < ((BackroomsConfig.getInstance().Level0DoorChance))) {
 						Level0DottedRedRoom.door3 = true;
 					} else {
 						Level0DottedRedRoom.door3 = false;
 					}
-					if ((generator.nextDouble()) < ((BackroomsConfig.getInstance().Level0DoorChance))) {
+					if ((rand.nextDouble()) < ((BackroomsConfig.getInstance().Level0DoorChance))) {
 						Level0DottedRedRoom.door4 = true;
 					} else {
 						Level0DottedRedRoom.door4 = false;
@@ -379,7 +369,7 @@ public class Level0DottedRedRoom extends Feature<DefaultFeatureConfig> {
 								world.setBlockState(currentPosition.add(0, 3, -1), AIR, 2);
 								world.setBlockState(currentPosition.add(-1, 3, -1), AIR, 2);
 							}
-							if (generator2.nextDouble() < BackroomsConfig.getInstance().VBDoor) {
+							if (rand.nextDouble() < BackroomsConfig.getInstance().VBDoor) {
 								world.setBlockState(currentPosition, VOID_BLOCK, 3);
 								world.setBlockState(currentPosition.add(0, 1, 0), VOID_BLOCK, 3);
 								world.setBlockState(currentPosition.add(0, 2, 0), VOID_BLOCK, 3);
@@ -450,7 +440,7 @@ public class Level0DottedRedRoom extends Feature<DefaultFeatureConfig> {
 						world.setBlockState(currentPosition, CARPET_STAIRS, 2);
 						break;
 					case 1:
-						if (generator.nextDouble() < 0.01) {
+						if (rand.nextDouble() < 0.01) {
 							world.setBlockState(currentPosition, MOLDY_CARPET, 2);
 						} else {
 							world.setBlockState(currentPosition, CARPET, 2);

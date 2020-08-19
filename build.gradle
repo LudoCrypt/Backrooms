@@ -27,16 +27,18 @@ repositories {
 
 
 dependencies {
-    minecraft "com.mojang:minecraft:1.16.1"
-    mappings "net.fabricmc:yarn:1.16.1+build.21:v2"
-    modImplementation "net.fabricmc:fabric-loader:0.9.0+build.204"
-	modImplementation "net.fabricmc.fabric-api:fabric-api:0.16.0+build.384-1.16.1"
-	include(modImplementation('com.github.Chocohead:Fabric-ASM:v2.0.1'))
-	modApi "me.shedaniel.cloth:config-2:4.6.0"
-	include "me.shedaniel.cloth:config-2:4.6.0"
+    minecraft "com.mojang:minecraft:1.16.2"
+    mappings "net.fabricmc:yarn:1.16.2+build.9:v2"
+    modImplementation "net.fabricmc:fabric-loader:0.9.1+build.205"
+    modImplementation "net.fabricmc.fabric-api:fabric-api:0.17.2+build.396-1.16"
+	modApi("me.shedaniel.cloth:config-2:4.7.0-unstable") {
+		exclude(group: "net.fabricmc.fabric-api")
+	}
+	include "me.shedaniel.cloth:config-2:4.7.0-unstable"
 	modApi "me.sargunvohra.mcmods:autoconfig1u:3.2.0-unstable"
 	include "me.sargunvohra.mcmods:autoconfig1u:3.2.0-unstable"
-	modImplementation "io.github.prospector:modmenu:1.14.5+build.30"
+	modImplementation "io.github.prospector:modmenu:1.14.6+build.31"
+	include(modImplementation('com.github.Chocohead:Fabric-ASM:v2.1'))
 }
 
 processResources {

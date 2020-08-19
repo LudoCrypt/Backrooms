@@ -39,18 +39,18 @@ public class MusicMixin {
 			callbackInfoReturnable.setReturnValue(BackroomsMusicType.LEVEL3MENU);
 		} else if (this.player == null && Backrooms.Display == false) {
 			callbackInfoReturnable.setReturnValue(MusicType.MENU);
-		} else if (world != null && this.world.getDimensionRegistryKey() == BDimension.LEVEL0) {
+		} else if (world != null && this.world.getRegistryKey() == BDimension.LEVEL0WORLD) {
 			callbackInfoReturnable.setReturnValue((MusicSound) this.world.getBiomeAccess()
-					.method_27344(this.player.getBlockPos()).method_27343().orElse(BackroomsMusicType.LEVEL0MUSIC));
-		} else if (world != null && this.world.getDimensionRegistryKey() == BDimension.LEVEL1) {
+					.method_27344(this.player.getBlockPos()).getMusic().orElse(BackroomsMusicType.LEVEL0MUSIC));
+		} else if (world != null && this.world.getRegistryKey() == BDimension.LEVEL1WORLD) {
 			callbackInfoReturnable.setReturnValue((MusicSound) this.world.getBiomeAccess()
-					.method_27344(this.player.getBlockPos()).method_27343().orElse(BackroomsMusicType.LEVEL1MUSIC));
-		} else if (world != null && this.world.getDimensionRegistryKey() == BDimension.LEVEL2) {
+					.method_27344(this.player.getBlockPos()).getMusic().orElse(BackroomsMusicType.LEVEL1MUSIC));
+		} else if (world != null && this.world.getRegistryKey() == BDimension.LEVEL2WORLD) {
 			callbackInfoReturnable.setReturnValue((MusicSound) this.world.getBiomeAccess()
-					.method_27344(this.player.getBlockPos()).method_27343().orElse(BackroomsMusicType.LEVEL2MUSIC));
-		} else if (world != null && this.world.getDimensionRegistryKey() == BDimension.LEVEL3) {
+					.method_27344(this.player.getBlockPos()).getMusic().orElse(BackroomsMusicType.LEVEL2MUSIC));
+		} else if (world != null && this.world.getRegistryKey() == BDimension.LEVEL3WORLD) {
 			callbackInfoReturnable.setReturnValue((MusicSound) this.world.getBiomeAccess()
-					.method_27344(this.player.getBlockPos()).method_27343().orElse(BackroomsMusicType.LEVEL3MUSIC));
+					.method_27344(this.player.getBlockPos()).getMusic().orElse(BackroomsMusicType.LEVEL3MUSIC));
 		}
 	}
 }

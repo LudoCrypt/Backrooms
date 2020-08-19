@@ -21,7 +21,7 @@ public class GoToBackroomsMixin {
 		if ((!world.isClient && pearlEntity.getOwner() instanceof ServerPlayerEntity)) {
 			ServerPlayerEntity playerEntity = (ServerPlayerEntity) pearlEntity.getOwner();
 			if (world.random.nextDouble() < (BackroomsConfig.getInstance().EnderPearlChance)) {
-				if ((world.getWorld().getRegistryKey() == World.OVERWORLD)) {
+				if ((world.getRegistryKey() == World.OVERWORLD)) {
 					ci.cancel();
 					pearlEntity.kill();
 					Backrooms.teleportedEntity = playerEntity;

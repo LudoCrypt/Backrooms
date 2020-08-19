@@ -1,7 +1,6 @@
 package net.ludocrypt.backrooms.misc;
 
 import net.minecraft.sound.MusicSound;
-import net.minecraft.sound.SoundEvent;
 
 public class BackroomsMusicType {
 	public static final MusicSound LEVEL0MUSIC;
@@ -13,10 +12,6 @@ public class BackroomsMusicType {
 	public static final MusicSound LEVEL2MENU;
 	public static final MusicSound LEVEL3MENU;
 
-	public static MusicSound method_27283(SoundEvent soundEvent) {
-		return new MusicSound(soundEvent, 12000, 24000, false);
-	}
-
 	static {
 		LEVEL0MUSIC = new MusicSound(BackroomsSoundEvents.LEVEL0MUSIC, 1000, 5000, true);
 		LEVEL1MUSIC = new MusicSound(BackroomsSoundEvents.LEVEL1ONMUSIC, 1000, 5000, true);
@@ -26,6 +21,6 @@ public class BackroomsMusicType {
 		LEVEL1MENU = new MusicSound(BackroomsSoundEvents.LEVEL1ONMUSIC, 20, 600, true);
 		LEVEL2MENU = new MusicSound(BackroomsSoundEvents.LEVEL2LONGMUSIC, 20, 600, true);
 		LEVEL3MENU = new MusicSound(BackroomsSoundEvents.LEVEL3MUSIC, 20, 600, true);
-		
+
 	}
 }

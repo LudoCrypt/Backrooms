@@ -2,12 +2,10 @@ package net.ludocrypt.backrooms.blocks;
 
 import java.util.Random;
 
-import net.fabricmc.fabric.api.dimension.v1.FabricDimensions;
 import net.fabricmc.fabric.api.object.builder.v1.block.FabricBlockSettings;
 import net.ludocrypt.backrooms.Backrooms;
 import net.ludocrypt.backrooms.blocks.entity.VoidBlockEntity;
 import net.ludocrypt.backrooms.dimension.BDimension;
-import net.ludocrypt.backrooms.dimension.BackroomsPlacers;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.BlockWithEntity;
 import net.minecraft.block.Material;
@@ -15,6 +13,7 @@ import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.ItemEntity;
 import net.minecraft.server.network.ServerPlayerEntity;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.BlockSoundGroup;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.function.BooleanBiFunction;
@@ -23,9 +22,7 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.shape.VoxelShapes;
 import net.minecraft.world.BlockView;
 import net.minecraft.world.World;
-import net.minecraft.world.dimension.DimensionType;
 
-@SuppressWarnings("deprecation")
 public class VoidBlock extends BlockWithEntity {
 
 	public VoidBlock() {
@@ -66,91 +63,88 @@ public class VoidBlock extends BlockWithEntity {
 				&& VoxelShapes.matchesAnywhere(
 						VoxelShapes.cuboid(entity.getBoundingBox().offset((double) (-pos.getX()),
 								(double) (-pos.getY()), (double) (-pos.getZ()))),
-						state.getOutlineShape(world, pos), BooleanBiFunction.AND)) && !(entity instanceof ItemEntity)) {
-			if (entity.world.getDimensionRegistryKey() == BDimension.LEVEL0) {
+						state.getOutlineShape(world, pos), BooleanBiFunction.AND))
+				&& !(entity instanceof ItemEntity)) {
+			ServerWorld overworld = entity.getServer().getWorld(World.OVERWORLD);
+			ServerWorld lvl0 = entity.getServer().getWorld(BDimension.LEVEL0WORLD);
+			ServerWorld lvl1 = entity.getServer().getWorld(BDimension.LEVEL1WORLD);
+			ServerWorld lvl2 = entity.getServer().getWorld(BDimension.LEVEL2WORLD);
+			ServerWorld lvl3 = entity.getServer().getWorld(BDimension.LEVEL3WORLD);
+
+			if (world.getRegistryKey() == BDimension.LEVEL0WORLD) {
 				t = rand.nextDouble();
 				if (t < 0.001) {
-					FabricDimensions.teleport(entity, entity.getServer().getWorld(World.OVERWORLD),
-							BackroomsPlacers.HOME);
+					entity.moveToWorld(overworld);
 					if (entity instanceof ServerPlayerEntity) {
-						Backrooms.grantAdvancement((ServerPlayerEntity) entity, new Identifier("backrooms", "come_back"));
+						Backrooms.grantAdvancement((ServerPlayerEntity) entity,
+								new Identifier("backrooms", "come_back"));
 					}
 				} else if (t < 0.25) {
-					FabricDimensions.teleport(entity, entity.getServer().getWorld(BDimension.LEVEL1WORLD),
-							BackroomsPlacers.LEVEL01);
+					entity.moveToWorld(lvl1);
 				} else if (t < 0.5) {
-					FabricDimensions.teleport(entity, entity.getServer().getWorld(BDimension.LEVEL1WORLD),
-							BackroomsPlacers.LEVEL01);
+					entity.moveToWorld(lvl1);
 				} else if (t < 0.75) {
-					FabricDimensions.teleport(entity, entity.getServer().getWorld(BDimension.LEVEL0WORLD),
-							BackroomsPlacers.LEVEL01);
+					entity.moveToWorld(lvl0);
 				} else {
-					FabricDimensions.teleport(entity, entity.getServer().getWorld(BDimension.LEVEL0WORLD),
-							BackroomsPlacers.LEVEL01);
+					entity.moveToWorld(lvl0);
 				}
-			} else if (entity.world.getDimensionRegistryKey() == BDimension.LEVEL1) {
+			} else if (entity.world.getRegistryKey() == BDimension.LEVEL1WORLD) {
 				t = rand.nextDouble();
 				if (t < 0.005) {
-					FabricDimensions.teleport(entity, entity.getServer().getWorld(BDimension.LEVEL1WORLD),
-							BackroomsPlacers.LEVEL01);
+					entity.moveToWorld(lvl1);
 				} else if (t < 0.25) {
-					FabricDimensions.teleport(entity, entity.getServer().getWorld(BDimension.LEVEL2WORLD),
-							BackroomsPlacers.LEVEL01);
+					entity.moveToWorld(lvl2);
 				} else if (t < 0.5) {
-					FabricDimensions.teleport(entity, entity.getServer().getWorld(BDimension.LEVEL2WORLD),
-							BackroomsPlacers.LEVEL2);
+					entity.moveToWorld(lvl2);
 				} else if (t < 0.75) {
-					FabricDimensions.teleport(entity, entity.getServer().getWorld(BDimension.LEVEL0WORLD),
-							BackroomsPlacers.LEVEL2);
+					entity.moveToWorld(lvl0);
 				} else {
-					FabricDimensions.teleport(entity, entity.getServer().getWorld(BDimension.LEVEL1WORLD),
-							BackroomsPlacers.LEVEL01);
+					entity.moveToWorld(lvl1);
 				}
-			} else if (entity.world.getDimensionRegistryKey() == BDimension.LEVEL2) {
+			} else if (entity.world.getRegistryKey() == BDimension.LEVEL2WORLD) {
 				t = rand.nextDouble();
 				if (t < 0.05) {
-					FabricDimensions.teleport(entity, entity.getServer().getWorld(World.OVERWORLD),
-							BackroomsPlacers.HOME);
+					entity.moveToWorld(overworld);
 					if (entity instanceof ServerPlayerEntity) {
-						Backrooms.grantAdvancement((ServerPlayerEntity) entity, new Identifier("backrooms", "come_back"));
+						Backrooms.grantAdvancement((ServerPlayerEntity) entity,
+								new Identifier("backrooms", "come_back"));
 					}
 				} else if (t < 0.25) {
-					FabricDimensions.teleport(entity, entity.getServer().getWorld(BDimension.LEVEL2WORLD),
-							BackroomsPlacers.LEVEL2);
+					entity.moveToWorld(lvl3);
 				} else if (t < 0.5) {
-					FabricDimensions.teleport(entity, entity.getServer().getWorld(BDimension.LEVEL3WORLD),
-							BackroomsPlacers.LEVEL3);
+					entity.moveToWorld(overworld);
+					if (entity instanceof ServerPlayerEntity) {
+						Backrooms.grantAdvancement((ServerPlayerEntity) entity,
+								new Identifier("backrooms", "come_back"));
+					}
 				} else if (t < 0.75) {
-					FabricDimensions.teleport(entity, entity.getServer().getWorld(BDimension.LEVEL2WORLD),
-							BackroomsPlacers.LEVEL2);
+					entity.moveToWorld(lvl2);
 				} else {
-					FabricDimensions.teleport(entity, entity.getServer().getWorld(BDimension.LEVEL3WORLD),
-							BackroomsPlacers.LEVEL3);
+					entity.moveToWorld(lvl3);
 				}
-			} else if (entity.world.getDimensionRegistryKey() == BDimension.LEVEL3) {
+			} else if (entity.world.getRegistryKey() == BDimension.LEVEL3WORLD) {
 				t = rand.nextDouble();
 				if (t < 0.05) {
-					FabricDimensions.teleport(entity, entity.getServer().getWorld(BDimension.LEVEL2WORLD),
-							BackroomsPlacers.LEVEL2);
+					entity.moveToWorld(lvl2);
 				} else if (t < 0.15) {
-					FabricDimensions.teleport(entity, entity.getServer().getWorld(World.OVERWORLD),
-							BackroomsPlacers.HOME);
+					entity.moveToWorld(overworld);
 					if (entity instanceof ServerPlayerEntity) {
-						Backrooms.grantAdvancement((ServerPlayerEntity) entity, new Identifier("backrooms", "come_back"));
+						Backrooms.grantAdvancement((ServerPlayerEntity) entity,
+								new Identifier("backrooms", "come_back"));
 					}
 				} else if (t < 0.5) {
-					FabricDimensions.teleport(entity, entity.getServer().getWorld(BDimension.LEVEL2WORLD),
-							BackroomsPlacers.LEVEL2);
+					entity.moveToWorld(lvl2);
 				} else if (t < 0.75) {
-					FabricDimensions.teleport(entity, entity.getServer().getWorld(BDimension.LEVEL3WORLD),
-							BackroomsPlacers.LEVEL3);
+					entity.moveToWorld(overworld);
+					if (entity instanceof ServerPlayerEntity) {
+						Backrooms.grantAdvancement((ServerPlayerEntity) entity,
+								new Identifier("backrooms", "come_back"));
+					}
 				} else {
-					FabricDimensions.teleport(entity, entity.getServer().getWorld(BDimension.LEVEL3WORLD),
-							BackroomsPlacers.LEVEL3);
+					entity.moveToWorld(lvl3);
 				}
-			} else if (entity.world.getDimensionRegistryKey() == DimensionType.OVERWORLD_REGISTRY_KEY) {
-				FabricDimensions.teleport(entity, entity.getServer().getWorld(BDimension.LEVEL0WORLD),
-						BackroomsPlacers.LEVEL01);
+			} else if (entity.world.getRegistryKey() == World.OVERWORLD) {
+				entity.moveToWorld(lvl0);
 			}
 		}
 	}

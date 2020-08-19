@@ -12,7 +12,7 @@ import net.minecraft.block.Blocks;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.world.ServerWorldAccess;
-import net.minecraft.world.gen.StructureAccessor;
+import net.minecraft.world.StructureWorldAccess;
 import net.minecraft.world.gen.chunk.ChunkGenerator;
 import net.minecraft.world.gen.feature.DefaultFeatureConfig;
 import net.minecraft.world.gen.feature.Feature;
@@ -58,8 +58,8 @@ public class Level2Room extends Feature<DefaultFeatureConfig> {
 			.with(Pipe.SOUTH, true).with(Pipe.NORTH, true);
 	private static final BlockState VOID_BLOCK = Backrooms.VOID_BLOCK.getDefaultState();
 
-	public boolean generate(ServerWorldAccess world, StructureAccessor structureAccessor, ChunkGenerator chunkGen,
-			Random rand, BlockPos position, DefaultFeatureConfig config) {
+	public boolean generate(StructureWorldAccess world, ChunkGenerator chunkGenerator, Random rand, BlockPos position,
+			DefaultFeatureConfig featureConfig) {
 
 		BlockPos.Mutable mutableBlockPos = new BlockPos.Mutable().set(position);
 
