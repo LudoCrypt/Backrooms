@@ -29,11 +29,11 @@ public class LevelBuilder extends SurfaceBuilder<TernarySurfaceConfig> {
 		int zpos = z & 15;
 		int yheight = 75;
 		BlockPos.Mutable blockpos$Mutable = new BlockPos.Mutable();
-		if (biomeIn.getCategory() == Biome.Category.THEEND) {
+		if (biomeIn.getCategory() == Biome.Category.valueOf("level0")) {
 			if (BackroomsConfig.getInstance().Level0LayerCount > 11) {
 				yheight = (BackroomsConfig.getInstance().Level0LayerCount * 6) + 8;
 			}
-		} else if (biomeIn.getCategory() == Biome.Category.NETHER) {
+		} else if (biomeIn.getCategory() == Biome.Category.valueOf("level1")) {
 			if (BackroomsConfig.getInstance().Level1LayerCount > 11) {
 				yheight = (BackroomsConfig.getInstance().Level1LayerCount * 6) + 8;
 			}

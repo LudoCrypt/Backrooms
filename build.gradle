@@ -39,6 +39,7 @@ dependencies {
 	include "me.sargunvohra.mcmods:autoconfig1u:3.2.0-unstable"
 	modImplementation "io.github.prospector:modmenu:1.14.6+build.31"
 	include(modImplementation('com.github.Chocohead:Fabric-ASM:v2.1'))
+	include(modImplementation('com.github.rdvdev2:DisableCustomWorldsAdvice:v1.0'))
 }
 
 processResources {

@@ -465,6 +465,9 @@ public class Backrooms implements ModInitializer {
 		registerBlockEntity("void_block", VOID_BLOCK, VoidBlockEntity::new,
 				(blockEntityType) -> VoidBlockEntity.blockEntityType = blockEntityType);
 
+		System.out.println(
+				"The Backrooms Mod. Only play this mod if you got it from CurseForge, or from me on my discord server.");
+
 	}
 
 	@SuppressWarnings("rawtypes")

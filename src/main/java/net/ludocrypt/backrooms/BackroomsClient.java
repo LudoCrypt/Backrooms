@@ -24,6 +24,7 @@ public class BackroomsClient implements ClientModInitializer {
 	@Override
 	public void onInitializeClient() {
 		registerBlockEntityRenderer("void_block", VoidBlockEntityRenderer::new);
+		
 	}
 
 	public static void putItemRenderLayer(Item item, RenderLayer layer) {
@@ -39,5 +40,7 @@ public class BackroomsClient implements ClientModInitializer {
 			Function<BlockEntityRenderDispatcher, BlockEntityRenderer<E>> blockEntityRenderer) {
 		BlockEntityRendererRegistry.INSTANCE.register((BlockEntityType<E>) Registry.BLOCK_ENTITY_TYPE.get(Backrooms.getId(identifier)), blockEntityRenderer);
 	}
+	
+	
 
 }

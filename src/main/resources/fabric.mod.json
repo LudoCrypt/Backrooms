@@ -13,10 +13,13 @@
 		"sources": "https://github.com/LudoCrypt/Backrooms",
 		"issues": "https://github.com/LudoCrypt/Backrooms/issues"
 	},
-	"license": "CC0-1.0",
+	"license": "LGPLv3",
 	"icon": "assets/backrooms/icon.png",
 	"environment": "*",
 	"entrypoints": {
+		"mm:early_risers": [
+			"net.ludocrypt.backrooms.misc.PreInitialize::initialize"
+		],
 		"main": [
 			"net.ludocrypt.backrooms.Backrooms"
 		],

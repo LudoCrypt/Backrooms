@@ -13,9 +13,9 @@ import net.minecraft.world.gen.decorator.Decorator;
 import net.minecraft.world.gen.decorator.DecoratorContext;
 import net.minecraft.world.gen.decorator.NopeDecoratorConfig;
 
-public class Level0RoomDecorator extends Decorator<NopeDecoratorConfig> {
+public class Level01RoofDecorator extends Decorator<NopeDecoratorConfig> {
 
-	public Level0RoomDecorator(Codec<NopeDecoratorConfig> codec) {
+	public Level01RoofDecorator(Codec<NopeDecoratorConfig> codec) {
 		super(codec);
 	}
 
@@ -23,7 +23,7 @@ public class Level0RoomDecorator extends Decorator<NopeDecoratorConfig> {
 	public Stream<BlockPos> getPositions(DecoratorContext context, Random random, NopeDecoratorConfig config,
 			BlockPos pos) {
 
-		BlockPos.Mutable mutableBlockPos = new BlockPos.Mutable(pos.getX(), 1, pos.getZ());
+		BlockPos.Mutable mutableBlockPos = new BlockPos.Mutable(pos.getX(), 0, pos.getZ());
 		List<BlockPos> blockPosList = new ArrayList<BlockPos>();
 
 		for (int repeat = 0; repeat < BackroomsConfig.getInstance().Level0LayerCount; repeat++) {

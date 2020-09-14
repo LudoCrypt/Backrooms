@@ -49,7 +49,7 @@ public class EntityMixin {
 		if (entity instanceof PlayerEntity) {
 			if (!world.isClient) {
 				if (entity.isInsideWall() && entity.world.getRegistryKey() == World.OVERWORLD
-						&& ((PlayerEntity) entity).isCreative()) {
+						&& !((PlayerEntity) entity).isCreative()) {
 					if (Math.random() < 0.75) {
 						if (Math.random() < BackroomsConfig.getInstance().SuffocationChance) {
 							if (Math.random() < 0.02) {
