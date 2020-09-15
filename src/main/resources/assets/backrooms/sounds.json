@@ -248,10 +248,67 @@
 			}
 		]
 	},
-	"buzz": {
+	"humm_buzz": {
 		"sounds": [
 			{
-				"name": "backrooms:buzz"
+				"name": "backrooms:level_noise/buzz1"
+			},
+			{
+				"name": "backrooms:level_noise/buzz2"
+			},
+			{
+				"name": "backrooms:level_noise/buzz3"
+			},
+			{
+				"name": "backrooms:level_noise/buzz4"
+			}
+		]
+	},
+	"humm_buzz_around": {
+		"sounds": [
+			{
+				"name": "backrooms:level_noise/buzz_around1"
+			},
+			{
+				"name": "backrooms:level_noise/buzz_around2"
+			},
+			{
+				"name": "backrooms:level_noise/buzz_around3"
+			},
+			{
+				"name": "backrooms:level_noise/buzz_around4"
+			}
+		]
+	},
+	"vent": {
+		"sounds": [
+			{
+				"name": "backrooms:level_noise/vent1"
+			},
+			{
+				"name": "backrooms:level_noise/vent2"
+			},
+			{
+				"name": "backrooms:level_noise/vent3"
+			},
+			{
+				"name": "backrooms:level_noise/vent4"
+			}
+		]
+	},
+	"sizzle": {
+		"sounds": [
+			{
+				"name": "backrooms:level_noise/sizzle1"
+			},
+			{
+				"name": "backrooms:level_noise/sizzle2"
+			},
+			{
+				"name": "backrooms:level_noise/sizzle3"
+			},
+			{
+				"name": "backrooms:level_noise/sizzle4"
 			}
 		]
 	},
@@ -265,64 +322,6 @@
 			},
 			{
 				"name": "backrooms:gulp/gulp3"
-			}
-		]
-	},
-	"level.0.ambience": {
-		"sounds": [
-			{
-				"name": "backrooms:ambient/breath1"
-			},
-			{
-				"name": "backrooms:ambient/breath2"
-			},
-			{
-				"name": "backrooms:ambient/breath3"
-			},
-			{
-				"name": "backrooms:ambient/breath4"
-			},
-			{
-				"name": "backrooms:ambient/harp1"
-			},
-			{
-				"name": "backrooms:ambient/harp2"
-			},
-			{
-				"name": "backrooms:ambient/harp3"
-			},
-			{
-				"name": "backrooms:ambient/knock1"
-			},
-			{
-				"name": "backrooms:ambient/knock2"
-			},
-			{
-				"name": "backrooms:ambient/knock3"
-			},
-			{
-				"name": "backrooms:ambient/synth1"
-			},
-			{
-				"name": "backrooms:ambient/synth2"
-			},
-			{
-				"name": "backrooms:ambient/synth3"
-			},
-			{
-				"name": "backrooms:ambient/tone1"
-			},
-			{
-				"name": "backrooms:ambient/tone2"
-			},
-			{
-				"name": "backrooms:ambient/tone3"
-			},
-			{
-				"name": "backrooms:ambient/tone4"
-			},
-			{
-				"name": "backrooms:ambient/whistle1"
 			}
 		]
 	}

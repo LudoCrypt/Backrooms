@@ -15,7 +15,7 @@
 		"hidden": false
 	},
 	"criteria": {
-		"level0": {
+		"level1off": {
 			"trigger": "minecraft:location",
 			"conditions": {
 				"biome": "backrooms:level1off",
@@ -28,6 +28,11 @@
 			}
 		}
 	},
+	  "requirements": [
+    [
+      "level1off"
+    ]
+  ],
 	"rewards": {
 		"experience": 10
 	},

@@ -218,6 +218,7 @@ public class Level3Room extends Feature<DefaultFeatureConfig> {
 		return true;
 
 	}
+
 	private void generateSlice(ServerWorldAccess world, BlockPos.Mutable centerPos, int[][] slice, Random rand) {
 
 		BlockPos currentPositionOffsetted = new BlockPos(centerPos.add(0, 3, slice[0].length));
@@ -261,7 +262,16 @@ public class Level3Room extends Feature<DefaultFeatureConfig> {
 						break;
 					case 7:
 						world.setBlockState(currentPosition, FLOOR, 2);
-						if (rand.nextDouble() < BackroomsConfig.getInstance().VBDoor) {
+						if (rand.nextDouble() < BackroomsConfig.getInstance().Level3DoorChance) {
+							world.setBlockState(currentPosition.add(0, 1, 0), AIR, 2);
+							world.setBlockState(currentPosition.add(0, 2, 0), AIR, 2);
+							world.setBlockState(currentPosition.add(0, 3, 0), AIR, 2);
+							world.setBlockState(currentPosition.add(0, 4, 0), PIPE, 2);
+							world.setBlockState(currentPosition.add(0, 1, 1), AIR, 2);
+							world.setBlockState(currentPosition.add(0, 2, 1), AIR, 2);
+							world.setBlockState(currentPosition.add(0, 3, 1), AIR, 2);
+							world.setBlockState(currentPosition.add(0, 4, 1), PIPE, 2);
+						} else if (rand.nextDouble() < BackroomsConfig.getInstance().VBDoor) {
 							if (rand.nextDouble() < 0.05) {
 								world.setBlockState(currentPosition.add(0, 1, 0), VOID_BLOCK, 2);
 								world.setBlockState(currentPosition.add(0, 2, 0), VOID_BLOCK, 2);

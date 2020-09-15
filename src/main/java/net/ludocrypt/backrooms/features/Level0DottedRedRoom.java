@@ -1,5 +1,6 @@
 package net.ludocrypt.backrooms.features;
 
+import java.util.List;
 import java.util.Random;
 
 import com.mojang.serialization.Codec;
@@ -10,6 +11,7 @@ import net.ludocrypt.backrooms.blocks.Carpet;
 import net.ludocrypt.backrooms.blocks.Tile;
 import net.ludocrypt.backrooms.blocks.TornWallpaper;
 import net.ludocrypt.backrooms.config.BackroomsConfig;
+import net.ludocrypt.imagereader.Layout;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.ChestBlock;
@@ -30,92 +32,10 @@ public class Level0DottedRedRoom extends Feature<DefaultFeatureConfig> {
 		super(configFactory);
 	}
 
-	public static boolean door1 = true;
-	public static boolean door2 = true;
-	public static boolean door3 = true;
-	public static boolean door4 = true;
-
-	private int[][] One = { { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-			{ 2, 11, 2, 11, 2, 11, 2, 11, 2, 11, 2, 11, 2, 11, 2, 11 },
-			{ 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5 }, { 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5 },
-			{ 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5 }, { 5, 5, 6, 5, 6, 5, 6, 6, 6, 6, 5, 6, 5, 6, 5, 5 },
-			{ 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 } };
-	private int[][] Two = { { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-			{ 2, 11, 2, 11, 2, 11, 2, 11, 2, 11, 2, 11, 2, 11, 2, 11 },
-			{ 5, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 5 }, { 5, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 5 },
-			{ 5, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 5 }, { 7, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 8 },
-			{ 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 } };
-	private int[][] Three = { { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-			{ 2, 11, 3, 3, 2, 11, 12, 3, 3, 12, 2, 11, 3, 3, 2, 11 },
-			{ 5, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 5 }, { 5, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 5 },
-			{ 5, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 5 }, { 7, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 8 },
-			{ 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 } };
-	private int[][] Four = { { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-			{ 2, 11, 2, 11, 2, 11, 2, 11, 2, 11, 2, 11, 2, 11, 2, 11 },
-			{ 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5 }, { 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5 },
-			{ 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5 }, { 5, 5, 9, 5, 9, 5, 9, 9, 9, 9, 5, 9, 5, 9, 5, 5 },
-			{ 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 } };
-	private int[][] OneNoLight = { { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-			{ 2, 11, 2, 11, 2, 11, 2, 11, 2, 11, 2, 11, 2, 11, 2, 11 },
-			{ 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4 }, { 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4 },
-			{ 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4 }, { 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4 },
-			{ 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 } };
-	private int[][] TwoLight = { { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-			{ 2, 11, 3, 3, 2, 11, 12, 3, 3, 12, 2, 11, 3, 3, 2, 11 },
-			{ 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4 }, { 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4 },
-			{ 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4 }, { 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4 },
-			{ 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 } };
-	private int[][] Hallway1NoLight = { { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-			{ 2, 11, 2, 11, 2, 11, 2, 11, 2, 11, 2, 11, 2, 11, 2, 11 },
-			{ 5, 4, 4, 4, 4, 5, 4, 4, 4, 4, 5, 4, 4, 4, 4, 5 }, { 5, 4, 4, 4, 4, 5, 4, 4, 4, 4, 5, 4, 4, 4, 4, 5 },
-			{ 5, 4, 4, 4, 4, 5, 4, 4, 4, 4, 5, 4, 4, 4, 4, 5 }, { 7, 4, 4, 4, 4, 7, 4, 4, 4, 4, 8, 4, 4, 4, 4, 8 },
-			{ 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 } };
-	private int[][] Hallway1Light = { { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-			{ 2, 11, 3, 3, 2, 11, 12, 3, 3, 12, 2, 11, 3, 3, 2, 11 },
-			{ 5, 4, 4, 4, 4, 5, 4, 4, 4, 4, 5, 4, 4, 4, 4, 5 }, { 5, 4, 4, 4, 4, 5, 4, 4, 4, 4, 5, 4, 4, 4, 4, 5 },
-			{ 5, 4, 4, 4, 4, 5, 4, 4, 4, 4, 5, 4, 4, 4, 4, 5 }, { 7, 4, 4, 4, 4, 7, 4, 4, 4, 4, 8, 4, 4, 4, 4, 8 },
-			{ 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 } };
-	private int[][] Hallway2Wall1 = { { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-			{ 2, 11, 2, 11, 2, 11, 2, 11, 2, 11, 2, 11, 2, 11, 2, 11 },
-			{ 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5 }, { 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5 },
-			{ 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5 }, { 5, 5, 6, 5, 6, 5, 6, 6, 6, 6, 5, 6, 5, 6, 5, 5 },
-			{ 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 } };
-	private int[][] Hallway2Wall2 = { { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-			{ 2, 11, 2, 11, 2, 11, 2, 11, 2, 11, 2, 11, 2, 11, 2, 11 },
-			{ 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5 }, { 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5 },
-			{ 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5 }, { 5, 5, 9, 5, 9, 5, 9, 9, 9, 9, 5, 9, 5, 9, 5, 5 },
-			{ 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 } };
-	private int[][] Hallway2NoLight = { { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-			{ 2, 11, 2, 11, 2, 11, 2, 11, 2, 11, 2, 11, 2, 11, 2, 11 },
-			{ 5, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 5 }, { 5, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 5 },
-			{ 5, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 5 }, { 7, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 8 },
-			{ 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 } };
-	private int[][] Hallway2Light = { { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-			{ 2, 11, 3, 3, 2, 11, 12, 3, 3, 12, 2, 11, 3, 3, 2, 11 },
-			{ 5, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 5 }, { 5, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 5 },
-			{ 5, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 5 }, { 7, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 8 },
-			{ 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 } };
-	private int[][] Stair1Light = { { 0, 0, 0, 0, 0, 10, 4, 4, 4, 4, 4, 0, 0, 0, 0, 0 },
-			{ 2, 11, 2, 11, 2, 1, 10, 4, 4, 4, 4, 4, 2, 11, 2, 11 },
-			{ 5, 5, 5, 5, 5, 1, 1, 10, 4, 4, 4, 4, 4, 4, 4, 5 }, { 5, 5, 5, 5, 5, 1, 1, 1, 10, 4, 4, 4, 4, 4, 4, 5 },
-			{ 5, 5, 5, 5, 5, 1, 1, 1, 1, 10, 4, 4, 4, 4, 4, 5 }, { 5, 5, 5, 5, 5, 1, 1, 1, 1, 1, 10, 4, 4, 4, 4, 8 },
-			{ 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 } };
-	private int[][] Stair1NoLight = { { 0, 0, 0, 0, 0, 10, 4, 4, 4, 4, 4, 0, 0, 0, 0, 0 },
-			{ 2, 11, 3, 3, 2, 1, 10, 4, 4, 4, 4, 4, 3, 3, 2, 11 }, { 5, 5, 5, 5, 5, 1, 1, 10, 4, 4, 4, 4, 4, 4, 4, 5 },
-			{ 5, 5, 5, 5, 5, 1, 1, 1, 10, 4, 4, 4, 4, 4, 4, 5 }, { 5, 5, 5, 5, 5, 1, 1, 1, 1, 10, 4, 4, 4, 4, 4, 5 },
-			{ 5, 5, 5, 5, 5, 1, 1, 1, 1, 1, 10, 4, 4, 4, 4, 8 }, { 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 } };
-
-	private int[][] StairWall = { { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 },
-			{ 2, 11, 2, 11, 2, 11, 2, 11, 2, 11, 2, 11, 2, 11, 2, 11 },
-			{ 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5 }, { 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5 },
-			{ 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5 }, { 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 8, 8, 8, 8, 8, 8 },
-			{ 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1 } };
+	private boolean door1 = true;
 
 	private static final BlockState WALLPAPER = Backrooms.DOTTED_RED_WALLPAPER.getDefaultState();
 	private static final BlockState CARPET = Backrooms.CARPET.getDefaultState();
-	private static final BlockState CARPET_STAIRS = Backrooms.CARPET_STAIRS.getDefaultState()
-			.with(BackroomsStairs.FACING, Direction.NORTH).with(BackroomsStairs.HALF, BlockHalf.BOTTOM)
-			.with(BackroomsStairs.SHAPE, StairShape.STRAIGHT);
 	private static final BlockState MOLDY_CARPET = Backrooms.CARPET.getDefaultState().with(Carpet.MOLDY, true);
 	private static final BlockState SOUTH_TILE = Backrooms.TILE.getDefaultState().with(Tile.FACING, Direction.SOUTH)
 			.with(Tile.SINGLE, false);
@@ -137,175 +57,136 @@ public class Level0DottedRedRoom extends Feature<DefaultFeatureConfig> {
 	private static final BlockState TORN_WALLPAPER_4 = Backrooms.DOTTED_RED_TORN_WALLPAPER.getDefaultState()
 			.with(TornWallpaper.TORN_LEVEL, 4);
 	private static final BlockState VENT = Backrooms.VENT.getDefaultState();
+	private static final BlockState STAIR = Backrooms.CARPET_STAIRS.getDefaultState()
+			.with(BackroomsStairs.FACING, Direction.NORTH).with(BackroomsStairs.HALF, BlockHalf.BOTTOM)
+			.with(BackroomsStairs.SHAPE, StairShape.STRAIGHT);
+
+	private static List<Integer[][]> LayoutsTop = Layout.listLayouts(27, "level01", 1, 0, new Layout());
+	private static List<Integer[][]> LayoutsBottom = Layout.listLayouts(27, "level01", 2, 0, new Layout());
+	private static Integer[][] Roof = Layout.getColoredLayout("roof", 0, 0, 3, 0, 6, 5, 4, 0, 0, 0, new Layout());
+	private static Integer[][] Floor = Layout.getLayout("whiteblock", 0, 7, new Layout());
 
 	public boolean generate(StructureWorldAccess world, ChunkGenerator chunkGenerator, Random rand, BlockPos position,
 			DefaultFeatureConfig featureConfig) {
-
-		Random generator = new Random(world.getSeed());
-		long seed = world.getSeed();
-		long l = generator.nextLong();
-		long m = generator.nextLong();
-		long n = generator.nextLong();
-		long o = position.getX() * l ^ position.getY() * m ^ position.getZ() * n ^ seed;
-		generator = new Random(o);
 		BlockPos.Mutable mutableBlockPos = new BlockPos.Mutable().set(position);
+		int layoutInt = 0;
 
-		if (generator.nextDouble() < 0.7) {
-			generateSlice(world, mutableBlockPos.move(Direction.EAST), One, rand);
-			generateSlice(world, mutableBlockPos.move(Direction.EAST), Two, rand);
-			generateSlice(world, mutableBlockPos.move(Direction.EAST), Three, rand);
-			generateSlice(world, mutableBlockPos.move(Direction.EAST), Two, rand);
-			generateSlice(world, mutableBlockPos.move(Direction.EAST), Two, rand);
-			generateSlice(world, mutableBlockPos.move(Direction.EAST), Two, rand);
-			generateSlice(world, mutableBlockPos.move(Direction.EAST), Three, rand);
-			generateSlice(world, mutableBlockPos.move(Direction.EAST), Two, rand);
-			generateSlice(world, mutableBlockPos.move(Direction.EAST), Two, rand);
-			generateSlice(world, mutableBlockPos.move(Direction.EAST), Three, rand);
-			generateSlice(world, mutableBlockPos.move(Direction.EAST), Two, rand);
-			generateSlice(world, mutableBlockPos.move(Direction.EAST), Two, rand);
-			generateSlice(world, mutableBlockPos.move(Direction.EAST), Two, rand);
-			generateSlice(world, mutableBlockPos.move(Direction.EAST), Three, rand);
-			generateSlice(world, mutableBlockPos.move(Direction.EAST), Two, rand);
-			generateSlice(world, mutableBlockPos.move(Direction.EAST), Four, rand);
-		} else if (generator.nextDouble() < 0.8) {
-			if (generator.nextDouble() < 0.5) {
-				generateSlice(world, mutableBlockPos.move(Direction.EAST), One, rand);
-				generateSlice(world, mutableBlockPos.move(Direction.EAST), Hallway2NoLight, rand);
-				generateSlice(world, mutableBlockPos.move(Direction.EAST), Hallway2Light, rand);
-				generateSlice(world, mutableBlockPos.move(Direction.EAST), Hallway2NoLight, rand);
-				generateSlice(world, mutableBlockPos.move(Direction.EAST), Hallway2NoLight, rand);
-				generateSlice(world, mutableBlockPos.move(Direction.EAST), Hallway2Wall1, rand);
-				generateSlice(world, mutableBlockPos.move(Direction.EAST), Hallway2Light, rand);
-				generateSlice(world, mutableBlockPos.move(Direction.EAST), Hallway2NoLight, rand);
-				generateSlice(world, mutableBlockPos.move(Direction.EAST), Hallway2NoLight, rand);
-				generateSlice(world, mutableBlockPos.move(Direction.EAST), Hallway2Light, rand);
-				generateSlice(world, mutableBlockPos.move(Direction.EAST), Hallway2Wall2, rand);
-				generateSlice(world, mutableBlockPos.move(Direction.EAST), Hallway2NoLight, rand);
-				generateSlice(world, mutableBlockPos.move(Direction.EAST), Hallway2NoLight, rand);
-				generateSlice(world, mutableBlockPos.move(Direction.EAST), Hallway2Light, rand);
-				generateSlice(world, mutableBlockPos.move(Direction.EAST), Hallway2NoLight, rand);
-				generateSlice(world, mutableBlockPos.move(Direction.EAST), Four, rand);
-			} else {
-				generateSlice(world, mutableBlockPos.move(Direction.EAST), One, rand);
-				generateSlice(world, mutableBlockPos.move(Direction.EAST), Hallway1NoLight, rand);
-				generateSlice(world, mutableBlockPos.move(Direction.EAST), Hallway1Light, rand);
-				generateSlice(world, mutableBlockPos.move(Direction.EAST), Hallway1NoLight, rand);
-				generateSlice(world, mutableBlockPos.move(Direction.EAST), Hallway1NoLight, rand);
-				generateSlice(world, mutableBlockPos.move(Direction.EAST), Hallway1NoLight, rand);
-				generateSlice(world, mutableBlockPos.move(Direction.EAST), Hallway1Light, rand);
-				generateSlice(world, mutableBlockPos.move(Direction.EAST), Hallway1NoLight, rand);
-				generateSlice(world, mutableBlockPos.move(Direction.EAST), Hallway1NoLight, rand);
-				generateSlice(world, mutableBlockPos.move(Direction.EAST), Hallway1Light, rand);
-				generateSlice(world, mutableBlockPos.move(Direction.EAST), Hallway1NoLight, rand);
-				generateSlice(world, mutableBlockPos.move(Direction.EAST), Hallway1NoLight, rand);
-				generateSlice(world, mutableBlockPos.move(Direction.EAST), Hallway1NoLight, rand);
-				generateSlice(world, mutableBlockPos.move(Direction.EAST), Hallway1Light, rand);
-				generateSlice(world, mutableBlockPos.move(Direction.EAST), Hallway1NoLight, rand);
-				generateSlice(world, mutableBlockPos.move(Direction.EAST), Four, rand);
+		if (rand.nextDouble() < 0.7) {
+			layoutInt = 0;
+		} else if (rand.nextDouble() < 0.8) {
+			int k = rand.nextInt(9);
+			switch (k) {
+			case 0:
+				layoutInt = 8;
+				break;
+			case 1:
+				layoutInt = 9;
+				break;
+			case 2:
+				layoutInt = 10;
+				break;
+			case 3:
+				layoutInt = 11;
+				break;
+			case 4:
+				layoutInt = 17;
+				break;
+			case 5:
+				layoutInt = 18;
+				break;
+			case 6:
+				layoutInt = 19;
+				break;
+			case 7:
+				layoutInt = 20;
+				break;
+			case 8:
+				layoutInt = 25;
+				break;
+			case 9:
+				layoutInt = 26;
+				break;
 			}
-		} else if (generator.nextDouble() < 0.5) {
-			generateSlice(world, mutableBlockPos.move(Direction.EAST), One, rand);
-			generateSlice(world, mutableBlockPos.move(Direction.EAST), Two, rand);
-			generateSlice(world, mutableBlockPos.move(Direction.EAST), Three, rand);
-			generateSlice(world, mutableBlockPos.move(Direction.EAST), Two, rand);
-			generateSlice(world, mutableBlockPos.move(Direction.EAST), Two, rand);
-			generateSlice(world, mutableBlockPos.move(Direction.EAST), StairWall, rand);
-			generateSlice(world, mutableBlockPos.move(Direction.EAST), Stair1NoLight, rand);
-			generateSlice(world, mutableBlockPos.move(Direction.EAST), Stair1Light, rand);
-			generateSlice(world, mutableBlockPos.move(Direction.EAST), Stair1Light, rand);
-			generateSlice(world, mutableBlockPos.move(Direction.EAST), Stair1NoLight, rand);
-			generateSlice(world, mutableBlockPos.move(Direction.EAST), StairWall, rand);
-			generateSlice(world, mutableBlockPos.move(Direction.EAST), Two, rand);
-			generateSlice(world, mutableBlockPos.move(Direction.EAST), Two, rand);
-			generateSlice(world, mutableBlockPos.move(Direction.EAST), Three, rand);
-			generateSlice(world, mutableBlockPos.move(Direction.EAST), Two, rand);
-			generateSlice(world, mutableBlockPos.move(Direction.EAST), Four, rand);
 		} else {
-			generateSlice(world, mutableBlockPos.move(Direction.EAST), OneNoLight, rand);
-			generateSlice(world, mutableBlockPos.move(Direction.EAST), OneNoLight, rand);
-			generateSlice(world, mutableBlockPos.move(Direction.EAST), TwoLight, rand);
-			generateSlice(world, mutableBlockPos.move(Direction.EAST), OneNoLight, rand);
-			generateSlice(world, mutableBlockPos.move(Direction.EAST), OneNoLight, rand);
-			generateSlice(world, mutableBlockPos.move(Direction.EAST), OneNoLight, rand);
-			generateSlice(world, mutableBlockPos.move(Direction.EAST), TwoLight, rand);
-			generateSlice(world, mutableBlockPos.move(Direction.EAST), OneNoLight, rand);
-			generateSlice(world, mutableBlockPos.move(Direction.EAST), OneNoLight, rand);
-			generateSlice(world, mutableBlockPos.move(Direction.EAST), TwoLight, rand);
-			generateSlice(world, mutableBlockPos.move(Direction.EAST), OneNoLight, rand);
-			generateSlice(world, mutableBlockPos.move(Direction.EAST), OneNoLight, rand);
-			generateSlice(world, mutableBlockPos.move(Direction.EAST), OneNoLight, rand);
-			generateSlice(world, mutableBlockPos.move(Direction.EAST), TwoLight, rand);
-			generateSlice(world, mutableBlockPos.move(Direction.EAST), OneNoLight, rand);
-			generateSlice(world, mutableBlockPos.move(Direction.EAST), OneNoLight, rand);
+			if (rand.nextDouble() < 0.5) {
+				layoutInt = 100;
+			} else {
+				layoutInt = rand.nextInt(27);
+			}
+		}
+
+		if (layoutInt == 100) {
+			RoomArchives.generateSlice(world, mutableBlockPos.move(Direction.EAST), RoomArchives.One, rand,
+					Backrooms.DOTTED_RED_WALLPAPER, Backrooms.DOTTED_RED_TORN_WALLPAPER, STAIR, Backrooms.CARPET, MOLDY_CARPET, true);
+			RoomArchives.generateSlice(world, mutableBlockPos.move(Direction.EAST), RoomArchives.Two, rand,
+					Backrooms.DOTTED_RED_WALLPAPER, Backrooms.DOTTED_RED_TORN_WALLPAPER, STAIR, Backrooms.CARPET, MOLDY_CARPET, true);
+			RoomArchives.generateSlice(world, mutableBlockPos.move(Direction.EAST), RoomArchives.Three, rand,
+					Backrooms.DOTTED_RED_WALLPAPER, Backrooms.DOTTED_RED_TORN_WALLPAPER, STAIR, Backrooms.CARPET, MOLDY_CARPET, true);
+			RoomArchives.generateSlice(world, mutableBlockPos.move(Direction.EAST), RoomArchives.Two, rand,
+					Backrooms.DOTTED_RED_WALLPAPER, Backrooms.DOTTED_RED_TORN_WALLPAPER, STAIR, Backrooms.CARPET, MOLDY_CARPET, true);
+			RoomArchives.generateSlice(world, mutableBlockPos.move(Direction.EAST), RoomArchives.Two, rand,
+					Backrooms.DOTTED_RED_WALLPAPER, Backrooms.DOTTED_RED_TORN_WALLPAPER, STAIR, Backrooms.CARPET, MOLDY_CARPET, true);
+			RoomArchives.generateSlice(world, mutableBlockPos.move(Direction.EAST), RoomArchives.StairWall, rand,
+					Backrooms.DOTTED_RED_WALLPAPER, Backrooms.DOTTED_RED_TORN_WALLPAPER, STAIR, Backrooms.CARPET, MOLDY_CARPET, true);
+			RoomArchives.generateSlice(world, mutableBlockPos.move(Direction.EAST), RoomArchives.Stair1NoLight, rand,
+					Backrooms.DOTTED_RED_WALLPAPER, Backrooms.DOTTED_RED_TORN_WALLPAPER, STAIR, Backrooms.CARPET, MOLDY_CARPET, true);
+			RoomArchives.generateSlice(world, mutableBlockPos.move(Direction.EAST), RoomArchives.Stair1Light, rand,
+					Backrooms.DOTTED_RED_WALLPAPER, Backrooms.DOTTED_RED_TORN_WALLPAPER, STAIR, Backrooms.CARPET, MOLDY_CARPET, true);
+			RoomArchives.generateSlice(world, mutableBlockPos.move(Direction.EAST), RoomArchives.Stair1Light, rand,
+					Backrooms.DOTTED_RED_WALLPAPER, Backrooms.DOTTED_RED_TORN_WALLPAPER, STAIR, Backrooms.CARPET, MOLDY_CARPET, true);
+			RoomArchives.generateSlice(world, mutableBlockPos.move(Direction.EAST), RoomArchives.Stair1NoLight, rand,
+					Backrooms.DOTTED_RED_WALLPAPER, Backrooms.DOTTED_RED_TORN_WALLPAPER, STAIR, Backrooms.CARPET, MOLDY_CARPET, true);
+			RoomArchives.generateSlice(world, mutableBlockPos.move(Direction.EAST), RoomArchives.StairWall, rand,
+					Backrooms.DOTTED_RED_WALLPAPER, Backrooms.DOTTED_RED_TORN_WALLPAPER, STAIR, Backrooms.CARPET, MOLDY_CARPET, true);
+			RoomArchives.generateSlice(world, mutableBlockPos.move(Direction.EAST), RoomArchives.Two, rand,
+					Backrooms.DOTTED_RED_WALLPAPER, Backrooms.DOTTED_RED_TORN_WALLPAPER, STAIR, Backrooms.CARPET, MOLDY_CARPET, true);
+			RoomArchives.generateSlice(world, mutableBlockPos.move(Direction.EAST), RoomArchives.Two, rand,
+					Backrooms.DOTTED_RED_WALLPAPER, Backrooms.DOTTED_RED_TORN_WALLPAPER, STAIR, Backrooms.CARPET, MOLDY_CARPET, true);
+			RoomArchives.generateSlice(world, mutableBlockPos.move(Direction.EAST), RoomArchives.Three, rand,
+					Backrooms.DOTTED_RED_WALLPAPER, Backrooms.DOTTED_RED_TORN_WALLPAPER, STAIR, Backrooms.CARPET, MOLDY_CARPET, true);
+			RoomArchives.generateSlice(world, mutableBlockPos.move(Direction.EAST), RoomArchives.Two, rand,
+					Backrooms.DOTTED_RED_WALLPAPER, Backrooms.DOTTED_RED_TORN_WALLPAPER, STAIR, Backrooms.CARPET, MOLDY_CARPET, true);
+			RoomArchives.generateSlice(world, mutableBlockPos.move(Direction.EAST), RoomArchives.Four, rand,
+					Backrooms.DOTTED_RED_WALLPAPER, Backrooms.DOTTED_RED_TORN_WALLPAPER, STAIR, Backrooms.CARPET, MOLDY_CARPET, true);
+		} else {
+			Integer[][] layoutTop = LayoutsTop.get(layoutInt);
+			Integer[][] layoutBottom = LayoutsBottom.get(layoutInt);
+
+			generateSlice(world, mutableBlockPos.move(Direction.DOWN), Roof, rand);
+			generateSlice(world, mutableBlockPos.move(Direction.DOWN), layoutTop, rand);
+			generateSlice(world, mutableBlockPos.move(Direction.DOWN), layoutTop, rand);
+			generateSlice(world, mutableBlockPos.move(Direction.DOWN), layoutTop, rand);
+			generateSlice(world, mutableBlockPos.move(Direction.DOWN), layoutBottom, rand);
+			generateSlice(world, mutableBlockPos.move(Direction.DOWN), Floor, rand);
 		}
 
 		return true;
 
 	}
 
-	private void generateSlice(ServerWorldAccess world, BlockPos.Mutable centerPos, int[][] slice, Random rand) {
+	private void generateSlice(ServerWorldAccess world, BlockPos.Mutable centerPos, Integer[][] slice, Random rand) {
 
-		BlockPos currentPositionOffsetted = new BlockPos(centerPos.add(-1, 3, slice[0].length));
-		BlockPos.Mutable currentPosition = new BlockPos.Mutable(currentPositionOffsetted.getX(),
-				currentPositionOffsetted.getY(), currentPositionOffsetted.getZ());
+		BlockPos.Mutable currentPosition = new BlockPos.Mutable(centerPos.getX() - 1, centerPos.getY(),
+				centerPos.getZ());
 
-		for (int y = 0; y < slice.length; y++) {
+		for (int x = 0; x < slice.length; x++) {
 			for (int z = 0; z < slice[0].length; z++) {
-				int sliceBlock = slice[y][z];
+				int sliceBlock = slice[x][z];
 
 				if (((world.getBlockState(currentPosition).getBlock() == Backrooms.WALL)
 						|| (world.getBlockState(currentPosition).getBlock() == Blocks.BEDROCK))
 						&& (world.getBlockState(currentPosition).getBlock() != Backrooms.CARPET_STAIRS)) {
-					
 					if ((rand.nextDouble()) < ((BackroomsConfig.getInstance().Level0DoorChance))) {
-						Level0DottedRedRoom.door1 = true;
+						door1 = true;
 					} else {
-						Level0DottedRedRoom.door1 = false;
-					}
-					if ((rand.nextDouble()) < ((BackroomsConfig.getInstance().Level0DoorChance))) {
-						Level0DottedRedRoom.door2 = true;
-					} else {
-						Level0DottedRedRoom.door2 = false;
-					}
-					if ((rand.nextDouble()) < ((BackroomsConfig.getInstance().Level0DoorChance))) {
-						Level0DottedRedRoom.door3 = true;
-					} else {
-						Level0DottedRedRoom.door3 = false;
-					}
-					if ((rand.nextDouble()) < ((BackroomsConfig.getInstance().Level0DoorChance))) {
-						Level0DottedRedRoom.door4 = true;
-					} else {
-						Level0DottedRedRoom.door4 = false;
+						door1 = false;
 					}
 
 					switch (sliceBlock) {
 					case 0:
-						break;
-					case 2:
-						world.setBlockState(currentPosition, SOUTH_TILE, 2);
-						if (world.getBlockState(currentPosition.add(0, -1, 0)) == AIR && rand.nextDouble() < 0.25) {
-							world.setBlockState(currentPosition.add(0, -1, 0), VENT, 2);
-						}
-						break;
-					case 11:
-						world.setBlockState(currentPosition, NORTH_TILE, 2);
-						if (world.getBlockState(currentPosition.add(0, -1, 0)) == AIR && rand.nextDouble() < 0.25) {
-							world.setBlockState(currentPosition.add(0, -1, 0), VENT, 2);
-						}
-						break;
-					case 12:
-						world.setBlockState(currentPosition, TILE, 2);
-						if (world.getBlockState(currentPosition.add(0, -1, 0)) == AIR && rand.nextDouble() < 0.25) {
-							world.setBlockState(currentPosition.add(0, -1, 0), VENT, 2);
-						}
-						break;
-					case 3:
-						world.setBlockState(currentPosition, LIGHT, 2);
-						break;
-					case 4:
 						world.setBlockState(currentPosition, AIR, 2);
 						break;
-					case 5:
+					case 1:
 						if (rand.nextDouble() < 0.005) {
 							int k = rand.nextInt(4);
 							switch (k) {
@@ -326,126 +207,102 @@ public class Level0DottedRedRoom extends Feature<DefaultFeatureConfig> {
 							world.setBlockState(currentPosition, WALLPAPER, 2);
 						}
 						break;
-					case 6:
+					case 2:
 						if (door1) {
-							world.setBlockState(currentPosition, AIR, 2);
-							world.setBlockState(currentPosition.add(0, 1, 0), AIR, 2);
-							world.setBlockState(currentPosition.add(0, 2, 0), AIR, 2);
-							world.setBlockState(currentPosition.add(0, 0, -1), AIR, 2);
-							world.setBlockState(currentPosition.add(0, 1, -1), AIR, 2);
-							world.setBlockState(currentPosition.add(0, 2, -1), AIR, 2);
-							world.setBlockState(currentPosition.add(-1, 0, 0), AIR, 2);
-							world.setBlockState(currentPosition.add(-1, 1, 0), AIR, 2);
-							world.setBlockState(currentPosition.add(-1, 2, 0), AIR, 2);
-							world.setBlockState(currentPosition.add(-1, 0, -1), AIR, 2);
-							world.setBlockState(currentPosition.add(-1, 1, -1), AIR, 2);
-							world.setBlockState(currentPosition.add(-1, 2, -1), AIR, 2);
+							BlockState placement;
+							if (rand.nextDouble() < BackroomsConfig.getInstance().VBDoor && rand.nextDouble() < 0.1) {
+								placement = VOID_BLOCK;
+							} else {
+								placement = AIR;
+							}
+							world.setBlockState(currentPosition, placement, 2);
+							world.setBlockState(currentPosition.add(0, 1, 0), placement, 2);
+							world.setBlockState(currentPosition.add(0, 2, 0), placement, 2);
+							world.setBlockState(currentPosition.add(0, 0, -1), placement, 2);
+							world.setBlockState(currentPosition.add(0, 1, -1), placement, 2);
+							world.setBlockState(currentPosition.add(0, 2, -1), placement, 2);
+							world.setBlockState(currentPosition.add(-1, 0, 0), placement, 2);
+							world.setBlockState(currentPosition.add(-1, 1, 0), placement, 2);
+							world.setBlockState(currentPosition.add(-1, 2, 0), placement, 2);
+							world.setBlockState(currentPosition.add(-1, 0, -1), placement, 2);
+							world.setBlockState(currentPosition.add(-1, 1, -1), placement, 2);
+							world.setBlockState(currentPosition.add(-1, 2, -1), placement, 2);
+							world.setBlockState(currentPosition.add(0, 0, 1), placement, 2);
+							world.setBlockState(currentPosition.add(0, 1, 1), placement, 2);
+							world.setBlockState(currentPosition.add(0, 2, 1), placement, 2);
+							world.setBlockState(currentPosition.add(1, 0, 0), placement, 2);
+							world.setBlockState(currentPosition.add(1, 1, 0), placement, 2);
+							world.setBlockState(currentPosition.add(1, 2, 0), placement, 2);
+							world.setBlockState(currentPosition.add(1, 0, 1), placement, 2);
+							world.setBlockState(currentPosition.add(1, 1, 1), placement, 2);
+							world.setBlockState(currentPosition.add(1, 2, 1), placement, 2);
+							world.setBlockState(currentPosition.add(1, 0, -1), placement, 2);
+							world.setBlockState(currentPosition.add(1, 1, -1), placement, 2);
+							world.setBlockState(currentPosition.add(1, 2, -1), placement, 2);
+							world.setBlockState(currentPosition.add(-1, 0, 1), placement, 2);
+							world.setBlockState(currentPosition.add(-1, 1, 1), placement, 2);
+							world.setBlockState(currentPosition.add(-1, 2, 1), placement, 2);
 							if (BackroomsConfig.getInstance().TallDoors) {
-								world.setBlockState(currentPosition.add(0, 3, 0), AIR, 2);
-								world.setBlockState(currentPosition.add(0, 3, -1), AIR, 2);
-								world.setBlockState(currentPosition.add(-1, 3, 0), AIR, 2);
-								world.setBlockState(currentPosition.add(-1, 3, -1), AIR, 2);
+								world.setBlockState(currentPosition.add(0, 3, 0), placement, 2);
+								world.setBlockState(currentPosition.add(0, 3, -1), placement, 2);
+								world.setBlockState(currentPosition.add(-1, 3, 0), placement, 2);
+								world.setBlockState(currentPosition.add(-1, 3, -1), placement, 2);
+								world.setBlockState(currentPosition.add(0, 3, 0), placement, 2);
+								world.setBlockState(currentPosition.add(0, 3, 1), placement, 2);
+								world.setBlockState(currentPosition.add(1, 3, 0), placement, 2);
+								world.setBlockState(currentPosition.add(1, 3, 1), placement, 2);
+								world.setBlockState(currentPosition.add(1, 3, -1), placement, 2);
+								world.setBlockState(currentPosition.add(-1, 3, 1), placement, 2);
 							}
 						} else {
-							world.setBlockState(currentPosition, WALLPAPER, 2);
-						}
-						break;
-					case 7:
-						if (door2) {
-							world.setBlockState(currentPosition, AIR, 3);
-							world.setBlockState(currentPosition.add(0, 1, 0), AIR, 3);
-							world.setBlockState(currentPosition.add(0, 2, 0), AIR, 3);
-							world.setBlockState(currentPosition.add(-1, 1, 0), AIR, 3);
-							world.setBlockState(currentPosition.add(-1, 2, 0), AIR, 3);
-							world.setBlockState(currentPosition.add(0, 0, -1), AIR, 3);
-							world.setBlockState(currentPosition.add(0, 1, -1), AIR, 3);
-							world.setBlockState(currentPosition.add(0, 2, -1), AIR, 3);
-							world.setBlockState(currentPosition.add(-1, 0, -1), AIR, 3);
-							world.setBlockState(currentPosition.add(-1, 1, -1), AIR, 3);
-							world.setBlockState(currentPosition.add(-1, 2, -1), AIR, 3);
-							if (BackroomsConfig.getInstance().TallDoors) {
-								world.setBlockState(currentPosition.add(0, 3, 0), AIR, 2);
-								world.setBlockState(currentPosition.add(-1, 3, 0), AIR, 2);
-								world.setBlockState(currentPosition.add(0, 3, -1), AIR, 2);
-								world.setBlockState(currentPosition.add(-1, 3, -1), AIR, 2);
-							}
-							if (rand.nextDouble() < BackroomsConfig.getInstance().VBDoor) {
-								world.setBlockState(currentPosition, VOID_BLOCK, 3);
-								world.setBlockState(currentPosition.add(0, 1, 0), VOID_BLOCK, 3);
-								world.setBlockState(currentPosition.add(0, 2, 0), VOID_BLOCK, 3);
-								world.setBlockState(currentPosition.add(-1, 0, 0), VOID_BLOCK, 3);
-								world.setBlockState(currentPosition.add(-1, 1, 0), VOID_BLOCK, 3);
-								world.setBlockState(currentPosition.add(-1, 2, 0), VOID_BLOCK, 3);
-								if (BackroomsConfig.getInstance().TallDoors) {
-									world.setBlockState(currentPosition.add(0, 3, 0), VOID_BLOCK, 2);
-									world.setBlockState(currentPosition.add(-1, 3, 0), VOID_BLOCK, 2);
+							if (rand.nextDouble() < 0.005) {
+								int k = rand.nextInt(4);
+								switch (k) {
+								case 0:
+									world.setBlockState(currentPosition, TORN_WALLPAPER_1, 2);
+									break;
+								case 1:
+									world.setBlockState(currentPosition, TORN_WALLPAPER_2, 2);
+									break;
+								case 2:
+									world.setBlockState(currentPosition, TORN_WALLPAPER_3, 2);
+									break;
+								case 3:
+									world.setBlockState(currentPosition, TORN_WALLPAPER_4, 2);
+									break;
 								}
 							} else {
-								world.setBlockState(currentPosition.add(-1, 0, 0), AIR, 3);
+								world.setBlockState(currentPosition, WALLPAPER, 2);
 							}
-
-						} else {
-							world.setBlockState(currentPosition, WALLPAPER, 2);
 						}
 						break;
-					case 8:
-						if (door3) {
-							world.setBlockState(currentPosition, AIR, 3);
-							world.setBlockState(currentPosition.add(0, 1, 0), AIR, 2);
-							world.setBlockState(currentPosition.add(0, 2, 0), AIR, 2);
-							world.setBlockState(currentPosition.add(-1, 0, 0), AIR, 2);
-							world.setBlockState(currentPosition.add(-1, 1, 0), AIR, 2);
-							world.setBlockState(currentPosition.add(-1, 2, 0), AIR, 2);
-							world.setBlockState(currentPosition.add(0, 0, 1), AIR, 2);
-							world.setBlockState(currentPosition.add(0, 1, 1), AIR, 2);
-							world.setBlockState(currentPosition.add(0, 2, 1), AIR, 2);
-							world.setBlockState(currentPosition.add(-1, 0, 1), AIR, 2);
-							world.setBlockState(currentPosition.add(-1, 1, 1), AIR, 2);
-							world.setBlockState(currentPosition.add(-1, 2, 1), AIR, 2);
-							if (BackroomsConfig.getInstance().TallDoors) {
-								world.setBlockState(currentPosition.add(0, 3, 0), AIR, 2);
-								world.setBlockState(currentPosition.add(-1, 3, 0), AIR, 2);
-								world.setBlockState(currentPosition.add(0, 3, 1), AIR, 2);
-								world.setBlockState(currentPosition.add(-1, 3, 1), AIR, 2);
-							}
-						} else {
-							world.setBlockState(currentPosition, WALLPAPER, 2);
+					case 3:
+						world.setBlockState(currentPosition, NORTH_TILE, 2);
+						if (world.getBlockState(currentPosition.add(0, -1, 0)) == AIR && rand.nextDouble() < 0.25) {
+							world.setBlockState(currentPosition.add(0, -1, 0), VENT, 2);
 						}
 						break;
-					case 9:
-						if (door4) {
-							world.setBlockState(currentPosition, AIR, 2);
-							world.setBlockState(currentPosition.add(0, 1, 0), AIR, 2);
-							world.setBlockState(currentPosition.add(0, 2, 0), AIR, 2);
-							world.setBlockState(currentPosition.add(0, 0, -1), AIR, 2);
-							world.setBlockState(currentPosition.add(0, 1, -1), AIR, 2);
-							world.setBlockState(currentPosition.add(0, 2, -1), AIR, 2);
-							world.setBlockState(currentPosition.add(1, 0, 0), AIR, 2);
-							world.setBlockState(currentPosition.add(1, 1, 0), AIR, 2);
-							world.setBlockState(currentPosition.add(1, 2, 0), AIR, 2);
-							world.setBlockState(currentPosition.add(1, 0, -1), AIR, 2);
-							world.setBlockState(currentPosition.add(1, 1, -1), AIR, 2);
-							world.setBlockState(currentPosition.add(1, 2, -1), AIR, 2);
-							if (BackroomsConfig.getInstance().TallDoors) {
-								world.setBlockState(currentPosition.add(0, 3, 0), AIR, 2);
-								world.setBlockState(currentPosition.add(0, 3, -1), AIR, 2);
-								world.setBlockState(currentPosition.add(1, 3, 0), AIR, 2);
-								world.setBlockState(currentPosition.add(1, 3, -1), AIR, 2);
-							}
-						} else {
-							world.setBlockState(currentPosition, WALLPAPER, 2);
+					case 4:
+						world.setBlockState(currentPosition, SOUTH_TILE, 2);
+						if (world.getBlockState(currentPosition.add(0, -1, 0)) == AIR && rand.nextDouble() < 0.25) {
+							world.setBlockState(currentPosition.add(0, -1, 0), VENT, 2);
 						}
 						break;
-					case 10:
-						world.setBlockState(currentPosition, CARPET_STAIRS, 2);
+					case 5:
+						world.setBlockState(currentPosition, TILE, 2);
+						if (world.getBlockState(currentPosition.add(0, -1, 0)) == AIR && rand.nextDouble() < 0.25) {
+							world.setBlockState(currentPosition.add(0, -1, 0), VENT, 2);
+						}
 						break;
-					case 1:
+					case 6:
+						world.setBlockState(currentPosition, LIGHT, 2);
+						break;
+					case 7:
 						if (rand.nextDouble() < 0.01) {
 							world.setBlockState(currentPosition, MOLDY_CARPET, 2);
 						} else {
 							world.setBlockState(currentPosition, CARPET, 2);
 						}
-
 						if (rand.nextDouble() < 0.001) {
 							if (rand.nextDouble() < BackroomsConfig.getInstance().ChestSpawnChance) {
 								world.setBlockState(currentPosition.add(0, 1, 0), CHEST, 2);
@@ -458,7 +315,7 @@ public class Level0DottedRedRoom extends Feature<DefaultFeatureConfig> {
 				}
 				currentPosition.move(Direction.SOUTH);
 			}
-			currentPosition.move(0, -1, -slice[0].length);
+			currentPosition.move(-1, 0, -slice[0].length);
 		}
 	}
 }

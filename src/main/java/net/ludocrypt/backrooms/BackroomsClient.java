@@ -7,10 +7,13 @@ import java.util.function.Function;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
+import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.rendereregistry.v1.BlockEntityRendererRegistry;
 import net.ludocrypt.backrooms.client.render.block.entity.VoidBlockEntityRenderer;
+import net.ludocrypt.backrooms.misc.BuzzHandler;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityType;
+import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.block.entity.BlockEntityRenderDispatcher;
 import net.minecraft.client.render.block.entity.BlockEntityRenderer;
@@ -24,7 +27,8 @@ public class BackroomsClient implements ClientModInitializer {
 	@Override
 	public void onInitializeClient() {
 		registerBlockEntityRenderer("void_block", VoidBlockEntityRenderer::new);
-		
+		ClientTickEvents.START_CLIENT_TICK.register(BackroomsClient::clientTickEvent);
+
 	}
 
 	public static void putItemRenderLayer(Item item, RenderLayer layer) {
@@ -38,9 +42,15 @@ public class BackroomsClient implements ClientModInitializer {
 	@SuppressWarnings("unchecked")
 	private <E extends BlockEntity> void registerBlockEntityRenderer(String identifier,
 			Function<BlockEntityRenderDispatcher, BlockEntityRenderer<E>> blockEntityRenderer) {
-		BlockEntityRendererRegistry.INSTANCE.register((BlockEntityType<E>) Registry.BLOCK_ENTITY_TYPE.get(Backrooms.getId(identifier)), blockEntityRenderer);
+		BlockEntityRendererRegistry.INSTANCE.register(
+				(BlockEntityType<E>) Registry.BLOCK_ENTITY_TYPE.get(Backrooms.getId(identifier)), blockEntityRenderer);
 	}
-	
-	
+
+	public static void clientTickEvent(MinecraftClient minecraft) {
+		if (minecraft.world != null) {
+			BuzzHandler.buzzCheckingAndRunning(minecraft.gameRenderer.getCamera(), minecraft, minecraft.worldRenderer,
+					minecraft.world);
+		}
+	}
 
 }

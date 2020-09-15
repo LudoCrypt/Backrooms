@@ -15,13 +15,18 @@
 		"hidden": false
 	},
 	"criteria": {
-		"level0": {
+		"level2long": {
 			"trigger": "minecraft:location",
 			"conditions": {
 				"biome": "backrooms:level2long"
 			}
 		}
 	},
+	"requirements": [
+		[
+			"level2long"
+		]
+	],
 	"rewards": {
 		"experience": 10
 	},

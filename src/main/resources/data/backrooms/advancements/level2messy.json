@@ -15,13 +15,18 @@
 		"hidden": false
 	},
 	"criteria": {
-		"level0": {
+		"level2messy": {
 			"trigger": "minecraft:location",
 			"conditions": {
 				"biome": "backrooms:level2messy"
 			}
 		}
 	},
+	"requirements": [
+		[
+			"level2messy"
+		]
+	],
 	"rewards": {
 		"experience": 10
 	},

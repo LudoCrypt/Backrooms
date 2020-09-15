@@ -13,7 +13,7 @@ import net.minecraft.world.gen.feature.DefaultFeatureConfig;
 import net.minecraft.world.gen.feature.Feature;
 
 public class LevelsFeatureInit {
-	public static Feature<DefaultFeatureConfig> LEVEL01ROOF = new Level01Roof(DefaultFeatureConfig.CODEC);
+
 	public static Feature<DefaultFeatureConfig> LEVEL0ROOM = new Level0Room(DefaultFeatureConfig.CODEC);
 	public static Feature<DefaultFeatureConfig> LEVEL0REDROOM = new Level0RedRoom(DefaultFeatureConfig.CODEC);
 	public static Feature<DefaultFeatureConfig> LEVEL0DOTTEDROOM = new Level0DottedRoom(DefaultFeatureConfig.CODEC);
@@ -34,7 +34,7 @@ public class LevelsFeatureInit {
 	public static Decorator<NopeDecoratorConfig> LEVEL3DECORATOR = new Level3RoomDecorator(NopeDecoratorConfig.CODEC);
 
 	public static void registerFeatures() {
-		Registry.register(Registry.FEATURE, new Identifier("backrooms", "level01roof"), LEVEL01ROOF);
+
 		Registry.register(Registry.FEATURE, new Identifier("backrooms", "level0room"), LEVEL0ROOM);
 		Registry.register(Registry.FEATURE, new Identifier("backrooms", "level0redroom"), LEVEL0REDROOM);
 		Registry.register(Registry.FEATURE, new Identifier("backrooms", "level0dottedroom"), LEVEL0DOTTEDROOM);

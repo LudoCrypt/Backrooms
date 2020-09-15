@@ -10,7 +10,8 @@
 	"client": [
 		"BuiltinModelItemRendererMixin",
 		"MusicMixin",
-		"TitleScreenMixin"
+		"TitleScreenMixin",
+		"WorldAccessor"
 	],
 	"injectors": {
 		"defaultRequire": 1

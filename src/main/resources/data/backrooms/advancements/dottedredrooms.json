@@ -15,13 +15,18 @@
 		"hidden": false
 	},
 	"criteria": {
-		"level0": {
+		"level0dottedred": {
 			"trigger": "minecraft:location",
 			"conditions": {
 				"biome": "backrooms:level0dottedred"
 			}
 		}
 	},
+	"requirements": [
+		[
+			"level0dottedred"
+		]
+	],
 	"rewards": {
 		"experience": 10
 	},

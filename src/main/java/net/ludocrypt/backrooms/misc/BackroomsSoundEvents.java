@@ -22,10 +22,12 @@ public class BackroomsSoundEvents {
 	public static final SoundEvent MUSIC_DISC_BURGERS_AND_FRIES = register("backrooms:music_disc.burgers_and_fries");
 	public static final SoundEvent MUSIC_DISC_PRETZELS_AND_CHEESE = register("backrooms:music_disc.pretzels_and_cheese");
 	public static final SoundEvent TONE = register("backrooms:tone");
-	public static final SoundEvent LEVEL0AMBIENCE = register("backrooms:level.0.ambience");
 	public static final SoundEvent GULP = register("backrooms:gulp");
-	public static final SoundEvent BUZZ = register("backrooms:buzz");
 	public static final SoundEvent TEAR = register("backrooms:tear");
+	public static final SoundEvent VENT = register("backrooms:vent");
+	public static final SoundEvent SIZZLE = register("backrooms:sizzle");
+	public static final SoundEvent HUMM_BUZZ_AROUND = register("backrooms:humm_buzz_around");
+	public static final SoundEvent HUMM_BUZZ = register("backrooms:humm_buzz");
 
 	private static SoundEvent register(String id) {
 		return (SoundEvent) Registry.register(Registry.SOUND_EVENT, (String) id, new SoundEvent(new Identifier(id)));
