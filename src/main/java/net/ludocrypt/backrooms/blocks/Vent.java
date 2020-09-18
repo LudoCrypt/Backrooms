@@ -21,7 +21,7 @@ public class Vent extends Block {
 
 	public Vent() {
 		super(FabricBlockSettings.of(Material.STONE).breakByTool(FabricToolTags.PICKAXES).sounds(BlockSoundGroup.STONE)
-				.hardness(2).resistance(4));
+				.hardness(2).resistance(4).requiresTool());
 	}
 
 	@Override

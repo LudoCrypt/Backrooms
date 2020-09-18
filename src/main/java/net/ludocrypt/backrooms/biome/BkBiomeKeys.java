@@ -22,7 +22,4 @@ public abstract class BkBiomeKeys {
 	private static RegistryKey<Biome> register(Identifier id) {
 		return RegistryKey.of(Registry.BIOME_KEY, id);
 	}
-
-	public static void turnOn() {
-	}
 }

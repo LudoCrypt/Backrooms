@@ -23,7 +23,7 @@ public class LinedPipe extends Block {
 
 	public LinedPipe() {
 		super(FabricBlockSettings.of(Material.STONE).breakByTool(FabricToolTags.PICKAXES).sounds(BlockSoundGroup.STONE)
-				.hardness(6).resistance(6).lightLevel(5));
+				.hardness(6).resistance(6).lightLevel(5).requiresTool());
 	}
 
 	@Override

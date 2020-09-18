@@ -66,7 +66,6 @@ public class RoomArchives {
 			.with(Tile.SINGLE, false);
 	private static final BlockState TILE = Backrooms.TILE.getDefaultState().with(Tile.FACING, Direction.EAST)
 			.with(Tile.SINGLE, true);
-	private static final BlockState LIGHT = Backrooms.LIGHT.getDefaultState();
 	private static final BlockState AIR = Blocks.AIR.getDefaultState();
 	private static final BlockState CHEST = Blocks.CHEST.getDefaultState().with(ChestBlock.CHEST_TYPE, ChestType.SINGLE)
 			.with(ChestBlock.FACING, Direction.NORTH).with(ChestBlock.WATERLOGGED, false);

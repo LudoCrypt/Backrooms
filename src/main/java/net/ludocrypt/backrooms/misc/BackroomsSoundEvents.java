@@ -21,7 +21,6 @@ public class BackroomsSoundEvents {
 	public static final SoundEvent MUSIC_DISC_THOSE_TORN_WALLS = register("backrooms:music_disc.those_torn_walls");
 	public static final SoundEvent MUSIC_DISC_BURGERS_AND_FRIES = register("backrooms:music_disc.burgers_and_fries");
 	public static final SoundEvent MUSIC_DISC_PRETZELS_AND_CHEESE = register("backrooms:music_disc.pretzels_and_cheese");
-	public static final SoundEvent TONE = register("backrooms:tone");
 	public static final SoundEvent GULP = register("backrooms:gulp");
 	public static final SoundEvent TEAR = register("backrooms:tear");
 	public static final SoundEvent VENT = register("backrooms:vent");

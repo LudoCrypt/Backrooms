@@ -117,37 +117,53 @@ public class Level0DottedRedRoom extends Feature<DefaultFeatureConfig> {
 
 		if (layoutInt == 100) {
 			RoomArchives.generateSlice(world, mutableBlockPos.move(Direction.EAST), RoomArchives.One, rand,
-					Backrooms.DOTTED_RED_WALLPAPER, Backrooms.DOTTED_RED_TORN_WALLPAPER, STAIR, Backrooms.CARPET, MOLDY_CARPET, true);
+					Backrooms.DOTTED_RED_WALLPAPER, Backrooms.DOTTED_RED_TORN_WALLPAPER, STAIR, Backrooms.CARPET,
+					MOLDY_CARPET, true);
 			RoomArchives.generateSlice(world, mutableBlockPos.move(Direction.EAST), RoomArchives.Two, rand,
-					Backrooms.DOTTED_RED_WALLPAPER, Backrooms.DOTTED_RED_TORN_WALLPAPER, STAIR, Backrooms.CARPET, MOLDY_CARPET, true);
+					Backrooms.DOTTED_RED_WALLPAPER, Backrooms.DOTTED_RED_TORN_WALLPAPER, STAIR, Backrooms.CARPET,
+					MOLDY_CARPET, true);
 			RoomArchives.generateSlice(world, mutableBlockPos.move(Direction.EAST), RoomArchives.Three, rand,
-					Backrooms.DOTTED_RED_WALLPAPER, Backrooms.DOTTED_RED_TORN_WALLPAPER, STAIR, Backrooms.CARPET, MOLDY_CARPET, true);
+					Backrooms.DOTTED_RED_WALLPAPER, Backrooms.DOTTED_RED_TORN_WALLPAPER, STAIR, Backrooms.CARPET,
+					MOLDY_CARPET, true);
 			RoomArchives.generateSlice(world, mutableBlockPos.move(Direction.EAST), RoomArchives.Two, rand,
-					Backrooms.DOTTED_RED_WALLPAPER, Backrooms.DOTTED_RED_TORN_WALLPAPER, STAIR, Backrooms.CARPET, MOLDY_CARPET, true);
+					Backrooms.DOTTED_RED_WALLPAPER, Backrooms.DOTTED_RED_TORN_WALLPAPER, STAIR, Backrooms.CARPET,
+					MOLDY_CARPET, true);
 			RoomArchives.generateSlice(world, mutableBlockPos.move(Direction.EAST), RoomArchives.Two, rand,
-					Backrooms.DOTTED_RED_WALLPAPER, Backrooms.DOTTED_RED_TORN_WALLPAPER, STAIR, Backrooms.CARPET, MOLDY_CARPET, true);
+					Backrooms.DOTTED_RED_WALLPAPER, Backrooms.DOTTED_RED_TORN_WALLPAPER, STAIR, Backrooms.CARPET,
+					MOLDY_CARPET, true);
 			RoomArchives.generateSlice(world, mutableBlockPos.move(Direction.EAST), RoomArchives.StairWall, rand,
-					Backrooms.DOTTED_RED_WALLPAPER, Backrooms.DOTTED_RED_TORN_WALLPAPER, STAIR, Backrooms.CARPET, MOLDY_CARPET, true);
+					Backrooms.DOTTED_RED_WALLPAPER, Backrooms.DOTTED_RED_TORN_WALLPAPER, STAIR, Backrooms.CARPET,
+					MOLDY_CARPET, true);
 			RoomArchives.generateSlice(world, mutableBlockPos.move(Direction.EAST), RoomArchives.Stair1NoLight, rand,
-					Backrooms.DOTTED_RED_WALLPAPER, Backrooms.DOTTED_RED_TORN_WALLPAPER, STAIR, Backrooms.CARPET, MOLDY_CARPET, true);
+					Backrooms.DOTTED_RED_WALLPAPER, Backrooms.DOTTED_RED_TORN_WALLPAPER, STAIR, Backrooms.CARPET,
+					MOLDY_CARPET, true);
 			RoomArchives.generateSlice(world, mutableBlockPos.move(Direction.EAST), RoomArchives.Stair1Light, rand,
-					Backrooms.DOTTED_RED_WALLPAPER, Backrooms.DOTTED_RED_TORN_WALLPAPER, STAIR, Backrooms.CARPET, MOLDY_CARPET, true);
+					Backrooms.DOTTED_RED_WALLPAPER, Backrooms.DOTTED_RED_TORN_WALLPAPER, STAIR, Backrooms.CARPET,
+					MOLDY_CARPET, true);
 			RoomArchives.generateSlice(world, mutableBlockPos.move(Direction.EAST), RoomArchives.Stair1Light, rand,
-					Backrooms.DOTTED_RED_WALLPAPER, Backrooms.DOTTED_RED_TORN_WALLPAPER, STAIR, Backrooms.CARPET, MOLDY_CARPET, true);
+					Backrooms.DOTTED_RED_WALLPAPER, Backrooms.DOTTED_RED_TORN_WALLPAPER, STAIR, Backrooms.CARPET,
+					MOLDY_CARPET, true);
 			RoomArchives.generateSlice(world, mutableBlockPos.move(Direction.EAST), RoomArchives.Stair1NoLight, rand,
-					Backrooms.DOTTED_RED_WALLPAPER, Backrooms.DOTTED_RED_TORN_WALLPAPER, STAIR, Backrooms.CARPET, MOLDY_CARPET, true);
+					Backrooms.DOTTED_RED_WALLPAPER, Backrooms.DOTTED_RED_TORN_WALLPAPER, STAIR, Backrooms.CARPET,
+					MOLDY_CARPET, true);
 			RoomArchives.generateSlice(world, mutableBlockPos.move(Direction.EAST), RoomArchives.StairWall, rand,
-					Backrooms.DOTTED_RED_WALLPAPER, Backrooms.DOTTED_RED_TORN_WALLPAPER, STAIR, Backrooms.CARPET, MOLDY_CARPET, true);
+					Backrooms.DOTTED_RED_WALLPAPER, Backrooms.DOTTED_RED_TORN_WALLPAPER, STAIR, Backrooms.CARPET,
+					MOLDY_CARPET, true);
 			RoomArchives.generateSlice(world, mutableBlockPos.move(Direction.EAST), RoomArchives.Two, rand,
-					Backrooms.DOTTED_RED_WALLPAPER, Backrooms.DOTTED_RED_TORN_WALLPAPER, STAIR, Backrooms.CARPET, MOLDY_CARPET, true);
+					Backrooms.DOTTED_RED_WALLPAPER, Backrooms.DOTTED_RED_TORN_WALLPAPER, STAIR, Backrooms.CARPET,
+					MOLDY_CARPET, true);
 			RoomArchives.generateSlice(world, mutableBlockPos.move(Direction.EAST), RoomArchives.Two, rand,
-					Backrooms.DOTTED_RED_WALLPAPER, Backrooms.DOTTED_RED_TORN_WALLPAPER, STAIR, Backrooms.CARPET, MOLDY_CARPET, true);
+					Backrooms.DOTTED_RED_WALLPAPER, Backrooms.DOTTED_RED_TORN_WALLPAPER, STAIR, Backrooms.CARPET,
+					MOLDY_CARPET, true);
 			RoomArchives.generateSlice(world, mutableBlockPos.move(Direction.EAST), RoomArchives.Three, rand,
-					Backrooms.DOTTED_RED_WALLPAPER, Backrooms.DOTTED_RED_TORN_WALLPAPER, STAIR, Backrooms.CARPET, MOLDY_CARPET, true);
+					Backrooms.DOTTED_RED_WALLPAPER, Backrooms.DOTTED_RED_TORN_WALLPAPER, STAIR, Backrooms.CARPET,
+					MOLDY_CARPET, true);
 			RoomArchives.generateSlice(world, mutableBlockPos.move(Direction.EAST), RoomArchives.Two, rand,
-					Backrooms.DOTTED_RED_WALLPAPER, Backrooms.DOTTED_RED_TORN_WALLPAPER, STAIR, Backrooms.CARPET, MOLDY_CARPET, true);
+					Backrooms.DOTTED_RED_WALLPAPER, Backrooms.DOTTED_RED_TORN_WALLPAPER, STAIR, Backrooms.CARPET,
+					MOLDY_CARPET, true);
 			RoomArchives.generateSlice(world, mutableBlockPos.move(Direction.EAST), RoomArchives.Four, rand,
-					Backrooms.DOTTED_RED_WALLPAPER, Backrooms.DOTTED_RED_TORN_WALLPAPER, STAIR, Backrooms.CARPET, MOLDY_CARPET, true);
+					Backrooms.DOTTED_RED_WALLPAPER, Backrooms.DOTTED_RED_TORN_WALLPAPER, STAIR, Backrooms.CARPET,
+					MOLDY_CARPET, true);
 		} else {
 			Integer[][] layoutTop = LayoutsTop.get(layoutInt);
 			Integer[][] layoutBottom = LayoutsBottom.get(layoutInt);
@@ -175,7 +191,8 @@ public class Level0DottedRedRoom extends Feature<DefaultFeatureConfig> {
 
 				if (((world.getBlockState(currentPosition).getBlock() == Backrooms.WALL)
 						|| (world.getBlockState(currentPosition).getBlock() == Blocks.BEDROCK))
-						&& (world.getBlockState(currentPosition).getBlock() != Backrooms.CARPET_STAIRS)) {
+						&& (world.getBlockState(currentPosition).getBlock() != Backrooms.CARPET_STAIRS)
+						&& (world.getBlockState(currentPosition).getBlock() != Backrooms.VOID_BLOCK)) {
 					if ((rand.nextDouble()) < ((BackroomsConfig.getInstance().Level0DoorChance))) {
 						door1 = true;
 					} else {

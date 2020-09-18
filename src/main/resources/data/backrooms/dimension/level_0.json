@@ -326,7 +326,7 @@
 			"type": "minecraft:multi_noise"
 		},
 		"seed": 672760,
-		"settings": "minecraft:overworld",
+		"settings": "backrooms:level_noise",
 		"type": "minecraft:noise"
 	}
 }

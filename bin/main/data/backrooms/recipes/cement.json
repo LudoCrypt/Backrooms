@@ -5,10 +5,10 @@
     ],
     "key": {
         "#": {
-            "item": "minecraft:white_concrete"
+            "item": "minecraft:cobblestone"
         },
         "L": {
-            "item": "minecraft:light_gray_concrete"
+            "item": "minecraft:stone"
         }
     },
     "result": {

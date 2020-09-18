@@ -19,7 +19,7 @@ public class Tile extends Block {
 
 	public Tile() {
 		super(FabricBlockSettings.of(Material.STONE).breakByTool(FabricToolTags.PICKAXES).sounds(BlockSoundGroup.STONE)
-				.hardness(3).resistance(2));
+				.hardness(3).resistance(2).requiresTool());
 		setDefaultState(getStateManager().getDefaultState().with(SINGLE, true).with(FACING, Direction.EAST));
 	}
 

@@ -1,21 +1,15 @@
 {
     "type": "minecraft:crafting_shaped",
     "pattern": [
-        "#L",
-        "BG"
+        "#&",
+        "&#"
     ],
     "key": {
         "#": {
             "item": "minecraft:white_concrete"
         },
-        "L": {
-            "item": "minecraft:light_gray_concrete"
-        },
-        "B": {
-            "item": "minecraft:black_concrete"
-        },
-        "G": {
-            "item": "minecraft:gray_concrete"
+        "&": {
+            "item": "minecraft:diorite"
         }
     },
     "result": {

@@ -8,7 +8,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.ludocrypt.backrooms.Backrooms;
+import net.ludocrypt.backrooms.BackroomsClient;
 import net.ludocrypt.backrooms.config.BackroomsConfig;
 import net.minecraft.client.gui.CubeMapRenderer;
 import net.minecraft.client.gui.RotatingCubeMapRenderer;
@@ -57,53 +57,53 @@ public abstract class TitleScreenMixin extends Screen {
 						this.backgroundRenderer = new RotatingCubeMapRenderer(LEVEL2_CUBE_MAP);
 					} else if (BackroomsConfig.getInstance().ForceLevel3) {
 						this.backgroundRenderer = new RotatingCubeMapRenderer(LEVEL3_CUBE_MAP);
-					} else if (!Backrooms.Display) {
-						Backrooms.Display = true;
+					} else if (!BackroomsClient.Display) {
+						BackroomsClient.Display = true;
 						this.backgroundRenderer = new RotatingCubeMapRenderer(LEVEL0_CUBE_MAP);
-					} else if (Backrooms.Display && Backrooms.DisplayLevel == 0) {
-						Backrooms.DisplayLevel = 1;
+					} else if (BackroomsClient.Display && BackroomsClient.DisplayLevel == 0) {
+						BackroomsClient.DisplayLevel = 1;
 						this.backgroundRenderer = new RotatingCubeMapRenderer(LEVEL1_CUBE_MAP);
-					} else if (Backrooms.Display && Backrooms.DisplayLevel == 1) {
-						Backrooms.DisplayLevel = 2;
+					} else if (BackroomsClient.Display && BackroomsClient.DisplayLevel == 1) {
+						BackroomsClient.DisplayLevel = 2;
 						this.backgroundRenderer = new RotatingCubeMapRenderer(LEVEL2_CUBE_MAP);
-					} else if (Backrooms.Display && Backrooms.DisplayLevel == 2) {
-						Backrooms.DisplayLevel = 3;
+					} else if (BackroomsClient.Display && BackroomsClient.DisplayLevel == 2) {
+						BackroomsClient.DisplayLevel = 3;
 						this.backgroundRenderer = new RotatingCubeMapRenderer(LEVEL3_CUBE_MAP);
-					} else if (Backrooms.Display && Backrooms.DisplayLevel == 3) {
-						Backrooms.DisplayLevel = 0;
-						Backrooms.Display = false;
+					} else if (BackroomsClient.Display && BackroomsClient.DisplayLevel == 3) {
+						BackroomsClient.DisplayLevel = 0;
+						BackroomsClient.Display = false;
 						this.backgroundRenderer = new RotatingCubeMapRenderer(NORMAL_CUBE_MAP);
 					}
 
 				}));
 		if (BackroomsConfig.getInstance().ForceNormal) {
-			Backrooms.Display = false;
+			BackroomsClient.Display = false;
 			this.backgroundRenderer = new RotatingCubeMapRenderer(NORMAL_CUBE_MAP);
 		} else if (BackroomsConfig.getInstance().ForceLevel0) {
-			Backrooms.Display = true;
-			Backrooms.DisplayLevel = 0;
+			BackroomsClient.Display = true;
+			BackroomsClient.DisplayLevel = 0;
 			this.backgroundRenderer = new RotatingCubeMapRenderer(LEVEL0_CUBE_MAP);
 		} else if (BackroomsConfig.getInstance().ForceLevel1) {
-			Backrooms.Display = true;
-			Backrooms.DisplayLevel = 1;
+			BackroomsClient.Display = true;
+			BackroomsClient.DisplayLevel = 1;
 			this.backgroundRenderer = new RotatingCubeMapRenderer(LEVEL1_CUBE_MAP);
 		} else if (BackroomsConfig.getInstance().ForceLevel2) {
-			Backrooms.Display = true;
-			Backrooms.DisplayLevel = 2;
+			BackroomsClient.Display = true;
+			BackroomsClient.DisplayLevel = 2;
 			this.backgroundRenderer = new RotatingCubeMapRenderer(LEVEL2_CUBE_MAP);
 		} else if (BackroomsConfig.getInstance().ForceLevel3) {
-			Backrooms.Display = true;
-			Backrooms.DisplayLevel = 3;
+			BackroomsClient.Display = true;
+			BackroomsClient.DisplayLevel = 3;
 			this.backgroundRenderer = new RotatingCubeMapRenderer(LEVEL3_CUBE_MAP);
-		} else if (!Backrooms.Display) {
+		} else if (!BackroomsClient.Display) {
 			this.backgroundRenderer = new RotatingCubeMapRenderer(NORMAL_CUBE_MAP);
-		} else if (Backrooms.Display && Backrooms.DisplayLevel == 0) {
+		} else if (BackroomsClient.Display && BackroomsClient.DisplayLevel == 0) {
 			this.backgroundRenderer = new RotatingCubeMapRenderer(LEVEL0_CUBE_MAP);
-		} else if (Backrooms.Display && Backrooms.DisplayLevel == 1) {
+		} else if (BackroomsClient.Display && BackroomsClient.DisplayLevel == 1) {
 			this.backgroundRenderer = new RotatingCubeMapRenderer(LEVEL1_CUBE_MAP);
-		} else if (Backrooms.Display && Backrooms.DisplayLevel == 2) {
+		} else if (BackroomsClient.Display && BackroomsClient.DisplayLevel == 2) {
 			this.backgroundRenderer = new RotatingCubeMapRenderer(LEVEL2_CUBE_MAP);
-		} else if (Backrooms.Display && Backrooms.DisplayLevel == 3) {
+		} else if (BackroomsClient.Display && BackroomsClient.DisplayLevel == 3) {
 			this.backgroundRenderer = new RotatingCubeMapRenderer(LEVEL3_CUBE_MAP);
 		}
 	}

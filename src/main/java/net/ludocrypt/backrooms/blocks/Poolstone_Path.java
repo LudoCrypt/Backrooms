@@ -9,6 +9,6 @@ import net.minecraft.sound.BlockSoundGroup;
 public class Poolstone_Path extends Block {
 	public Poolstone_Path() {
 		super(FabricBlockSettings.of(Material.STONE).breakByTool(FabricToolTags.PICKAXES).sounds(BlockSoundGroup.STONE)
-				.hardness(4).resistance(4));
+				.hardness(4).resistance(4).requiresTool());
 	}
 }

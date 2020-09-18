@@ -8,7 +8,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import net.fabricmc.api.EnvType;
 import net.fabricmc.api.Environment;
-import net.ludocrypt.backrooms.Backrooms;
+import net.ludocrypt.backrooms.BackroomsClient;
 import net.ludocrypt.backrooms.dimension.BDimension;
 import net.ludocrypt.backrooms.misc.BackroomsMusicType;
 import net.minecraft.client.MinecraftClient;
@@ -29,15 +29,15 @@ public class MusicMixin {
 	@Inject(method = "getMusicType", at = @At("HEAD"), cancellable = true)
 
 	private void getMusicType(CallbackInfoReturnable<MusicSound> callbackInfoReturnable) {
-		if (this.player == null && Backrooms.Display == true && Backrooms.DisplayLevel == 0) {
+		if (this.player == null && BackroomsClient.Display == true && BackroomsClient.DisplayLevel == 0) {
 			callbackInfoReturnable.setReturnValue(BackroomsMusicType.LEVEL0MENU);
-		} else if (this.player == null && Backrooms.Display == true && Backrooms.DisplayLevel == 1) {
+		} else if (this.player == null && BackroomsClient.Display == true && BackroomsClient.DisplayLevel == 1) {
 			callbackInfoReturnable.setReturnValue(BackroomsMusicType.LEVEL1MENU);
-		} else if (this.player == null && Backrooms.Display == true && Backrooms.DisplayLevel == 2) {
+		} else if (this.player == null && BackroomsClient.Display == true && BackroomsClient.DisplayLevel == 2) {
 			callbackInfoReturnable.setReturnValue(BackroomsMusicType.LEVEL2MENU);
-		} else if (this.player == null && Backrooms.Display == true && Backrooms.DisplayLevel == 3) {
+		} else if (this.player == null && BackroomsClient.Display == true && BackroomsClient.DisplayLevel == 3) {
 			callbackInfoReturnable.setReturnValue(BackroomsMusicType.LEVEL3MENU);
-		} else if (this.player == null && Backrooms.Display == false) {
+		} else if (this.player == null && BackroomsClient.Display == false) {
 			callbackInfoReturnable.setReturnValue(MusicType.MENU);
 		} else if (world != null && this.world.getRegistryKey() == BDimension.LEVEL0WORLD) {
 			callbackInfoReturnable.setReturnValue((MusicSound) this.world.getBiomeAccess()

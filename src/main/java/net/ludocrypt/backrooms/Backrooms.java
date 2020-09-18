@@ -11,7 +11,6 @@ import me.sargunvohra.mcmods.autoconfig1u.AutoConfig;
 import me.sargunvohra.mcmods.autoconfig1u.serializer.GsonConfigSerializer;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.command.v1.CommandRegistrationCallback;
-import net.ludocrypt.backrooms.biome.BkBiomeKeys;
 import net.ludocrypt.backrooms.biome.BkBuiltInBiomes;
 import net.ludocrypt.backrooms.biome.ConfiguratedSurfaceBuilders;
 import net.ludocrypt.backrooms.biome.SurfaceBuilders;
@@ -53,6 +52,8 @@ import net.minecraft.advancement.AdvancementProgress;
 import net.minecraft.block.Block;
 import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.block.entity.BlockEntityType;
+import net.minecraft.command.argument.EntityArgumentType;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.decoration.painting.PaintingMotive;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.BlockItem;
@@ -64,7 +65,13 @@ import net.minecraft.server.command.CommandManager;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.Rarity;
+import net.minecraft.util.registry.BuiltinRegistries;
 import net.minecraft.util.registry.Registry;
+import net.minecraft.world.gen.decorator.Decorator;
+import net.minecraft.world.gen.decorator.RangeDecoratorConfig;
+import net.minecraft.world.gen.feature.ConfiguredFeature;
+import net.minecraft.world.gen.feature.Feature;
+import net.minecraft.world.gen.feature.OreFeatureConfig;
 
 public class Backrooms implements ModInitializer {
 	// loot tables
@@ -73,8 +80,6 @@ public class Backrooms implements ModInitializer {
 	public static final Identifier LEVEL1CHEST = register("backrooms:chests/level1");
 	public static final Identifier LEVEL3CHEST = register("backrooms:chests/level3");
 	// variables
-	public static boolean Display = false;
-	public static int DisplayLevel = 0;
 	public static final String MOD_ID = "backrooms";
 	public static PlayerEntity teleportedEntity = null;
 	public static long SEED = 0;
@@ -200,9 +205,11 @@ public class Backrooms implements ModInitializer {
 	public static final PaintingMotive SEA_LIFE = new PaintingMotive(64, 64);
 	public static final PaintingMotive WOLF = new PaintingMotive(64, 64);
 
-	// builders
-//	public static SurfaceBuilder<TernarySurfaceConfig> LEVELBUILDER;
-//	public static ConfiguredSurfaceBuilder<TernarySurfaceConfig> CONFIGUREDLEVELBUILDER;
+	// Configured Features
+	public static ConfiguredFeature<?, ?> POOLSTONE_GENERATION = Feature.ORE
+			.configure(
+					new OreFeatureConfig(OreFeatureConfig.Rules.BASE_STONE_OVERWORLD, POOLSTONE.getDefaultState(), 15))
+			.decorate(Decorator.RANGE.configure(new RangeDecoratorConfig(0, 5, 50))).spreadHorizontally().repeat(4);
 
 	// identifier
 	public static Identifier getId(String id) {
@@ -211,32 +218,36 @@ public class Backrooms implements ModInitializer {
 
 	@Override
 	public void onInitialize() {
+		// Features
+		Registry.register(BuiltinRegistries.CONFIGURED_FEATURE, new Identifier("backrooms", "poolstone_blob"),
+				POOLSTONE_GENERATION);
 		// commands
 		CommandRegistrationCallback.EVENT.register((dispatcher, dedicated) -> {
 			dispatcher.register(CommandManager.literal("backrooms").requires(source -> source.hasPermissionLevel(2))
-					.then(CommandManager.literal("level").then(CommandManager.literal("0").executes(context -> {
-						PlayerEntity player = context.getSource().getPlayer();
-						player.moveToWorld(player.getServer().getWorld(BDimension.LEVEL0WORLD));
-						return 1;
-					})).then(CommandManager.literal("1").executes(context -> {
-						PlayerEntity player = context.getSource().getPlayer();
-						player.moveToWorld(player.getServer().getWorld(BDimension.LEVEL1WORLD));
-						return 1;
-					})).then(CommandManager.literal("2").executes(context -> {
-						PlayerEntity player = context.getSource().getPlayer();
-						player.moveToWorld(player.getServer().getWorld(BDimension.LEVEL2WORLD));
-						return 1;
-					})).then(CommandManager.literal("3").executes(context -> {
-						PlayerEntity player = context.getSource().getPlayer();
-						player.moveToWorld(player.getServer().getWorld(BDimension.LEVEL3WORLD));
-						return 1;
-					}))));
+					.then(CommandManager.literal("tp").then(CommandManager
+							.argument("entity", EntityArgumentType.entities())
+							.then(CommandManager.literal("level").then(CommandManager.literal("0").executes(context -> {
+								Entity entity = EntityArgumentType.getEntity(context, "entity");
+								entity.moveToWorld(entity.getServer().getWorld(BDimension.LEVEL0WORLD));
+								return 1;
+							})).then(CommandManager.literal("1").executes(context -> {
+								Entity entity = EntityArgumentType.getEntity(context, "entity");
+								entity.moveToWorld(entity.getServer().getWorld(BDimension.LEVEL1WORLD));
+								return 1;
+							})).then(CommandManager.literal("2").executes(context -> {
+								Entity entity = EntityArgumentType.getEntity(context, "entity");
+								entity.moveToWorld(entity.getServer().getWorld(BDimension.LEVEL2WORLD));
+								return 1;
+							})).then(CommandManager.literal("3").executes(context -> {
+								Entity entity = EntityArgumentType.getEntity(context, "entity");
+								entity.moveToWorld(entity.getServer().getWorld(BDimension.LEVEL3WORLD));
+								return 1;
+							}))))));
 		});
 		// dimensions
 		BDimension.register();
 		// biomes
 		LevelsFeatureInit.registerFeatures();
-		BkBiomeKeys.turnOn();
 		BkBuiltInBiomes.turnOn();
 		ConfiguratedSurfaceBuilders.turnOn();
 		SurfaceBuilders.turnOn();

@@ -165,7 +165,8 @@ public class Level1OffRoom extends Feature<DefaultFeatureConfig> {
 
 				if (((world.getBlockState(currentPosition).getBlock() == Backrooms.WALL)
 						|| (world.getBlockState(currentPosition).getBlock() == Blocks.BEDROCK))
-						&& (world.getBlockState(currentPosition).getBlock() != Backrooms.CARPET_STAIRS)) {
+						&& (world.getBlockState(currentPosition).getBlock() != Backrooms.CARPET_STAIRS)
+						&& (world.getBlockState(currentPosition).getBlock() != Backrooms.VOID_BLOCK)) {
 					if ((rand.nextDouble()) < ((BackroomsConfig.getInstance().Level0DoorChance))) {
 						door1 = true;
 					} else {

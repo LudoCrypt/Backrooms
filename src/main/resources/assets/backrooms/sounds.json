@@ -234,13 +234,6 @@
 			}
 		]
 	},
-	"tone": {
-		"sounds": [
-			{
-				"name": "backrooms:tone"
-			}
-		]
-	},
 	"tear": {
 		"sounds": [
 			{

@@ -5,7 +5,8 @@
 	"mixins": [
 		"GoToBackroomsMixin",
 		"MobSpawnLocationMixin",
-		"EntityMixin"
+		"EntityMixin",
+		"DefaultBiomeFeaturesMixin"
 	],
 	"client": [
 		"BuiltinModelItemRendererMixin",

@@ -9,6 +9,6 @@ import net.minecraft.sound.BlockSoundGroup;
 public class Wall extends Block {
 	public Wall() {
 		super(FabricBlockSettings.of(Material.STONE).breakByTool(FabricToolTags.PICKAXES).sounds(BlockSoundGroup.STONE)
-				.strength(40000F, 3600000.8F));
+				.strength(40000F, 3600000.8F).requiresTool());
 	}
 }

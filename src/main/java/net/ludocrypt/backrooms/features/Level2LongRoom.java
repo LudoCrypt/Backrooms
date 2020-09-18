@@ -21,9 +21,24 @@ public class Level2LongRoom extends Feature<DefaultFeatureConfig> {
 		super(configFactory);
 	}
 
-	private int[][] Orange = { { 2, 2, 2, 2 }, { 2, 2, 2, 2 }, { 2, 2, 2, 2 }, { 2, 2, 2, 2 }, { 2, 2, 2, 2 } };
-	private int[][] Red = { { 2, 2, 2, 2 }, { 1, 1, 1, 1 }, { 4, 4, 4, 4 }, { 1, 1, 1, 1 }, { 2, 2, 2, 2 } };
-	private int[][] Brown = { { 2, 2, 2, 2 }, { 1, 1, 1, 1 }, { 1, 1, 1, 1 }, { 1, 1, 1, 1 }, { 2, 2, 2, 2 } };
+	private int[][] Orange = { 
+			{ 2, 2, 2, 2 }, 
+			{ 2, 2, 2, 2 }, 
+			{ 2, 2, 2, 2 }, 
+			{ 2, 2, 2, 2 }, 
+			{ 2, 2, 2, 2 } };
+	private int[][] Red = { 
+			{ 5, 5, 5, 5 }, 
+			{ 1, 1, 1, 1 }, 
+			{ 4, 4, 4, 4 }, 
+			{ 1, 1, 1, 1 }, 
+			{ 2, 2, 2, 2 } };
+	private int[][] Brown = { 
+			{ 5, 5, 5, 5 }, 
+			{ 1, 1, 1, 1 }, 
+			{ 1, 1, 1, 1 }, 
+			{ 1, 1, 1, 1 }, 
+			{ 2, 2, 2, 2 } };
 
 	private static final BlockState AIR = Blocks.AIR.getDefaultState();
 	private static final BlockState CEMENT = Backrooms.CEMENT.getDefaultState();
@@ -31,6 +46,7 @@ public class Level2LongRoom extends Feature<DefaultFeatureConfig> {
 			.with(Pipe.SOUTH, true);
 	private static final BlockState PIPENORTHSOUTHEAST = Backrooms.PIPE.getDefaultState().with(Pipe.EAST, true)
 			.with(Pipe.SOUTH, true).with(Pipe.NORTH, true);
+	private static final BlockState VENT = Backrooms.VENT.getDefaultState();
 
 	public boolean generate(StructureWorldAccess world, ChunkGenerator chunkGenerator, Random rand, BlockPos position,
 			DefaultFeatureConfig featureConfig) {
@@ -74,6 +90,12 @@ public class Level2LongRoom extends Feature<DefaultFeatureConfig> {
 						} else {
 							world.setBlockState(currentPosition, PIPENORTHSOUTHEAST, 2);
 						}
+						break;
+					case 5:
+						if (rand.nextDouble() < 0.01) {
+							world.setBlockState(currentPosition.down(), VENT, 2);
+						}
+						world.setBlockState(currentPosition, CEMENT, 2);
 						break;
 					}
 				}

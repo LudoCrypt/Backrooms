@@ -9,6 +9,6 @@ import net.minecraft.sound.BlockSoundGroup;
 public class Smooth_Poolstone extends Block {
 	public Smooth_Poolstone() {
 		super(FabricBlockSettings.of(Material.STONE).breakByTool(FabricToolTags.PICKAXES).sounds(BlockSoundGroup.STONE)
-				.hardness(6).resistance(6));
+				.hardness(6).resistance(6).requiresTool());
 	}
 }

@@ -28,8 +28,8 @@ public abstract class BkBiomes {
 				.feature(GenerationStep.Feature.LOCAL_MODIFICATIONS,
 						LevelsFeatureInit.LEVEL0ROOM.configure(FeatureConfig.DEFAULT)
 								.decorate(LevelsFeatureInit.LEVEL0DECORATOR.configure(DecoratorConfig.DEFAULT)));
-		return (new Biome.Builder()).precipitation(Biome.Precipitation.NONE).category(Biome.Category.valueOf("level0")).depth(0F)
-				.scale(0F).temperature(1.0F).downfall(0.0F)
+		return (new Biome.Builder()).precipitation(Biome.Precipitation.NONE).category(Biome.Category.valueOf("level0")).depth(0.2F)
+				.scale(1F).temperature(1.0F).downfall(0.0F)
 				.effects((new BiomeEffects.Builder()).waterColor(14402413).waterFogColor(14402413).fogColor(14402413)
 						.skyColor(14402413).music(MusicType.createIngameMusic(BackroomsSoundEvents.LEVEL0MUSIC))
 						.build())
@@ -46,7 +46,7 @@ public abstract class BkBiomes {
 						LevelsFeatureInit.LEVEL0DECREPITROOM.configure(FeatureConfig.DEFAULT)
 								.decorate(LevelsFeatureInit.LEVEL0DECORATOR.configure(DecoratorConfig.DEFAULT)));
 		return (new Biome.Builder()).precipitation(Biome.Precipitation.NONE).category(Biome.Category.valueOf("level0"))
-				.depth(0F).scale(0F).temperature(1.0F).downfall(0.0F)
+				.depth(0.2F).scale(1F).temperature(1.0F).downfall(0.0F)
 				.effects((new BiomeEffects.Builder()).waterColor(14402413).waterFogColor(14402413).fogColor(14402413)
 						.skyColor(14402413).music(MusicType.createIngameMusic(BackroomsSoundEvents.LEVEL0WEIGHTEDMUSIC))
 						.build())
@@ -60,8 +60,9 @@ public abstract class BkBiomes {
 				.feature(GenerationStep.Feature.LOCAL_MODIFICATIONS,
 						LevelsFeatureInit.LEVEL0DOTTEDROOM.configure(FeatureConfig.DEFAULT)
 								.decorate(LevelsFeatureInit.LEVEL0DECORATOR.configure(DecoratorConfig.DEFAULT)));
+		
 		return (new Biome.Builder()).precipitation(Biome.Precipitation.NONE).category(Biome.Category.valueOf("level0"))
-				.depth(0F).scale(0F).temperature(1.0F).downfall(0.0F)
+				.depth(0.2F).scale(1F).temperature(1.0F).downfall(0.0F)
 				.effects((new BiomeEffects.Builder()).waterColor(14402413).waterFogColor(14402413).fogColor(14402413)
 						.skyColor(14402413).music(MusicType.createIngameMusic(BackroomsSoundEvents.LEVEL0MUSIC))
 						.build())
@@ -76,7 +77,7 @@ public abstract class BkBiomes {
 						LevelsFeatureInit.LEVEL0DOTTEDREDROOM.configure(FeatureConfig.DEFAULT)
 								.decorate(LevelsFeatureInit.LEVEL0DECORATOR.configure(DecoratorConfig.DEFAULT)));
 		return (new Biome.Builder()).precipitation(Biome.Precipitation.NONE).category(Biome.Category.valueOf("level0"))
-				.depth(0F).scale(0F).temperature(1.0F).downfall(0.0F)
+				.depth(0.2F).scale(1F).temperature(1.0F).downfall(0.0F)
 				.effects((new BiomeEffects.Builder()).waterColor(14402413).waterFogColor(14402413).fogColor(-5171911)
 						.skyColor(-5171911).music(MusicType.createIngameMusic(BackroomsSoundEvents.LEVEL0WEIGHTEDMUSIC))
 						.build())
@@ -93,7 +94,7 @@ public abstract class BkBiomes {
 						LevelsFeatureInit.LEVEL0REDROOM.configure(FeatureConfig.DEFAULT)
 								.decorate(LevelsFeatureInit.LEVEL0DECORATOR.configure(DecoratorConfig.DEFAULT)));
 		return (new Biome.Builder()).precipitation(Biome.Precipitation.NONE).category(Biome.Category.valueOf("level0"))
-				.depth(0F).scale(0F).temperature(1.0F).downfall(0.0F)
+				.depth(0.2F).scale(1F).temperature(1.0F).downfall(0.0F)
 				.effects((new BiomeEffects.Builder()).waterColor(14402413).waterFogColor(14402413).fogColor(-5171911)
 						.skyColor(-5171911).music(MusicType.createIngameMusic(BackroomsSoundEvents.LEVEL0WEIGHTEDMUSIC))
 						.build())
@@ -111,7 +112,7 @@ public abstract class BkBiomes {
 						LevelsFeatureInit.LEVEL1ROOM.configure(FeatureConfig.DEFAULT)
 								.decorate(LevelsFeatureInit.LEVEL1DECORATOR.configure(DecoratorConfig.DEFAULT)));
 		return (new Biome.Builder()).precipitation(Biome.Precipitation.NONE).category(Biome.Category.valueOf("level1"))
-				.depth(0F).scale(0F).temperature(1.0F).downfall(0.0F)
+				.depth(0.2F).scale(1F).temperature(1.0F).downfall(0.0F)
 				.effects((new BiomeEffects.Builder()).waterColor(-6710887).waterFogColor(-6710887).fogColor(-6710887)
 						.skyColor(-6710887).music(MusicType.createIngameMusic(BackroomsSoundEvents.LEVEL1ONMUSIC))
 						.build())
@@ -129,7 +130,7 @@ public abstract class BkBiomes {
 						LevelsFeatureInit.LEVEL1OFFROOM.configure(FeatureConfig.DEFAULT)
 								.decorate(LevelsFeatureInit.LEVEL1DECORATOR.configure(DecoratorConfig.DEFAULT)));
 		return (new Biome.Builder()).precipitation(Biome.Precipitation.NONE).category(Biome.Category.valueOf("level1"))
-				.depth(0F).scale(0F).temperature(1.0F).downfall(0.0F)
+				.depth(0.2F).scale(1F).temperature(1.0F).downfall(0.0F)
 				.effects((new BiomeEffects.Builder()).waterColor(-6710887).waterFogColor(-6710887).fogColor(-6710887)
 						.skyColor(-6710887).music(MusicType.createIngameMusic(BackroomsSoundEvents.LEVEL1OFFMUSIC))
 						.build())
@@ -148,7 +149,7 @@ public abstract class BkBiomes {
 						LevelsFeatureInit.LEVEL2ROOM.configure(FeatureConfig.DEFAULT)
 								.decorate(LevelsFeatureInit.LEVEL2DECORATOR.configure(DecoratorConfig.DEFAULT)));
 		return (new Biome.Builder()).precipitation(Biome.Precipitation.NONE).category(Biome.Category.valueOf("level2"))
-				.depth(0F).scale(0F).temperature(1.0F).downfall(0.0F)
+				.depth(0.2F).scale(1F).temperature(1.0F).downfall(0.0F)
 				.effects((new BiomeEffects.Builder()).waterColor(-6710887).waterFogColor(-6710887).fogColor(-6710887)
 						.skyColor(-6710887).music(MusicType.createIngameMusic(BackroomsSoundEvents.LEVEL2MUSIC))
 						.build())
@@ -167,7 +168,7 @@ public abstract class BkBiomes {
 						LevelsFeatureInit.LEVEL2LONGROOM.configure(FeatureConfig.DEFAULT)
 								.decorate(LevelsFeatureInit.LEVEL2DECORATOR.configure(DecoratorConfig.DEFAULT)));
 		return (new Biome.Builder()).precipitation(Biome.Precipitation.NONE).category(Biome.Category.valueOf("level2"))
-				.depth(0F).scale(0F).temperature(1.0F).downfall(0.0F)
+				.depth(0.2F).scale(1F).temperature(1.0F).downfall(0.0F)
 				.effects((new BiomeEffects.Builder()).waterColor(-6710887).waterFogColor(-6710887).fogColor(-6710887)
 						.skyColor(-6710887).music(MusicType.createIngameMusic(BackroomsSoundEvents.LEVEL2LONGMUSIC))
 						.build())
@@ -186,7 +187,7 @@ public abstract class BkBiomes {
 						LevelsFeatureInit.LEVEL2MESSYROOM.configure(FeatureConfig.DEFAULT)
 								.decorate(LevelsFeatureInit.LEVEL2DECORATOR.configure(DecoratorConfig.DEFAULT)));
 		return (new Biome.Builder()).precipitation(Biome.Precipitation.NONE).category(Biome.Category.valueOf("level2"))
-				.depth(0F).scale(0F).temperature(1.0F).downfall(0.0F)
+				.depth(0.2F).scale(1F).temperature(1.0F).downfall(0.0F)
 				.effects((new BiomeEffects.Builder()).waterColor(-6710887).waterFogColor(-6710887).fogColor(-6710887)
 						.skyColor(-6710887).music(MusicType.createIngameMusic(BackroomsSoundEvents.LEVEL2MESSYMUSIC))
 						.build())
@@ -205,7 +206,7 @@ public abstract class BkBiomes {
 						LevelsFeatureInit.LEVEL3ROOM.configure(FeatureConfig.DEFAULT)
 								.decorate(LevelsFeatureInit.LEVEL3DECORATOR.configure(DecoratorConfig.DEFAULT)));
 		return (new Biome.Builder()).precipitation(Biome.Precipitation.NONE).category(Biome.Category.valueOf("level3"))
-				.depth(0F).scale(0F).temperature(1.0F).downfall(0.0F)
+				.depth(0.2F).scale(1F).temperature(1.0F).downfall(0.0F)
 				.effects((new BiomeEffects.Builder()).waterColor(-6710887).waterFogColor(-6710887).fogColor(-6710887)
 						.skyColor(-6710887).music(MusicType.createIngameMusic(BackroomsSoundEvents.LEVEL3MUSIC))
 						.build())

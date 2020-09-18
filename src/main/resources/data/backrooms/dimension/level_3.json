@@ -7,7 +7,7 @@
       "type": "minecraft:fixed"
     },
     "seed": 0,
-    "settings": "minecraft:overworld",
+    "settings": "backrooms:level_noise",
     "type": "minecraft:noise"
   }
 }

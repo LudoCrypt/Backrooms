@@ -22,6 +22,10 @@ import net.minecraft.util.registry.Registry;
 
 @Environment(EnvType.CLIENT)
 public class BackroomsClient implements ClientModInitializer {
+	// variables
+	public static boolean Display = false;
+	public static int DisplayLevel = 0;
+
 	private static Map<Item, RenderLayer> itemRenderLayerMap = new HashMap<Item, RenderLayer>();
 
 	@Override

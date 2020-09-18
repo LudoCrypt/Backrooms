@@ -49,7 +49,7 @@ public class Pipe extends Block implements Waterloggable {
 
 	public Pipe() {
 		super(FabricBlockSettings.of(Material.STONE).breakByTool(FabricToolTags.PICKAXES).sounds(BlockSoundGroup.STONE)
-				.hardness(6).resistance(6).lightLevel(5));
+				.hardness(6).resistance(6).lightLevel(5).requiresTool());
 		setDefaultState(getStateManager().getDefaultState().with(UP, false).with(DOWN, false).with(EAST, false)
 				.with(WEST, false).with(NORTH, false).with(SOUTH, false).with(WATERLOGGED, false));
 	}

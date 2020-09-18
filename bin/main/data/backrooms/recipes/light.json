@@ -1,18 +1,23 @@
 {
     "type": "minecraft:crafting_shaped",
     "pattern": [
-        "#W"
+        "###",
+        "EEE",
+        "#$#"
     ],
     "key": {
         "#": {
-            "item": "minecraft:redstone_lamp"
+            "item": "minecraft:white_stained_glass_pane"
         },
-        "W": {
-            "item": "minecraft:white_dye"
+        "E": {
+            "item": "minecraft:end_rod"
+        },
+        "$": {
+            "item": "minecraft:repeater"
         }
     },
     "result": {
         "item": "backrooms:light",
-        "count": 1
+        "count": 4
     }
 }

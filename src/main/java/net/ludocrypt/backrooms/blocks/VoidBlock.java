@@ -27,7 +27,7 @@ public class VoidBlock extends BlockWithEntity {
 
 	public VoidBlock() {
 		super(FabricBlockSettings.of(Material.PORTAL).strength(100000F, 3600000.8F).sounds(BlockSoundGroup.METAL)
-				.collidable(false).nonOpaque());
+				.collidable(false).nonOpaque().requiresTool());
 	}
 
 	@Override

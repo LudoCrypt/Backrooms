@@ -9,6 +9,7 @@
           "children": [
             {
               "type": "minecraft:item",
+              "name": "backrooms:light",
               "conditions": [
                 {
                   "condition": "minecraft:match_tool",
@@ -23,17 +24,17 @@
                     ]
                   }
                 }
-              ],
-              "name": "backrooms:light"
+              ]
             },
             {
-              "type": "minecraft:item",
+              "type": "minecraft:loot_table",
+              "weight": 10,
+              "name": "backrooms:light_dusts",
               "conditions": [
                 {
                   "condition": "minecraft:survives_explosion"
                 }
-              ],
-              "name": "minecraft:air"
+              ]
             }
           ]
         }

@@ -1,6 +1,5 @@
 package net.ludocrypt.backrooms.features;
 
-import net.ludocrypt.backrooms.features.decorators.Level01RoofDecorator;
 import net.ludocrypt.backrooms.features.decorators.Level0RoomDecorator;
 import net.ludocrypt.backrooms.features.decorators.Level1RoomDecorator;
 import net.ludocrypt.backrooms.features.decorators.Level2RoomDecorator;
@@ -26,8 +25,6 @@ public class LevelsFeatureInit {
 	public static Feature<DefaultFeatureConfig> LEVEL2LONGROOM = new Level2LongRoom(DefaultFeatureConfig.CODEC);
 	public static Feature<DefaultFeatureConfig> LEVEL2MESSYROOM = new Level2MessyRoom(DefaultFeatureConfig.CODEC);
 	public static Feature<DefaultFeatureConfig> LEVEL3ROOM = new Level3Room(DefaultFeatureConfig.CODEC);
-	public static Decorator<NopeDecoratorConfig> LEVEL01ROOFDECORATOR = new Level01RoofDecorator(
-			NopeDecoratorConfig.CODEC);
 	public static Decorator<NopeDecoratorConfig> LEVEL0DECORATOR = new Level0RoomDecorator(NopeDecoratorConfig.CODEC);
 	public static Decorator<NopeDecoratorConfig> LEVEL1DECORATOR = new Level1RoomDecorator(NopeDecoratorConfig.CODEC);
 	public static Decorator<NopeDecoratorConfig> LEVEL2DECORATOR = new Level2RoomDecorator(NopeDecoratorConfig.CODEC);
@@ -46,8 +43,6 @@ public class LevelsFeatureInit {
 		Registry.register(Registry.FEATURE, new Identifier("backrooms", "level2longroom"), LEVEL2LONGROOM);
 		Registry.register(Registry.FEATURE, new Identifier("backrooms", "level2messyroom"), LEVEL2MESSYROOM);
 		Registry.register(Registry.FEATURE, new Identifier("backrooms", "level3room"), LEVEL3ROOM);
-		Registry.register(Registry.DECORATOR, new Identifier("backrooms", "level01roofdecorator"),
-				LEVEL01ROOFDECORATOR);
 		Registry.register(Registry.DECORATOR, new Identifier("backrooms", "level0decorator"), LEVEL0DECORATOR);
 		Registry.register(Registry.DECORATOR, new Identifier("backrooms", "level1decorator"), LEVEL1DECORATOR);
 		Registry.register(Registry.DECORATOR, new Identifier("backrooms", "level2decorator"), LEVEL2DECORATOR);

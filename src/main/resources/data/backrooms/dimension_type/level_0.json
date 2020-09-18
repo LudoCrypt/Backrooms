@@ -10,6 +10,6 @@
   "natural": false,
   "coordinate_scale": 1.0,
   "piglin_safe": false,
-  "has_skylight": false,
+  "has_skylight": true,
   "has_ceiling": false
 }

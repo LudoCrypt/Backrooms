@@ -23,7 +23,7 @@ public class Level1RoomDecorator extends Decorator<NopeDecoratorConfig> {
 	public Stream<BlockPos> getPositions(DecoratorContext context, Random random, NopeDecoratorConfig config,
 			BlockPos pos) {	
 
-		BlockPos.Mutable mutableBlockPos = new BlockPos.Mutable(pos.getX(), 0, pos.getZ());
+		BlockPos.Mutable mutableBlockPos = new BlockPos.Mutable(pos.getX(), 3, pos.getZ());
 		List<BlockPos> blockPosList = new ArrayList<BlockPos>();
 
 		for (int repeat = 0; repeat < BackroomsConfig.getInstance().Level1LayerCount; repeat++) {
