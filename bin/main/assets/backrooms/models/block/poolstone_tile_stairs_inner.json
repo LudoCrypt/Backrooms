@@ -1,8 +1,0 @@
-{
-    "parent": "block/inner_stairs",
-    "textures": {
-        "bottom": "backrooms:block/poolstone_tile",
-        "top": "backrooms:block/poolstone_tile",
-        "side": "backrooms:block/poolstone_tile"
-    }
-}

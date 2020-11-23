@@ -1,9 +1,0 @@
-{
-    "type": "minecraft:smelting",
-    "ingredient": {
-        "item": "backrooms:poolstone"
-    },
-    "result": "backrooms:smooth_poolstone",
-    "experience": 0.5,
-    "cookingtime": 500
-}

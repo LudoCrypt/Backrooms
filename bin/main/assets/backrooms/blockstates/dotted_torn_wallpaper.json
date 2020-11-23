@@ -1,8 +1,0 @@
-{	
-	"variants": {
-		"torn_level=1": { "model": "backrooms:block/dotted_torn_wallpaper_1"},
-		"torn_level=2": { "model": "backrooms:block/dotted_torn_wallpaper_2"},
-		"torn_level=3": { "model": "backrooms:block/dotted_torn_wallpaper_3"},
-		"torn_level=4": { "model": "backrooms:block/dotted_torn_wallpaper_4"}
-	}
-}

@@ -1,8 +1,0 @@
-{
-    "parent": "block/inner_stairs",
-    "textures": {
-        "bottom": "backrooms:block/carpet",
-        "top": "backrooms:block/carpet",
-        "side": "backrooms:block/carpet"
-    }
-}

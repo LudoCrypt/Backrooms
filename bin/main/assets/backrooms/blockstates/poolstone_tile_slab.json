@@ -1,8 +1,0 @@
-{
-    "variants": {
-        "type=bottom": { "model": "backrooms:block/poolstone_tile_slab" },
-        "type=top": { "model": "backrooms:block/poolstone_tile_slab_top" },
-        "type=double": { "model": "backrooms:block/poolstone_tile" }
-    }
-}
-

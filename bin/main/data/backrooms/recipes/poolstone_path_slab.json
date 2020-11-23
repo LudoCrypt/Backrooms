@@ -1,8 +1,0 @@
-{
-    "type": "minecraft:stonecutting",
-    "ingredient": {
-        "item": "backrooms:poolstone_path"
-    },
-    "result": "backrooms:poolstone_path_slab",
-    "count": 1
-}

@@ -1,8 +1,0 @@
-{
-    "type": "minecraft:stonecutting",
-    "ingredient": {
-        "item": "backrooms:smooth_poolstone"
-    },
-    "result": "backrooms:poolstone_bricks",
-    "count": 1
-}

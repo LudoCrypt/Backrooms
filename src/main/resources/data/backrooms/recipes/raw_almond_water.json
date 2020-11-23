@@ -1,9 +1,0 @@
-{
-    "type": "minecraft:smelting",
-    "ingredient": {
-        "item": "backrooms:raw_almond_water"
-    },
-    "result": "backrooms:almond_water",
-    "experience": 2.4,
-    "cookingtime": 2000
-}

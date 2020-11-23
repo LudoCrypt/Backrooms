@@ -1,8 +1,0 @@
-{
-    "variants": {
-        "type=bottom": { "model": "backrooms:block/cement_brick_slab" },
-        "type=top": { "model": "backrooms:block/cement_brick_slab_top" },
-        "type=double": { "model": "backrooms:block/cement_bricks" }
-    }
-}
-
