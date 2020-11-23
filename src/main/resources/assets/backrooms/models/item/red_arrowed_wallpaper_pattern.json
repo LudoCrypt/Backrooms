@@ -1,0 +1,6 @@
+{
+	"parent": "item/generated",
+	"textures": {
+		"layer0": "backrooms:items/red_arrowed_wallpaper_pattern"
+	}
+}

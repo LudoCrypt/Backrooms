@@ -1,0 +1,30 @@
+{
+	"variants": {
+		"moldy=false": {
+			"model": "backrooms:block/carpet"
+		},
+		"moldy=true": [
+			{
+				"model": "backrooms:block/moldy_carpet/moldy_carpet0"
+			},
+			{
+				"model": "backrooms:block/moldy_carpet/moldy_carpet1"
+			},
+			{
+				"model": "backrooms:block/moldy_carpet/moldy_carpet2"
+			},
+			{
+				"model": "backrooms:block/moldy_carpet/moldy_carpet3"
+			},
+			{
+				"model": "backrooms:block/moldy_carpet/moldy_carpet4"
+			},
+			{
+				"model": "backrooms:block/moldy_carpet/moldy_carpet5"
+			},
+			{
+				"model": "backrooms:block/moldy_carpet/moldy_carpet6"
+			}
+		]
+	}
+}

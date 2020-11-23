@@ -1,0 +1,29 @@
+{
+	"required": true,
+	"minVersion": "0.8",
+	"package": "net.ludocrypt.backrooms.mixin",
+	"compatibilityLevel": "JAVA_8",
+	"mixins": [
+		"MultiNoiseBiomeSourceAccessor",
+		"DimensionTypeMixin",
+		"DimensionTypeAccessor",
+		"MusicDiscAccessor",
+		"EntityMixin",
+		"EnderpearlMixin",
+		"DamageSourceAccessor",
+		"PlayerEntityMixin",
+		"ServerPlayerEntityMixin",
+		"EndermanEntityMixin",
+		"WorldMixin",
+		"DynamicRegistryManagerMixin",
+		"ServerWorldMixin"
+	],
+	"client": [
+		"MusicMixin",
+		"TitleScreenMixin",
+		"InGameHudMixin"
+	],
+	"injectors": {
+		"defaultRequire": 1
+	}
+}

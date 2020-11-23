@@ -1,0 +1,16 @@
+{
+	"variants": {
+		"lit=false,forced=false": {
+			"model": "backrooms:block/lightoff"
+		},
+		"lit=false,forced=true": {
+			"model": "backrooms:block/lightoff"
+		},
+		"lit=true,forced=false": {
+			"model": "backrooms:block/lighton"
+		},
+		"lit=true,forced=true": {
+			"model": "backrooms:block/lighton"
+		}
+	}
+}

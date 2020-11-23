@@ -1,0 +1,16 @@
+{
+	"variants": {
+		"very_torn=false,half=upper": {
+			"model": "backrooms:block/weary_torn_old_wallpaper"
+		},
+		"very_torn=false,half=lower": {
+			"model": "backrooms:block/torn_old_wallpaper"
+		},
+		"very_torn=true,half=upper": {
+			"model": "backrooms:block/torn_old_wallpaper_top"
+		},
+		"very_torn=true,half=lower": {
+			"model": "backrooms:block/torn_old_wallpaper_bottom"
+		}
+	}
+}

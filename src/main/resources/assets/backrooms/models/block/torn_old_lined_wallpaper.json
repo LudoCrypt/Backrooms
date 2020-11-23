@@ -1,0 +1,6 @@
+{
+	"parent": "block/cube_all",
+	"textures": {
+		"all": "backrooms:block/torn_old_lined_wallpaper"
+	}
+}
