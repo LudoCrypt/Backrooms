@@ -3,7 +3,7 @@ package net.ludocrypt.backrooms.util;
 import java.util.Random;
 
 import net.ludocrypt.backrooms.access.SanityManagerAccess;
-import net.ludocrypt.backrooms.client.BackroomsSoundEvents;
+import net.ludocrypt.backrooms.init.BackroomsSoundEvents;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.Camera;
 import net.minecraft.client.render.WorldRenderer;

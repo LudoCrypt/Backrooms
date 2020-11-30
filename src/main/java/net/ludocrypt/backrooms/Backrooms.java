@@ -9,6 +9,7 @@ import net.ludocrypt.backrooms.init.BackroomsFeatures;
 import net.ludocrypt.backrooms.init.BackroomsGamerules;
 import net.ludocrypt.backrooms.init.BackroomsGroups;
 import net.ludocrypt.backrooms.init.BackroomsItems;
+import net.ludocrypt.backrooms.init.BackroomsSoundEvents;
 import net.ludocrypt.backrooms.init.BackroomsSurfaces;
 import net.ludocrypt.backrooms.init.ConfiguredLevelDestinations;
 import net.ludocrypt.backrooms.util.NoiseCollisionChecker;
@@ -29,6 +30,8 @@ public class Backrooms implements ModInitializer {
 		BackroomsFeatures.init();
 		BackroomsBiomes.init();
 		BackroomsGamerules.init();
+
+		BackroomsSoundEvents.init();
 
 		ConfiguredLevelDestinations.init();
 

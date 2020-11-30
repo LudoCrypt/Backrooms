@@ -10,6 +10,7 @@ import net.fabricmc.fabric.api.tool.attribute.v1.FabricToolTags;
 import net.ludocrypt.backrooms.Backrooms;
 import net.ludocrypt.backrooms.blocks.CarpetBlock;
 import net.ludocrypt.backrooms.blocks.LightBlock;
+import net.ludocrypt.backrooms.blocks.PipeBlock;
 import net.ludocrypt.backrooms.blocks.TileBlock;
 import net.ludocrypt.backrooms.blocks.TornWallpaperBlock;
 import net.ludocrypt.backrooms.blocks.VentBlock;
@@ -75,6 +76,8 @@ public class BackroomsBlocks {
 	public static final Block CRACKED_CEMENT_BRICKS = add("cracked_cement_bricks", new Block(FabricBlockSettings.copy(CEMENT_BRICKS)), ItemGroup.BUILDING_BLOCKS);
 	public static final Block CEMENT_BRICK_STAIRS = add("cement_brick_stairs", new TerraformStairsBlock(CEMENT_BRICKS, FabricBlockSettings.copy(CEMENT_BRICKS)), ItemGroup.BUILDING_BLOCKS);
 	public static final Block VENT = add("vent", new VentBlock(FabricBlockSettings.copy(Blocks.STONE)), ItemGroup.BUILDING_BLOCKS);
+
+	public static final Block PIPE = add("pipe", new PipeBlock(FabricBlockSettings.of(Material.STONE).breakByTool(FabricToolTags.PICKAXES).sounds(BlockSoundGroup.STONE).hardness(6).resistance(6).luminance(5).requiresTool()), ItemGroup.BUILDING_BLOCKS);
 
 	public static final Block WALL = add("wall", new Block(FabricBlockSettings.copy(Blocks.BEDROCK)), ItemGroup.BUILDING_BLOCKS);
 	public static final Block VOID_BLOCK = add("void_block", new VoidBlock(FabricBlockSettings.copy(Blocks.END_GATEWAY)));

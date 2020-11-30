@@ -30,8 +30,7 @@ public class BackroomsClient implements ClientModInitializer {
 
 	@Override
 	public void onInitializeClient() {
-
-		BackroomsSoundEvents.init();
+		
 		SanityUpdateS2CPacket.init();
 		BlockEntityRendererRegistry.INSTANCE.register(BackroomsBlocks.VOID_BLOCK_ENTITY, VoidBlockEntityRenderer::new);
 		ClientTickEvents.START_CLIENT_TICK.register(BackroomsClient::clientTickEvent);

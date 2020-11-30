@@ -5,9 +5,9 @@ import java.util.List;
 import java.util.Random;
 
 import net.ludocrypt.backrooms.blocks.LightBlock;
-import net.ludocrypt.backrooms.client.BackroomsSoundEvents;
 import net.ludocrypt.backrooms.config.BackroomsConfig;
 import net.ludocrypt.backrooms.init.BackroomsBlocks;
+import net.ludocrypt.backrooms.init.BackroomsSoundEvents;
 import net.ludocrypt.backrooms.world.Level0;
 import net.ludocrypt.backrooms.world.Level1;
 import net.minecraft.client.MinecraftClient;

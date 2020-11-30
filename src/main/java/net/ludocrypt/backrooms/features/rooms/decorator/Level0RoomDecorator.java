@@ -1,4 +1,4 @@
-package net.ludocrypt.backrooms.features.rooms;
+package net.ludocrypt.backrooms.features.rooms.decorator;
 
 import java.util.ArrayList;
 import java.util.List;

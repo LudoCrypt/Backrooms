@@ -14,6 +14,7 @@ import com.mojang.serialization.Lifecycle;
 
 import net.ludocrypt.backrooms.world.Level0;
 import net.ludocrypt.backrooms.world.Level1;
+import net.ludocrypt.backrooms.world.Level2;
 import net.minecraft.util.registry.DynamicRegistryManager;
 import net.minecraft.util.registry.MutableRegistry;
 import net.minecraft.util.registry.Registry;
@@ -32,6 +33,7 @@ public class DimensionTypeMixin {
 	private static void BACKROOMS_addRegistryDefaults(DynamicRegistryManager.Impl registryManager, CallbackInfoReturnable<DynamicRegistryManager.Impl> ci, MutableRegistry<DimensionType> mutableRegistry) {
 		mutableRegistry.add(Level0.LEVEL_0_REGISTRY_KEY, Level0.LEVEL_0, Lifecycle.stable());
 		mutableRegistry.add(Level1.LEVEL_1_REGISTRY_KEY, Level1.LEVEL_1, Lifecycle.stable());
+		mutableRegistry.add(Level2.LEVEL_2_REGISTRY_KEY, Level2.LEVEL_2, Lifecycle.stable());
 	}
 
 	@Inject(method = "createDefaultDimensionOptions", at = @At("TAIL"), cancellable = true, locals = LocalCapture.CAPTURE_FAILHARD)
@@ -42,6 +44,9 @@ public class DimensionTypeMixin {
 		simpleRegistry.add(Level1.LEVEL_1_DIMENSION_OPTIONS, new DimensionOptions(() -> {
 			return (DimensionType) dimensionRegistry.getOrThrow(Level1.LEVEL_1_REGISTRY_KEY);
 		}, Level1.createLevel1Generator(biomeRegistry, chunkGeneratorSettingsRegistry, seed)), Lifecycle.stable());
+		simpleRegistry.add(Level2.LEVEL_2_DIMENSION_OPTIONS, new DimensionOptions(() -> {
+			return (DimensionType) dimensionRegistry.getOrThrow(Level2.LEVEL_2_REGISTRY_KEY);
+		}, Level2.createLevel2Generator(biomeRegistry, chunkGeneratorSettingsRegistry, seed)), Lifecycle.stable());
 	}
 
 	@Inject(method = "method_28521", at = @At("TAIL"), cancellable = true)
@@ -54,6 +59,9 @@ public class DimensionTypeMixin {
 			}
 			if (i == 672761) {
 				ci.setReturnValue(DataResult.success(Level1.LEVEL_1_WORLD));
+			}
+			if (i == 672762) {
+				ci.setReturnValue(DataResult.success(Level2.LEVEL_2_WORLD));
 			}
 		}
 	}

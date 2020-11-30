@@ -8,17 +8,24 @@ import net.ludocrypt.backrooms.config.BackroomsConfig;
 import net.ludocrypt.backrooms.features.config.RoomConfig;
 import net.ludocrypt.backrooms.features.config.RoomDecorator;
 import net.ludocrypt.backrooms.features.rooms.Level0Room;
-import net.ludocrypt.backrooms.features.rooms.Level0RoomDecorator;
+import net.ludocrypt.backrooms.features.rooms.Level2Room;
+import net.ludocrypt.backrooms.features.rooms.decorator.Level0RoomDecorator;
+import net.ludocrypt.backrooms.features.rooms.decorator.Level2RoomDecorator;
 import net.ludocrypt.backrooms.features.rooms.specifics.Level0RoomSpecific;
 import net.ludocrypt.backrooms.features.rooms.specifics.Level1RoomSpecific;
 import net.minecraft.block.StairsBlock;
+import net.minecraft.structure.processor.StructureProcessorType;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.registry.BuiltinRegistries;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.gen.decorator.Decorator;
+import net.minecraft.world.gen.decorator.DecoratorConfig;
+import net.minecraft.world.gen.decorator.NopeDecoratorConfig;
 import net.minecraft.world.gen.feature.ConfiguredFeature;
+import net.minecraft.world.gen.feature.DefaultFeatureConfig;
 import net.minecraft.world.gen.feature.Feature;
+import net.minecraft.world.gen.feature.FeatureConfig;
 
 // TODO: Check
 public class BackroomsFeatures {
@@ -28,6 +35,10 @@ public class BackroomsFeatures {
 
 	public static Feature<RoomConfig> LEVEL_0_ROOM_SPECIFIC;
 	public static Feature<RoomConfig> LEVEL_1_ROOM_SPECIFIC;
+
+	public static Decorator<NopeDecoratorConfig> LEVEL_2_DECORATOR;
+	public static Feature<DefaultFeatureConfig> LEVEL_2_ROOM;
+	public static ConfiguredFeature<?, ?> LEVEL_2_CONFIGURED_ROOM;
 
 	public static ConfiguredFeature<?, ?> BLANK_0_ROOM;
 	public static ConfiguredFeature<?, ?> LINED_0_ROOM;
@@ -63,13 +74,24 @@ public class BackroomsFeatures {
 	public static ConfiguredFeature<?, ?> CRACKED_LEVEL_1_ROOM;
 	public static ConfiguredFeature<?, ?> OFF_LEVEL_1_ROOM;
 
+	public static StructureProcessorType<Level2Room.RandomBlockAffectorProcessor> LEVEL_TWO_RANDOM_BLOCK_AFFECTOR_PROCESSOR;
+
 	public static void init() {
 		BackroomsConfig c = BackroomsConfig.INSTANCE();
+
 		LEVEL_0_ROOM = Registry.register(Registry.FEATURE, Backrooms.id("level_0_room"), new Level0Room());
 		LEVEL_0_DECORATOR = Registry.register(Registry.DECORATOR, Backrooms.id("level_0_decorator"), new Level0RoomDecorator(RoomDecorator.CODEC));
 
 		LEVEL_0_ROOM_SPECIFIC = Registry.register(Registry.FEATURE, Backrooms.id("level_0_room_specific"), new Level0RoomSpecific());
 		LEVEL_1_ROOM_SPECIFIC = Registry.register(Registry.FEATURE, Backrooms.id("level_1_room_specific"), new Level1RoomSpecific());
+
+		LEVEL_TWO_RANDOM_BLOCK_AFFECTOR_PROCESSOR = Registry.register(Registry.STRUCTURE_PROCESSOR, Backrooms.id("level_0_room_specific"), () -> Level2Room.RandomBlockAffectorProcessor.CODEC);
+		Level2Room.init();
+
+		LEVEL_2_DECORATOR = Registry.register(Registry.DECORATOR, Backrooms.id("level_2_decorator"), new Level2RoomDecorator(NopeDecoratorConfig.CODEC));
+		LEVEL_2_ROOM = Registry.register(Registry.FEATURE, Backrooms.id("level_2_room"), new Level2Room());
+
+		LEVEL_2_CONFIGURED_ROOM = register("level_2_configured_room", LEVEL_2_ROOM.configure(FeatureConfig.DEFAULT).decorate(LEVEL_2_DECORATOR.configure(DecoratorConfig.DEFAULT)));
 
 		// Level 0
 		BLANK_0_ROOM = register("blank_0_room", LEVEL_0_ROOM_SPECIFIC.configure(new RoomConfig(BackroomsBlocks.WALLPAPER.getDefaultState(), BackroomsBlocks.TORN_WALLPAPER.getDefaultState(), BackroomsBlocks.CARPET.getDefaultState(), BackroomsBlocks.CARPET.getDefaultState().with(CarpetBlock.MOLDY, true), BackroomsBlocks.CARPET_STAIRS.getDefaultState().with(StairsBlock.FACING, Direction.SOUTH), 4, true, c.Level0DoorChance, c.Level0LightChance, c.Level0LightOffChance, c.Level0TornChance, c.Level0TallTornChance, c.Level0MoldChance, c.Level0StairChance)).decorate(BackroomsFeatures.LEVEL_0_DECORATOR.configure(new RoomDecorator(c.Level0LayerCount))));
@@ -108,7 +130,6 @@ public class BackroomsFeatures {
 		CRACKED_CEMENT_LEVEL_1_ROOM = register("cracked_cement_level_1_room", LEVEL_1_ROOM_SPECIFIC.configure(new RoomConfig(BackroomsBlocks.CEMENT_BRICKS.getDefaultState(), BackroomsBlocks.CRACKED_CEMENT_BRICKS.getDefaultState(), BackroomsBlocks.CEMENT.getDefaultState(), BackroomsBlocks.CRACKED_CEMENT.getDefaultState(), BackroomsBlocks.CEMENT_STAIRS.getDefaultState().with(StairsBlock.FACING, Direction.SOUTH), 4, true, c.Level1DoorChance, c.Level1LightChance, c.Level1LightOffChance, c.Level1TornChance, 0, c.Level1MoldChance * 20, c.Level1StairChance)).decorate(BackroomsFeatures.LEVEL_0_DECORATOR.configure(new RoomDecorator(c.Level1LayerCount))));
 		CRACKED_LEVEL_1_ROOM = register("cracked_level_1_room", LEVEL_1_ROOM_SPECIFIC.configure(new RoomConfig(BackroomsBlocks.CEMENT_BRICKS.getDefaultState(), BackroomsBlocks.CRACKED_CEMENT_BRICKS.getDefaultState(), BackroomsBlocks.CEMENT.getDefaultState(), BackroomsBlocks.CRACKED_CEMENT.getDefaultState(), BackroomsBlocks.CEMENT_STAIRS.getDefaultState().with(StairsBlock.FACING, Direction.SOUTH), 4, true, c.Level1DoorChance, c.Level1LightChance, c.Level1LightOffChance, c.Level1TornChance * 20, 0, c.Level1MoldChance * 20, c.Level1StairChance)).decorate(BackroomsFeatures.LEVEL_0_DECORATOR.configure(new RoomDecorator(c.Level1LayerCount))));
 		OFF_LEVEL_1_ROOM = register("off_level_1_room", LEVEL_1_ROOM_SPECIFIC.configure(new RoomConfig(BackroomsBlocks.CEMENT_BRICKS.getDefaultState(), BackroomsBlocks.CRACKED_CEMENT_BRICKS.getDefaultState(), BackroomsBlocks.CEMENT.getDefaultState(), BackroomsBlocks.CRACKED_CEMENT.getDefaultState(), BackroomsBlocks.CEMENT_STAIRS.getDefaultState().with(StairsBlock.FACING, Direction.SOUTH), 4, true, c.Level1DoorChance, c.Level1LightChance * 2, c.Level1LightOffChance * 10, c.Level1TornChance * 25, 0, c.Level1MoldChance * 25, c.Level1StairChance)).decorate(BackroomsFeatures.LEVEL_0_DECORATOR.configure(new RoomDecorator(c.Level1LayerCount))));
-
 	}
 
 	private static ConfiguredFeature<?, ?> register(String id, ConfiguredFeature<?, ?> cf) {

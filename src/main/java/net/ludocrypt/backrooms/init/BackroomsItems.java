@@ -4,7 +4,6 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 import net.ludocrypt.backrooms.Backrooms;
-import net.ludocrypt.backrooms.client.BackroomsSoundEvents;
 import net.ludocrypt.backrooms.items.AlmondWaterItem;
 import net.ludocrypt.backrooms.items.RawAlmondWaterItem;
 import net.ludocrypt.backrooms.items.WallpaperPatternItem;
