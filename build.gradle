@@ -24,28 +24,43 @@ repositories {
 dependencies {
 	minecraft "com.mojang:minecraft:${project.minecraft_version}"
 	mappings "net.fabricmc:yarn:${project.yarn_mappings}:v2"
-	modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
-	modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
+	
+	modImplementation ("net.fabricmc:fabric-loader:${project.loader_version}") {
+		exclude(group: "net.fabricmc.fabric-biomes-v1")
+	}
+	
+	modImplementation ("net.fabricmc.fabric-api:fabric-api:${project.fabric_version}") {
+		exclude(group: "net.fabricmc.fabric-biomes-v1")
+	}
 	
 	modApi("me.shedaniel.cloth:config-2:4.8.2") {
 		exclude(group: "net.fabricmc.fabric-api")
 	}
+	
 	include "me.shedaniel.cloth:config-2:4.8.2"
-	modApi "me.sargunvohra.mcmods:autoconfig1u:3.3.1"
-	include "me.sargunvohra.mcmods:autoconfig1u:3.3.1"
-	modImplementation "io.github.prospector:modmenu:1.14.6+build.31"
-	include (modImplementation('com.github.Chocohead:Fabric-ASM:v2.1'))
+
+	includeMod "me.sargunvohra.mcmods:autoconfig1u:3.3.1"
+	
+	modImplementation ("io.github.prospector:modmenu:1.14.6+build.31"){
+		exclude(group: "net.fabricmc.fabric-biomes-v1")
+	}
+	
+	includeMod "com.github.Chocohead:Fabric-ASM:v2.1"
 	
 	includeMod "com.terraformersmc.terraform-api:terraform-shapes-api-v1:${project.terraform_shapes_api_version}"
 	includeMod "com.terraformersmc.terraform-api:terraform-wood-api-v1:${project.terraform_wood_api_version}"
 	
 	includeMod "io.github.ladysnake:Satin:${satin_version}"
 	
+	includeMod "com.terraformersmc:vistas:${project.vistas_version}"
+	
 	compileOnly "com.google.code.findbugs:jsr305:3.0.2"
 }
 
 def includeMod(String dep) {
-	dependencies.modCompile(dep)
+	dependencies.modImplementation(dep){
+		exclude(group: "net.fabricmc.fabric-biomes-v1")
+	}
 	dependencies.include(dep)
 }
 

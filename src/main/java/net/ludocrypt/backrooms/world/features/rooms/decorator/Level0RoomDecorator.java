@@ -1,4 +1,4 @@
-package net.ludocrypt.backrooms.features.rooms.decorator;
+package net.ludocrypt.backrooms.world.features.rooms.decorator;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -7,7 +7,7 @@ import java.util.stream.Stream;
 
 import com.mojang.serialization.Codec;
 
-import net.ludocrypt.backrooms.features.config.RoomDecorator;
+import net.ludocrypt.backrooms.world.features.config.RoomDecorator;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.gen.decorator.Decorator;
 import net.minecraft.world.gen.decorator.DecoratorContext;

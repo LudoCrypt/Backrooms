@@ -1,12 +1,12 @@
-package net.ludocrypt.backrooms.features.rooms;
+package net.ludocrypt.backrooms.world.features.rooms;
 
 import java.util.Random;
 
 import net.ludocrypt.backrooms.blocks.LightBlock;
 import net.ludocrypt.backrooms.blocks.TileBlock;
 import net.ludocrypt.backrooms.blocks.TornWallpaperBlock;
-import net.ludocrypt.backrooms.features.config.RoomConfig;
 import net.ludocrypt.backrooms.init.BackroomsBlocks;
+import net.ludocrypt.backrooms.world.features.config.RoomConfig;
 import net.minecraft.block.Block;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.enums.DoubleBlockHalf;

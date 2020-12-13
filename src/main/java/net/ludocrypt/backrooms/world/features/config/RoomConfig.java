@@ -1,4 +1,4 @@
-package net.ludocrypt.backrooms.features.config;
+package net.ludocrypt.backrooms.world.features.config;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;

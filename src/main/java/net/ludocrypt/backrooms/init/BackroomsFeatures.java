@@ -5,27 +5,20 @@ import com.google.common.base.Preconditions;
 import net.ludocrypt.backrooms.Backrooms;
 import net.ludocrypt.backrooms.blocks.CarpetBlock;
 import net.ludocrypt.backrooms.config.BackroomsConfig;
-import net.ludocrypt.backrooms.features.config.RoomConfig;
-import net.ludocrypt.backrooms.features.config.RoomDecorator;
-import net.ludocrypt.backrooms.features.rooms.Level0Room;
-import net.ludocrypt.backrooms.features.rooms.Level2Room;
-import net.ludocrypt.backrooms.features.rooms.decorator.Level0RoomDecorator;
-import net.ludocrypt.backrooms.features.rooms.decorator.Level2RoomDecorator;
-import net.ludocrypt.backrooms.features.rooms.specifics.Level0RoomSpecific;
-import net.ludocrypt.backrooms.features.rooms.specifics.Level1RoomSpecific;
+import net.ludocrypt.backrooms.world.features.config.RoomConfig;
+import net.ludocrypt.backrooms.world.features.config.RoomDecorator;
+import net.ludocrypt.backrooms.world.features.rooms.Level0Room;
+import net.ludocrypt.backrooms.world.features.rooms.decorator.Level0RoomDecorator;
+import net.ludocrypt.backrooms.world.features.rooms.specifics.Level0RoomSpecific;
+import net.ludocrypt.backrooms.world.features.rooms.specifics.Level1RoomSpecific;
 import net.minecraft.block.StairsBlock;
-import net.minecraft.structure.processor.StructureProcessorType;
 import net.minecraft.util.Identifier;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.registry.BuiltinRegistries;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.world.gen.decorator.Decorator;
-import net.minecraft.world.gen.decorator.DecoratorConfig;
-import net.minecraft.world.gen.decorator.NopeDecoratorConfig;
 import net.minecraft.world.gen.feature.ConfiguredFeature;
-import net.minecraft.world.gen.feature.DefaultFeatureConfig;
 import net.minecraft.world.gen.feature.Feature;
-import net.minecraft.world.gen.feature.FeatureConfig;
 
 // TODO: Check
 public class BackroomsFeatures {
@@ -35,10 +28,6 @@ public class BackroomsFeatures {
 
 	public static Feature<RoomConfig> LEVEL_0_ROOM_SPECIFIC;
 	public static Feature<RoomConfig> LEVEL_1_ROOM_SPECIFIC;
-
-	public static Decorator<NopeDecoratorConfig> LEVEL_2_DECORATOR;
-	public static Feature<DefaultFeatureConfig> LEVEL_2_ROOM;
-	public static ConfiguredFeature<?, ?> LEVEL_2_CONFIGURED_ROOM;
 
 	public static ConfiguredFeature<?, ?> BLANK_0_ROOM;
 	public static ConfiguredFeature<?, ?> LINED_0_ROOM;
@@ -74,8 +63,6 @@ public class BackroomsFeatures {
 	public static ConfiguredFeature<?, ?> CRACKED_LEVEL_1_ROOM;
 	public static ConfiguredFeature<?, ?> OFF_LEVEL_1_ROOM;
 
-	public static StructureProcessorType<Level2Room.RandomBlockAffectorProcessor> LEVEL_TWO_RANDOM_BLOCK_AFFECTOR_PROCESSOR;
-
 	public static void init() {
 		BackroomsConfig c = BackroomsConfig.INSTANCE();
 
@@ -84,14 +71,6 @@ public class BackroomsFeatures {
 
 		LEVEL_0_ROOM_SPECIFIC = Registry.register(Registry.FEATURE, Backrooms.id("level_0_room_specific"), new Level0RoomSpecific());
 		LEVEL_1_ROOM_SPECIFIC = Registry.register(Registry.FEATURE, Backrooms.id("level_1_room_specific"), new Level1RoomSpecific());
-
-		LEVEL_TWO_RANDOM_BLOCK_AFFECTOR_PROCESSOR = Registry.register(Registry.STRUCTURE_PROCESSOR, Backrooms.id("level_0_room_specific"), () -> Level2Room.RandomBlockAffectorProcessor.CODEC);
-		Level2Room.init();
-
-		LEVEL_2_DECORATOR = Registry.register(Registry.DECORATOR, Backrooms.id("level_2_decorator"), new Level2RoomDecorator(NopeDecoratorConfig.CODEC));
-		LEVEL_2_ROOM = Registry.register(Registry.FEATURE, Backrooms.id("level_2_room"), new Level2Room());
-
-		LEVEL_2_CONFIGURED_ROOM = register("level_2_configured_room", LEVEL_2_ROOM.configure(FeatureConfig.DEFAULT).decorate(LEVEL_2_DECORATOR.configure(DecoratorConfig.DEFAULT)));
 
 		// Level 0
 		BLANK_0_ROOM = register("blank_0_room", LEVEL_0_ROOM_SPECIFIC.configure(new RoomConfig(BackroomsBlocks.WALLPAPER.getDefaultState(), BackroomsBlocks.TORN_WALLPAPER.getDefaultState(), BackroomsBlocks.CARPET.getDefaultState(), BackroomsBlocks.CARPET.getDefaultState().with(CarpetBlock.MOLDY, true), BackroomsBlocks.CARPET_STAIRS.getDefaultState().with(StairsBlock.FACING, Direction.SOUTH), 4, true, c.Level0DoorChance, c.Level0LightChance, c.Level0LightOffChance, c.Level0TornChance, c.Level0TallTornChance, c.Level0MoldChance, c.Level0StairChance)).decorate(BackroomsFeatures.LEVEL_0_DECORATOR.configure(new RoomDecorator(c.Level0LayerCount))));

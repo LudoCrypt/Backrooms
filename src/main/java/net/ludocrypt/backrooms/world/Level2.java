@@ -14,6 +14,7 @@ import net.ludocrypt.backrooms.Backrooms;
 import net.ludocrypt.backrooms.mixin.DimensionTypeAccessor;
 import net.ludocrypt.backrooms.mixin.MultiNoiseBiomeSourceAccessor;
 import net.ludocrypt.backrooms.util.DimensionUtil;
+import net.ludocrypt.backrooms.world.chunk.BasicMazeChunkGenerator;
 import net.minecraft.tag.BlockTags;
 import net.minecraft.util.registry.Registry;
 import net.minecraft.util.registry.RegistryKey;
@@ -25,7 +26,6 @@ import net.minecraft.world.dimension.DimensionOptions;
 import net.minecraft.world.dimension.DimensionType;
 import net.minecraft.world.gen.chunk.ChunkGenerator;
 import net.minecraft.world.gen.chunk.ChunkGeneratorSettings;
-import net.minecraft.world.gen.chunk.NoiseChunkGenerator;
 
 public class Level2 {
 
@@ -57,9 +57,7 @@ public class Level2 {
 	});
 
 	public static ChunkGenerator createLevel2Generator(Registry<Biome> biomeRegistry, Registry<ChunkGeneratorSettings> chunkGeneratorSettingsRegistry, long seed) {
-		return new NoiseChunkGenerator(LEVEL_2_BIOME_SOURCE.getBiomeSource(biomeRegistry, seed), seed, () -> {
-			return (ChunkGeneratorSettings) chunkGeneratorSettingsRegistry.getOrThrow(ChunkGeneratorSettings.OVERWORLD);
-		});
+		return new BasicMazeChunkGenerator(LEVEL_2_BIOME_SOURCE.getBiomeSource(biomeRegistry, seed), seed);
 	}
 
 }

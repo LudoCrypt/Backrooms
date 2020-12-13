@@ -13,7 +13,9 @@ import net.ludocrypt.backrooms.init.BackroomsSoundEvents;
 import net.ludocrypt.backrooms.init.BackroomsSurfaces;
 import net.ludocrypt.backrooms.init.ConfiguredLevelDestinations;
 import net.ludocrypt.backrooms.util.NoiseCollisionChecker;
+import net.ludocrypt.backrooms.world.chunk.BasicMazeChunkGenerator;
 import net.minecraft.util.Identifier;
+import net.minecraft.util.registry.Registry;
 
 public class Backrooms implements ModInitializer {
 
@@ -37,6 +39,8 @@ public class Backrooms implements ModInitializer {
 
 		BackroomsCommands.init();
 		NoiseCollisionChecker.init();
+
+		Registry.register(Registry.CHUNK_GENERATOR, id("basic_maze_chunk_generator"), BasicMazeChunkGenerator.CODEC);
 	}
 
 	public static Identifier id(String id) {

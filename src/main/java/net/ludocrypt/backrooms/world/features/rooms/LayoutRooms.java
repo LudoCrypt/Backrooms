@@ -1,4 +1,4 @@
-package net.ludocrypt.backrooms.features.rooms;
+package net.ludocrypt.backrooms.world.features.rooms;
 
 public class LayoutRooms {
 

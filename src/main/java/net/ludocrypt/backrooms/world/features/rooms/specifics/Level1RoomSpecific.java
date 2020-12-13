@@ -1,13 +1,13 @@
-package net.ludocrypt.backrooms.features.rooms.specifics;
+package net.ludocrypt.backrooms.world.features.rooms.specifics;
 
 import java.util.Random;
 
 import net.ludocrypt.backrooms.Backrooms;
 import net.ludocrypt.backrooms.config.BackroomsConfig;
-import net.ludocrypt.backrooms.features.config.RoomConfig;
-import net.ludocrypt.backrooms.features.rooms.LayoutRooms;
-import net.ludocrypt.backrooms.features.rooms.Level0Room;
 import net.ludocrypt.backrooms.init.BackroomsBlocks;
+import net.ludocrypt.backrooms.world.features.config.RoomConfig;
+import net.ludocrypt.backrooms.world.features.rooms.LayoutRooms;
+import net.ludocrypt.backrooms.world.features.rooms.Level0Room;
 import net.minecraft.block.Blocks;
 import net.minecraft.block.ChestBlock;
 import net.minecraft.block.entity.LootableContainerBlockEntity;

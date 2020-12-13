@@ -54,7 +54,7 @@ public class BackroomsBiomes {
 	public static final RegistryKey<Biome> LEVEL_1_OFF = add("level_1_off", Level1Biome.create(BackroomsFeatures.OFF_LEVEL_1_ROOM, BackroomsSoundEvents.LEVEL_1_OFF_MUSIC));
 
 	// Level 2
-	public static final RegistryKey<Biome> LEVEL_2 = add("level_2", Level2Biome.create(BackroomsFeatures.LEVEL_2_CONFIGURED_ROOM, BackroomsSoundEvents.LEVEL_2_MUSIC));
+	public static final RegistryKey<Biome> LEVEL_2 = add("level_2", Level2Biome.create(BackroomsSoundEvents.LEVEL_2_MUSIC));
 
 	public static void init() {
 

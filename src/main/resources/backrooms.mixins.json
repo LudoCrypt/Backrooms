@@ -20,7 +20,6 @@
 	],
 	"client": [
 		"MusicMixin",
-		"TitleScreenMixin",
 		"InGameHudMixin"
 	],
 	"injectors": {
